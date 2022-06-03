@@ -12,9 +12,9 @@ function TextEdit() {
       </div>
       <div>
         <span>내용</span>
-        <textarea type='text' name='contents' cols='30' rows='10' />
+        <textarea type='text' name='contents' cols='30' rows='10'/>
       </div>
-      <button>확인</button>
+      <button type="submit">확인</button>
     </>
   );
 }

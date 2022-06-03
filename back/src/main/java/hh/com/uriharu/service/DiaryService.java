@@ -52,16 +52,20 @@ public class DiaryService {
         }
 
         //수정
-        public DiaryEntity update(final DiaryEntity entity){
+        public Long update(final DiaryEntity entity){
             validate(entity);
-            DiaryEntity enti = retrieveByDno(entity.getDno());
-            if (enti != null) {
+            Optional<DiaryEntity> opEnti = repository.findById(entity.getDno());
+
+            if(opEnti.isPresent()){
+                DiaryEntity enti = opEnti.get();
                 enti.setTitle(entity.getTitle());
                 enti.setContents(entity.getContents());
+
                 repository.save(enti);
+               return enti.getDno();
             }
+            return entity.getDno();
             
-            return retrieveByDno(entity.getDno());
         }
 
         //삭제
