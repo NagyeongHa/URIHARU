@@ -60,6 +60,7 @@ public class DiaryService {
                 DiaryEntity enti = opEnti.get();
                 enti.setTitle(entity.getTitle());
                 enti.setContents(entity.getContents());
+                enti.setModdate(entity.getModdate());
 
                 repository.save(enti);
                return enti.getDno();

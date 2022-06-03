@@ -35,8 +35,6 @@ public class DiaryDTO {
         .writer((dto.getWriter()))
         .title(dto.getTitle())
         .contents((dto.getContents()))
-        .regdate(dto.getRegdate())
-        .moddate(dto.getModdate())
         .build();
     }
 }
