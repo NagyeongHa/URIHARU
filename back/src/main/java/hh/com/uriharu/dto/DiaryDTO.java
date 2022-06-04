@@ -31,11 +31,10 @@ public class DiaryDTO {
 
     public static DiaryEntity toEntity(final DiaryDTO dto) {
         return DiaryEntity.builder()
+        .dno(dto.getDno())
         .writer((dto.getWriter()))
         .title(dto.getTitle())
         .contents((dto.getContents()))
-        .regdate(dto.getRegdate())
-        .moddate(dto.getModdate())
         .build();
     }
 }

@@ -78,19 +78,11 @@ public class DiaryController {
 
         DiaryEntity entity = DiaryDTO.toEntity(dto);
         entity.setWriter(userId);
-        log.warn("userId:"+userId);
 
-        DiaryEntity entities = service.update(entity);
-        log.warn("entity to dto...");
-
-        DiaryDTO dtos = DiaryDTO.builder()
-        .dno(entities.getDno())
-        .title(entities.getTitle())
-        .contents(entities.getContents())
-        .moddate(entities.getModdate())
-        .build();
-
-        return ResponseEntity.ok().body(dtos);
+        Long dno = service.update(entity);
+        retieveHaruByDno(userId,dno);
+        
+        return retieveHaruByDno(userId,dno);
         
     }
 
