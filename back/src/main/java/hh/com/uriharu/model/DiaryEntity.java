@@ -39,6 +39,7 @@ public class DiaryEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dno;
     private String writer;
+    private String nickname;
     private String title;
     private String contents;
     

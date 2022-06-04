@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import hh.com.uriharu.model.DiaryEntity;
 import hh.com.uriharu.persistence.DiaryRepository;
+import hh.com.uriharu.persistence.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -16,6 +17,8 @@ public class DiaryService {
 
     @Autowired
     private DiaryRepository repository;
+
+    @Autowired UserRepository userRepository;
 
 
     public List<DiaryEntity> create(final DiaryEntity entity) {
@@ -81,5 +84,9 @@ public class DiaryService {
             return retrieve(entity.getWriter());
         }
 
+        //id 일치하는 계정 닉네임 찾기
+        public String nicknameById(String id) {
+            return userRepository.findNicknameById(id);
+        }
     
 }
