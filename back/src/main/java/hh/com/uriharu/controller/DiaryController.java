@@ -69,6 +69,7 @@ public class DiaryController {
         .writer(entity.getWriter())
         .title(entity.getTitle())
         .contents(entity.getContents())
+        .regdate(entity.getModdate())
         .moddate(entity.getModdate())
         .build();
         

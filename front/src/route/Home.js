@@ -10,7 +10,7 @@ import { useEffect, useState, useContext } from "react";
 function Home() {
   const [getdate, setDate] = useState("");
   // const [dno, setDno] = useState(4);
-  const [getdiary, setDiary] = useState(); //text에 보내기 위해 다이어리 글 저장
+  const [getDiary, setDiary] = useState(); //text에 보내기 위해 다이어리 글 저장
 
   //context로 불러온 로그인한 유저 아이디
   const userId = useContext(UserIdContext);
@@ -60,7 +60,7 @@ function Home() {
   }, []);
 
   console.log("로그인한 유저", userId);
-  console.log("다이어리 내용", getdiary);
+  console.log("다이어리 내용", getDiary);
   //날짜가 같은 다이어리의 dno 가져오기
   //getDate의 날짜와 db의 날짜와 같은 것을 들고옴
   //1날짜를 잘라서 들고옴 2날짜 비교
@@ -88,15 +88,15 @@ diary의 아이디와 로그인 유저의 아이디 값 X / 글 작성 O => 글 
       <Header />
       <Calendar date={showClickedDate} />
       {/* <DayDiary date={getdate} showdiary={diary} />*/}
-      {getdiary ? (
+      {getDiary ? (
         <DayDiary
-          dno={getdiary.dno}
-          nickname={getdiary.nickname}
-          writer={getdiary.writer}
-          title={getdiary.title}
-          contents={getdiary.contents}
-          regdate={getdiary.regdate}
-          moddate={getdiary.moddate}
+          dno={getDiary.dno}
+          nickname={getDiary.nickname}
+          writer={getDiary.writer}
+          title={getDiary.title}
+          contents={getDiary.contents}
+          regdate={getDiary.regdate}
+          moddate={getDiary.moddate}
         />
       ) : (
         ""

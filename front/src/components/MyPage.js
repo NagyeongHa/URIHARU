@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { call } from "../service/ApiService";
+import "../styles/MyPage.css";
 
 function MyPage() {
   const [diary, setDiary] = useState([]);
@@ -20,11 +21,11 @@ function MyPage() {
     <>
       <h1>MaPage</h1>
       {diary.map((list, idx) => (
-        <div key={idx}>
+        <div className="harucard" key={idx}>
           <p>제목</p>
           {list.title}
           <p>글쓴이</p>
-          {list.writer}
+          {list.nickname}
           <p>내용</p>
           {list.contents}
         </div>

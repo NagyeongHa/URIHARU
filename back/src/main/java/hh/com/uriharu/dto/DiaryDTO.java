@@ -29,6 +29,8 @@ public class DiaryDTO {
         this.writer = entity.getWriter();
         this.title = entity.getTitle();
         this.contents = entity.getContents();
+        this.regdate = entity.getRegdate();
+        this.moddate = entity.getModdate();
     }
 
     public static DiaryEntity toEntity(final DiaryDTO dto) {

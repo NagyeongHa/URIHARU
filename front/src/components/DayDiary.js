@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserIdContext } from "../App";
 
-function DayDiary({ date, title, writer, contents, nickname }) {
+function DayDiary({ date, title, writer, contents, nickname, regdate }) {
   // function DayDiary({ date, dno, title, contents, regdate, moddate }) {
   // const dno = diary.dno;
   // const title = diary.title;
@@ -32,6 +32,8 @@ function DayDiary({ date, title, writer, contents, nickname }) {
         {nickname}
         <p>내용</p>
         {contents}
+        <p>작성 날짜</p>
+        {regdate}
       </div>
       {writer === userId ? (
         <button onClick={clickedModify}>수정하기</button>
