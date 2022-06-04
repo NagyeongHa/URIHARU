@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { call } from "../service/ApiService";
+import "../styles/DiaryWrite.css";
 
 function DiaryEdit() {
   // const writer = match.params.id;
@@ -32,20 +33,20 @@ function DiaryEdit() {
 
   return (
     <>
-      <div>
-        <span>제목</span>
-        <input type='text' name='title' onChange={onChangeDiryInfo} />
+    <div className="container">
+      <div >
+        <input className="titlebox" type='text' name='title' onChange={onChangeDiryInfo} placeholder="제목"/>
       </div>
       <div>
-        <span>작성자</span>
-        <input type='text' name='writer' onChange={onChangeDiryInfo} />
+        <input type='hidden' name='writer' onChange={onChangeDiryInfo} />
       </div>
       <div>
-        <span> 날짜</span>
+        <input type='hidden' name='nickname' onChange={onChangeDiryInfo} />
       </div>
       <div>
-        <span>내용</span>
-        <textarea
+      </div>
+      <div>
+        <textarea className="contents" placeholder="내용"
           type='text'
           name='contents'
           cols='30'
@@ -53,7 +54,8 @@ function DiaryEdit() {
           onChange={onChangeDiryInfo}
         />
       </div>
-      <button onClick={onButtonClick}>작성하기</button>
+      <button onClick={onButtonClick} className="btn">작성하기</button>
+      </div>
     </>
   );
 }
