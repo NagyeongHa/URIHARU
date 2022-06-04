@@ -10,6 +10,9 @@ function Header() {
         <img src={logo} alt='' style={{ width: "2.2rem", padding: "0.5rem" }} />
       </Link>
       <button onClick={signout}>로그아웃</button>
+      <Link to='/mypage'>
+        <button>My</button>
+      </Link>
     </div>
   );
 }

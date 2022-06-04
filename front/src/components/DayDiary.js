@@ -23,7 +23,7 @@ function DayDiary({ date, dno, title, contents, writer }) {
   return (
     <>
       <div>
-        <Link to='/textedit'>글쓰러</Link>
+        <Link to='/diary/create'>글쓰러</Link>
       </div>
       <div>
         <p>제목</p>

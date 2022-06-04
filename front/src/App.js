@@ -10,6 +10,7 @@ import DiaryModify from "./components/DiaryModify";
 import { useState, useEffect, createContext } from "react";
 import { getCurrentUser } from "./service/ApiService";
 import AuthRoute from "./Context/AuthRoute";
+import MyPage from "./components/MyPage";
 export const UserIdContext = createContext("");
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
             {/* <Route path='/' element={<Home />}></Route> */}
             <Route path='/diary/create' element={<DiaryWrite />}></Route>
             <Route path='/diary/modify/:dno' element={<DiaryModify />}></Route>
+            <Route path='/mypage' element={<MyPage />}></Route>
             <Route path='*' element={<NotFound />}></Route>
           </Routes>
         </UserIdContext.Provider>

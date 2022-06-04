@@ -141,7 +141,7 @@ export const getOneDayDiary = () => {
 
 // /diary/create-다이어리 일기 추가 post
 
-// /diary/modify/{dno}- 다이어리 일기 수정 put
+// /diary/modify- 다이어리 일기 수정 put
 
 // /diary/myread-다이어리 읽기(내가 쓴 일기 리스트) get
 

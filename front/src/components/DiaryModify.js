@@ -48,7 +48,7 @@ function DiaryModify() {
 
   //다이어리 수정 API
   const modify = diaryDTO => {
-    call("/diary/modify/14", "PUT", diaryDTO).then(response => {
+    call("/diary/modify", "PUT", diaryDTO).then(response => {
       console.log(response);
     });
   };

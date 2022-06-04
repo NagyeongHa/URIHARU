@@ -11,6 +11,8 @@ function Home() {
   const [getdate, setDate] = useState("");
   // const [dno, setDno] = useState(4);
   const [getdiary, setDiary] = useState(); //text에 보내기 위해 다이어리 글 저장
+
+  //context로 불러온 로그인한 유저 아이디
   const userId = useContext(UserIdContext);
 
   // console.log(setDno);
