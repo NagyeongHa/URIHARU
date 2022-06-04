@@ -4,7 +4,7 @@ import { call } from "../service/ApiService";
 function DiaryEdit() {
   // const writer = match.params.id;
   // console.log("writer", writer);
-  const [diary, setDiary] = useState({ title: "", contents: "", writer: "" });
+  const [diary, setDiary] = useState({ title: "", contents: "" });
 
   //제목, 작성자, 내용 onChange로 받아서 diary에 저장
   const onChangeDiryInfo = e => {
@@ -35,10 +35,6 @@ function DiaryEdit() {
       <div>
         <span>제목</span>
         <input type='text' name='title' onChange={onChangeDiryInfo} />
-      </div>
-      <div>
-        <span>작성자</span>
-        <input type='text' name='writer' onChange={onChangeDiryInfo} />
       </div>
       <div>
         <span> 날짜</span>

@@ -91,6 +91,7 @@ diary의 아이디와 로그인 유저의 아이디 값 X / 글 작성 O => 글 
       {getdiary ? (
         <DayDiary
           dno={getdiary.dno}
+          nickname={getdiary.nickname}
           writer={getdiary.writer}
           title={getdiary.title}
           contents={getdiary.contents}
