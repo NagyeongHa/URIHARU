@@ -5,7 +5,7 @@ import "../styles/DiaryWrite.css";
 function DiaryEdit() {
   // const writer = match.params.id;
   // console.log("writer", writer);
-  const [diary, setDiary] = useState({ title: "", contents: "", writer: "" });
+  const [diary, setDiary] = useState({ title: "", contents: "" });
 
   //제목, 작성자, 내용 onChange로 받아서 diary에 저장
   const onChangeDiryInfo = e => {

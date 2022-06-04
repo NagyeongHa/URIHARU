@@ -1,2 +1,8 @@
 
 *.lock
+*.lock
+*.bin
+back/.gradle/7.4.1/dependencies-accessors/dependencies-accessors.lock
+*.lock
+*.bin
+back/.gradle/buildOutputCleanup/outputFiles.bin

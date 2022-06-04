@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { call } from "../service/ApiService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function DiaryModify() {
+  const navigate = useNavigate();
   const [diary, setDiary] = useState({
     title: "",
     contents: "",
-    writer: "",
   });
   const test = new Date();
   console.log(test);
@@ -50,6 +50,7 @@ function DiaryModify() {
   const modify = diaryDTO => {
     call("/diary/modify", "PUT", diaryDTO).then(response => {
       console.log(response);
+      navigate("/");
     });
   };
 
@@ -67,15 +68,6 @@ function DiaryModify() {
           type='text'
           name='title'
           value={diary.title}
-          onChange={onChangeDiryInfo}
-        />
-      </div>
-      <div>
-        <span>작성자</span>
-        <input
-          type='text'
-          name='writer'
-          value={diary.writer}
           onChange={onChangeDiryInfo}
         />
       </div>

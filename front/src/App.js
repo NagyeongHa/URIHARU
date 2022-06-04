@@ -40,7 +40,7 @@ function App() {
             ></Route>
             {/* <Route path='/' element={<Home />}></Route> */}
             <Route path='/diary/create' element={<DiaryWrite />}></Route>
-            <Route path='/diary/modify/:dno' element={<DiaryModify />}></Route>
+            <Route path='/diary/modify' element={<DiaryModify />}></Route>
             <Route path='/mypage' element={<MyPage />}></Route>
             <Route path='*' element={<NotFound />}></Route>
           </Routes>

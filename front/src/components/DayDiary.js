@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserIdContext } from "../App";
 
-function DayDiary({ date, dno, title, contents, writer }) {
+function DayDiary({ date, title, writer, contents, nickname }) {
   // function DayDiary({ date, dno, title, contents, regdate, moddate }) {
   // const dno = diary.dno;
   // const title = diary.title;
@@ -18,7 +18,7 @@ function DayDiary({ date, dno, title, contents, writer }) {
   console.log("text의 date", date);
 
   const clickedModify = () => {
-    navigate(`/diary/modify/${dno}`);
+    navigate("/diary/modify");
   };
   return (
     <>
@@ -29,7 +29,7 @@ function DayDiary({ date, dno, title, contents, writer }) {
         <p>제목</p>
         {title}
         <p>글쓴이</p>
-        {writer}
+        {nickname}
         <p>내용</p>
         {contents}
       </div>
