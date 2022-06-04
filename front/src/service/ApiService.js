@@ -44,20 +44,105 @@ export const call = (api, method, request) => {
 
 //회원가입
 export const signup = userDTO => {
+<<<<<<< HEAD
   return call("/auth/signup", "post", userDTO);
+=======
+  return call("/auth/signup", "POST", userDTO);
+>>>>>>> origin
 };
 
 //로그인
 export const signin = userDTO => {
+<<<<<<< HEAD
   return call("/auth/signin", "post", userDTO).then(response => {
     if (response.token) {
       //로컬스토리지에 토큰 저장
       localStorage.setItem(ACCESS_TOKEN, response.token);
+=======
+  return call("/auth/signin", "POST", userDTO).then(response => {
+    if (response.token) {
+      console.log("뭐가들었나", response);
+      //로컬스토리지에 토큰 저장
+      localStorage.setItem(ACCESS_TOKEN, response.token);
+      localStorage.setItem("ID", response.id);
+>>>>>>> origin
       //토큰 있으면 메인 화면으로 이동
       window.location.href = "/";
     }
   });
 };
+<<<<<<< HEAD
+=======
+
+//로그아웃
+export const signout = () => {
+  localStorage.setItem(ACCESS_TOKEN, null);
+  localStorage.setItem("ID", null);
+  window.location.href = "/login";
+};
+
+//현재 로그인 유저 아이디 가져오기
+export const getCurrentUser = () => {
+  if (localStorage.getItem("ID")) {
+    return localStorage.getItem("ID");
+  } else {
+    console.log("로그인 아이디 없음");
+  }
+};
+
+//Get
+// export const callGet = (api, method) => {
+//   const accessToken = localStorage.getItem("ACCESS_TOKEN");
+
+//   let headers = new Headers({
+//     "Content-Type": "application/json",
+//   });
+
+//   let options = {
+//     method: method,
+//     url: API_BASE_URL + api,
+//     headers: headers,
+//   };
+
+//   if (accessToken && accessToken !== null) {
+//     headers.append("Authorization", "Bearer " + accessToken);
+//   }
+
+//   return fetch(options.url, options)
+//     .then(res => res.stringfy(res))
+//     .catch(error => {
+//       console.log(error.status);
+//       // if (error.status === 403) {
+//       //   window.location.href = "/login";
+//       // }
+//       return Promise.reject(error);
+//     });
+// };
+
+//Home > DayDiay 메인의 하루 다이어리 가져오기
+export const getOneDayDiary = () => {
+  const accessToken = localStorage.getItem("ACCESS_TOKEN");
+
+  let headers = new Headers({
+    "Content-Type": "application/json",
+  });
+
+  let options = {
+    method: "get",
+    headers: headers,
+  };
+
+  if (accessToken && accessToken !== null) {
+    headers.append("Authorization", "Bearer " + accessToken);
+  }
+
+  return fetch("http://localhost:8080/uriharu/diary/read/4", options).then(
+    res => res.json()
+  );
+  // .then(data => console.log(data));
+};
+
+>>>>>>> origin
 // context root
 
 // localhost:8080/uriharu
@@ -70,7 +155,11 @@ export const signin = userDTO => {
 
 // /diary/create-다이어리 일기 추가 post
 
+<<<<<<< HEAD
 // /diary/modify/{dno}- 다이어리 일기 수정 put
+=======
+// /diary/modify- 다이어리 일기 수정 put
+>>>>>>> origin
 
 // /diary/myread-다이어리 읽기(내가 쓴 일기 리스트) get
 
