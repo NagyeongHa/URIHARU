@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class DiaryDTO {
     private Long dno;
     private String writer;
+    private String nickname;
     private String title;
     private String contents;
     private LocalDateTime regdate;
@@ -24,6 +25,7 @@ public class DiaryDTO {
 
     public DiaryDTO(final DiaryEntity entity){
         this.dno = entity.getDno();
+        this.nickname = entity.getNickname();
         this.writer = entity.getWriter();
         this.title = entity.getTitle();
         this.contents = entity.getContents();
@@ -32,6 +34,7 @@ public class DiaryDTO {
     public static DiaryEntity toEntity(final DiaryDTO dto) {
         return DiaryEntity.builder()
         .dno(dto.getDno())
+        .nickname(dto.getNickname())
         .writer((dto.getWriter()))
         .title(dto.getTitle())
         .contents((dto.getContents()))

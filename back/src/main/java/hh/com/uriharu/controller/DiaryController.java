@@ -36,6 +36,7 @@ public class DiaryController {
             DiaryEntity entity = DiaryDTO.toEntity(dto);
             entity.setDno(null);
             entity.setWriter(userId);
+            entity.setNickname(service.nicknameById(userId));
             
             List<DiaryEntity> entities = service.create(entity);
             List<DiaryDTO> dtos = entities.stream().map(DiaryDTO :: new).collect(Collectors.toList());
@@ -61,9 +62,10 @@ public class DiaryController {
     public ResponseEntity<?> retieveHaruByDno(@AuthenticationPrincipal String userId, @PathVariable Long dno){
 
         DiaryEntity entity = service.retrieveByDno(dno);
-        
+        log.warn("entity : {}  is ", entity);
         DiaryDTO dto = DiaryDTO.builder()
         .dno(entity.getDno())
+        .nickname(entity.getNickname())
         .writer(entity.getWriter())
         .title(entity.getTitle())
         .contents(entity.getContents())
