@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import Calendar from "../components/Calendar";
-import Text from "../components/Text";
-
-function Home() {
-  return (
-    <>
-      <Calendar />
-      <Text />
-    </>
-  );
-}
-
-=======
 import Header from "../components/Header";
 import Calendar from "../components/Calendar";
 import DayDiary from "../components/DayDiary";
@@ -118,5 +104,4 @@ diary의 아이디와 로그인 유저의 아이디 값 X / 글 작성 O => 글 
     </>
   );
 }
->>>>>>> origin
 export default Home;

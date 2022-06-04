@@ -8,6 +8,7 @@ function DiaryModify() {
     title: "",
     contents: "",
   });
+  
   const test = new Date();
   console.log(test);
   //다이어리 글 하루치 불러오기

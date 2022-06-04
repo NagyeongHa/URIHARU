@@ -1,30 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-<<<<<<< HEAD
-import Header from "./components/Header";
-=======
 // import Header from "./components/Header";
 //import Main from "./components/Main";
->>>>>>> origin
 import Home from "./route/Home";
 import NotFound from "./components/NotFound";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
-<<<<<<< HEAD
-import TextEdit from "./components/TextEdit";
-
-function App() {
-  return (
-    <div>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path='/login' element={<Login />}></Route>
-          <Route path='/signup' element={<SignUp />}></Route>
-          <Route path='/' element={<Home />}></Route>
-          <Route path='/textedit' element={<TextEdit />}></Route>
-          <Route path='*' element={<NotFound />}></Route>
-        </Routes>
-=======
 import DiaryWrite from "./components/DiaryWrite";
 import DiaryModify from "./components/DiaryModify";
 import { useState, useEffect, createContext } from "react";
@@ -65,7 +45,6 @@ function App() {
             <Route path='*' element={<NotFound />}></Route>
           </Routes>
         </UserIdContext.Provider>
->>>>>>> origin
       </BrowserRouter>
     </div>
   );
