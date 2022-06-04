@@ -15,7 +15,8 @@ function SignUp() {
     signup({ email: email, password: password, nickname: nickname }).then(
       response => {
         console.log(response);
-        navigate("/login"); //회원 생성되면 로그인 페이지로 이동
+        navigate("/login");
+        //회원 생성되면 로그인 페이지로 이동
       }
     );
   };
