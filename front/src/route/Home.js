@@ -1,37 +1,24 @@
 import Header from "../components/Header";
 import Calendar from "../components/Calendar";
 import DayDiary from "../components/DayDiary";
-import { UserIdContext } from "../App";
-import { useEffect, useState, useContext } from "react";
-// import { callGet } from "../service/ApiService";
-// import { getOneDayDiary } from "../service/ApiService";
-//import { callGet } from "../service/ApiService";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { userState } from "../atoms/auth";
 
 function Home() {
-  const [getdate, setDate] = useState("");
-  // const [dno, setDno] = useState(4);
-  const [getDiary, setDiary] = useState(); //text에 보내기 위해 다이어리 글 저장
+  const [getDate, setDate] = useState(""); //Calendar에서 받은 날짜값
+  const [getDiary, setDiary] = useState(); //달력에서 날짜 클릭 시 보여줄 당일 다이어리
+  const userId = useRecoilValue(userState);
 
-  //context로 불러온 로그인한 유저 아이디
-  const userId = useContext(UserIdContext);
-
-  // console.log(setDno);
-
-  //Calendar 컴포넌트에서 클릭된 달력 값
+  //하위 Calendar 컴포넌트에서 클릭된 달력 값
   const showClickedDate = date => {
     setDate(date);
   };
 
   useEffect(() => {
     showClickedDate();
-  }, [getdate]);
-  console.log("homeDate", getdate);
-
-  //getDate 데이터 있으면 날짜 값 분리하기
-  if (getdate) {
-    const sliceYear = getdate.getFullYear().toString();
-    console.log(sliceYear);
-  }
+  }, [getDate]);
+  console.log("homeDate", getDate);
 
   //다이어리 글 하루치 불러오기
   useEffect(() => {
@@ -51,7 +38,10 @@ function Home() {
         headers.append("Authorization", "Bearer " + accessToken);
       }
 
-      return fetch("http://localhost:8080/uriharu/diary/read/14", options)
+      return fetch(
+        `http://localhost:8080/uriharu/diary/read/${getDate}`,
+        options
+      )
         .then(res => res.json())
         .then(data => setDiary(data));
     };
@@ -60,16 +50,7 @@ function Home() {
   }, []);
 
   console.log("로그인한 유저", userId);
-  console.log("다이어리 내용", getDiary);
-  //날짜가 같은 다이어리의 dno 가져오기
-  //getDate의 날짜와 db의 날짜와 같은 것을 들고옴
-  //1날짜를 잘라서 들고옴 2날짜 비교
-  // const getDnoByClickedDate = ()=>{
 
-  // }
-
-  // getDiary();
-  // console.log("diary", diary);
   {
     /*
   diary의 아이디와 로그인 유저의 아이디 값 O / 글 작성 X => 글 작성 
@@ -87,7 +68,7 @@ diary의 아이디와 로그인 유저의 아이디 값 X / 글 작성 O => 글 
     <>
       <Header />
       <Calendar date={showClickedDate} />
-      {/* <DayDiary date={getdate} showdiary={diary} />*/}
+      {/* <DayDiary date={getDate} showdiary={diary} />*/}
       {getDiary ? (
         <DayDiary
           dno={getDiary.dno}

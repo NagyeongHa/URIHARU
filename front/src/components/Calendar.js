@@ -10,20 +10,27 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const Calendar = props => {
   const [startDate, setStartDate] = useState(new Date());
-
-  // const year = startDate.getFullYear();
-  // const month = startDate.getMonth();
-  // const today = startDate.getDay();
   const showClickedDate = props.date;
 
   const handlerOnChange = date => {
     setStartDate(date);
-    showClickedDate(startDate);
+    // showClickedDate(dateToStringText(startDate));
   };
 
   useEffect(() => {
-    handlerOnChange();
-  }, [startDate]);
+    showClickedDate(dateToStringText(startDate));
+  }, [showClickedDate, startDate]);
+
+  //선택한 달력 날짜 값을 연-월-일 형태로 변환
+  const dateToStringText = date => {
+    return (
+      date.getFullYear() +
+      "-" +
+      (date.getMonth() + 1).toString().padStart(2, "0") +
+      "-" +
+      date.getDate().toString().padStart(2, "0")
+    );
+  };
 
   // if (startDate) {
   //   const test = startDate.split(" ");

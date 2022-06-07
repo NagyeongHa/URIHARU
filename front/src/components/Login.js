@@ -8,7 +8,7 @@ function Login() {
     const email = data.get("email");
     const password = data.get("password");
     //apiserver의 signin 함수
-    signin({ email: email, password: password });
+    signin({ email: email, password: password }).then(res => console.log(res));
   };
 
   return (

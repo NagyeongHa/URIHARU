@@ -51,7 +51,7 @@ export const signup = userDTO => {
 export const signin = userDTO => {
   return call("/auth/signin", "POST", userDTO).then(response => {
     if (response.token) {
-      console.log("뭐가들었나", response);
+      //console.log("뭐가들었나", response);
       //로컬스토리지에 토큰 저장
       localStorage.setItem(ACCESS_TOKEN, response.token);
       localStorage.setItem("ID", response.id);
@@ -72,9 +72,8 @@ export const signout = () => {
 export const getCurrentUser = () => {
   if (localStorage.getItem("ID")) {
     return localStorage.getItem("ID");
-  } else {
-    console.log("로그인 아이디 없음");
   }
+  console.log("로그인 아이디 없음");
 };
 
 //Get

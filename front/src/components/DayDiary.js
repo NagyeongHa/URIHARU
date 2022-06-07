@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserIdContext } from "../App";
 
 function DayDiary({ date, title, writer, contents, nickname, regdate }) {
   // function DayDiary({ date, dno, title, contents, regdate, moddate }) {
@@ -11,7 +9,7 @@ function DayDiary({ date, title, writer, contents, nickname, regdate }) {
   // const regdate = diary.regdate;
 
   const navigate = useNavigate();
-  const userId = useContext(UserIdContext);
+  const userId = "ee";
   console.log("글쓴애", writer, "로그인한 애", userId);
 
   // const month = date.getMonth();
