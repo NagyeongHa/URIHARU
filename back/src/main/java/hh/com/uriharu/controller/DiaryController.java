@@ -69,7 +69,7 @@ public class DiaryController {
         .writer(entity.getWriter())
         .title(entity.getTitle())
         .contents(entity.getContents())
-        .regdate(entity.getModdate())
+        .regdate(entity.getRegdate())
         .moddate(entity.getModdate())
         .build();
         
@@ -86,7 +86,15 @@ public class DiaryController {
         retieveHaruByDno(userId,dno);
         
         return retieveHaruByDno(userId,dno);
-        
+    }
+
+    @GetMapping("dateread/{yyyymmdd}")
+    public ResponseEntity<?> retieveHaruByDate(@AuthenticationPrincipal String userId, @PathVariable String yyyymmdd){
+
+        List<DiaryEntity> entites = service.retrieveByDate(yyyymmdd);
+        List<DiaryDTO> dtos = entites.stream().map(DiaryDTO::new).collect(Collectors.toList());
+        ResponseDTO<DiaryDTO> response = ResponseDTO.<DiaryDTO>builder().data(dtos).build();
+        return ResponseEntity.ok().body(response);
     }
 
   

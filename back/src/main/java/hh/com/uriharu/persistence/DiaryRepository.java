@@ -12,5 +12,8 @@ import hh.com.uriharu.model.DiaryEntity;
 public interface DiaryRepository extends JpaRepository<DiaryEntity,Long>{
     @Query("select d from DiaryEntity d where d.writer = ?1")
     List<DiaryEntity> findByWriter(String writer);
+
+    @Query("select d from DiaryEntity d where d.yyyymmdd = ?1")
+    List<DiaryEntity> findByDate(String yyyymmdd);
 }
 
