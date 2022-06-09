@@ -1,5 +1,7 @@
 import { signup } from "../service/ApiService";
 import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Input, Container, Button } from "../styles/GlobalStyle";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -22,25 +24,52 @@ function SignUp() {
   };
 
   return (
-    <div>
-      회원가입
+    <Container>
       <form onSubmit={handleSubmit}>
+        <Title>SignUp</Title>
         <div>
-          <span>닉네임</span>
-          <input type='text' name='nickname' />
+          <Label>닉네임</Label>
+          <Input type='text' name='nickname' />
         </div>
         <div>
-          <span>아이디</span>
-          <input type='text' name='email' />
+          <Label>아이디</Label>
+          <Input type='text' name='email' />
         </div>
         <div>
-          <span>비밀번호</span>
-          <input type='password' name='password' />
+          <Label>비밀번호</Label>
+          <Input type='password' name='password' />
         </div>
-        <button type='submit'>회원가입하기</button>
+        <div>
+          <Label>비밀번호 확인</Label>
+          <Input type='password' name='password' />
+        </div>
+        <Button type='submit'>회원가입하기</Button>
+        <StyledLink to='/login'>
+          <p>계정이 이미 있으신가요? 로그인 하기</p>
+        </StyledLink>
       </form>
-      <Link to='/login'>이미 계정이 있습니까? 로그인 하세요.</Link>
-    </div>
+    </Container>
   );
 }
+
+const Title = styled.div`
+  font-size: 1.2rem;
+  font-weight: bold;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  & > p {
+    font-size: 0.8rem;
+    color: gray;
+    cursor: pointer;
+  }
+`;
+
+const Label = styled.p`
+  text-align: start;
+  font-size: 0.7rem;
+  padding: 0.1rem;
+  margin-left: 0.3rem;
+`;
 export default SignUp;

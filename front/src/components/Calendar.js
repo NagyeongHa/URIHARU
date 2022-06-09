@@ -3,6 +3,8 @@ import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 //import Text from "./Text";
 import "react-datepicker/dist/react-datepicker.css";
+import { Container } from "../styles/GlobalStyle";
+import styled from "styled-components";
 
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
@@ -39,7 +41,7 @@ const Calendar = props => {
   // console.log("year", year, "month", month, "today", today);
   console.log(startDate);
   return (
-    <>
+    <CalendarContent>
       <DatePicker
         selected={startDate}
         onChange={date => handlerOnChange(date)}
@@ -49,8 +51,12 @@ const Calendar = props => {
         //  format="YY/MM/DD"
         //popperPlacement='auto' //팝업 가운데로
       />
-    </>
+    </CalendarContent>
   );
 };
 
+const CalendarContent = styled(Container)`
+  height: auto;
+  margin-top: 2.5rem;
+`;
 export default Calendar;

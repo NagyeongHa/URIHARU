@@ -54,6 +54,7 @@ function DiaryEdit() {
           onChange={onChangeDiryInfo}
         />
       </div>
+      
       <button onClick={onButtonClick} className="btn">작성하기</button>
       </div>
     </>

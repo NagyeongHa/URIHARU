@@ -1,4 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import styled from "styled-components";
+import { userIdState } from "../atoms/auth";
 
 function DayDiary({ date, title, writer, contents, nickname, regdate }) {
   // function DayDiary({ date, dno, title, contents, regdate, moddate }) {
@@ -9,9 +12,8 @@ function DayDiary({ date, title, writer, contents, nickname, regdate }) {
   // const regdate = diary.regdate;
 
   const navigate = useNavigate();
-  const userId = "ee";
-  console.log("글쓴애", writer, "로그인한 애", userId);
-
+  const userId = useRecoilValue(userIdState);
+  console.log("글쓴애 ", writer, "로그인한애", userId);
   // const month = date.getMonth();
   console.log("text의 date", date);
 
@@ -20,10 +22,7 @@ function DayDiary({ date, title, writer, contents, nickname, regdate }) {
   };
   return (
     <>
-      <div>
-        <Link to='/diary/create'>글쓰러</Link>
-      </div>
-      <div>
+      <Diary>
         <p>제목</p>
         {title}
         <p>글쓴이</p>
@@ -32,7 +31,7 @@ function DayDiary({ date, title, writer, contents, nickname, regdate }) {
         {contents}
         <p>작성 날짜</p>
         {regdate}
-      </div>
+      </Diary>
       {writer === userId ? (
         <button onClick={clickedModify}>수정하기</button>
       ) : (
@@ -41,4 +40,8 @@ function DayDiary({ date, title, writer, contents, nickname, regdate }) {
     </>
   );
 }
+
+const Diary = styled.div`
+  text-align: center;
+`;
 export default DayDiary;
