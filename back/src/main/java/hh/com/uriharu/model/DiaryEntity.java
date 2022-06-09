@@ -42,6 +42,7 @@ public class DiaryEntity{
     private String nickname;
     private String title;
     private String contents;
+    private String yyyymmdd;
     
     @CreatedDate
     @Column(name="regdate", updatable=false)

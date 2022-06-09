@@ -18,8 +18,10 @@ public class DiaryDTO {
     private String nickname;
     private String title;
     private String contents;
+    private String yyyymmdd;
     private LocalDateTime regdate;
     private LocalDateTime moddate;
+
 
     //userid는 시큐리티를 통해 인증
 
@@ -31,15 +33,17 @@ public class DiaryDTO {
         this.contents = entity.getContents();
         this.regdate = entity.getRegdate();
         this.moddate = entity.getModdate();
+        this.yyyymmdd = entity.getYyyymmdd();
     }
 
     public static DiaryEntity toEntity(final DiaryDTO dto) {
         return DiaryEntity.builder()
         .dno(dto.getDno())
         .nickname(dto.getNickname())
-        .writer((dto.getWriter()))
+        .writer(dto.getWriter())
         .title(dto.getTitle())
         .contents((dto.getContents()))
+        .yyyymmdd(dto.getYyyymmdd())
         .build();
     }
 }

@@ -27,7 +27,6 @@ public class DiaryService {
         repository.save(entity);
         log.info("Entity Id : {} is saved",entity.getDno());
         return repository.findByWriter(entity.getWriter());
-
     }
 
     //리팩토링한 메서드
@@ -52,6 +51,10 @@ public class DiaryService {
         //일기 번호로 조회
         public DiaryEntity retrieveByDno(final Long dno) {
             return repository.findById(dno).get();
+        }
+        //일기 날짜 조회
+        public List<DiaryEntity> retrieveByDate(final String yyyymmdd) {
+            return repository.findByDate(yyyymmdd);
         }
 
         //수정
