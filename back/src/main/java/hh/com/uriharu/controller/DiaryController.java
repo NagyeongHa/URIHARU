@@ -81,12 +81,13 @@ public class DiaryController {
     public ResponseEntity<?> updateHaru(@AuthenticationPrincipal String userId, @RequestBody DiaryDTO dto) {
 
         DiaryEntity entity = DiaryDTO.toEntity(dto);
+        String date = dto.getYyyymmdd();
         entity.setWriter(userId);
 
         Long dno = service.update(entity);
         retieveHaruByDno(userId,dno);
         
-        return retieveHaruByDno(userId,dno);
+        return retieveHaruByDate(userId, date);
     }
 
     @GetMapping("dateread/{yyyymmdd}")
