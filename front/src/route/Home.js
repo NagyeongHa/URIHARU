@@ -1,35 +1,18 @@
 // import Header from "../components/Header";
 import Calendar from "../components/Calendar";
 import DayDiary from "../components/DayDiary";
-// import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { userState } from "../recoil/auth";
 import { Link } from "react-router-dom";
-//import { date } from "../recoil/date";
-//import { getDateDiary } from "../recoil/diary";
-import { useEffect, useState } from "react";
+import { getDateDiary } from "../recoil/diary";
 
 function Home() {
-  //const getDate = useRecoilValue(date); //Calendar에서 받은 날짜값
-  // const [getDiary, setDiary] = useState(); //달력에서 날짜 클릭 시 보여줄 당일 다이어리
-  //const diaryData = useRecoilValue(getDateDiary(getDate));
-  const [getDate, setDate] = useState();
+  const diaryData = useRecoilValue(getDateDiary); // 날짜별 다이어리 가져오기
   const { id, email } = useRecoilValue(userState);
+
   console.log("로그인한 유저", id, email);
-  //console.log("diarySelector", diaryData);
+  console.log("home diary", diaryData);
 
-  // 하위 Calendar 컴포넌트에서 클릭된 달력 값
-  const showClickedDate = date => {
-    setDate(date);
-  };
-
-  useEffect(() => {
-    showClickedDate();
-  }, [getDate]);
-
-  console.log("home date", getDate);
-  // console.log("getDate", getDate);
-  // console.log("getDiary", getDiary);
   {
     /*
   diary의 아이디와 로그인 유저의 아이디 값 O / 글 작성 X => 글 작성 
@@ -45,8 +28,8 @@ diary의 아이디와 로그인 유저의 아이디 값 X / 글 작성 O => 글 
 
   return (
     <>
-      <Calendar showClickedDate={showClickedDate} />
-      <DayDiary dateTest={getDate} />
+      <Calendar />
+      <DayDiary />
       <Link to='diary/create'>글쓰러</Link>
     </>
   );

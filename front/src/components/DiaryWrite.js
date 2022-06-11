@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { date } from "../recoil/date";
+import { date } from "../recoil/diary";
 import { call } from "../service/ApiService";
 import "../styles/DiaryWrite.css";
 

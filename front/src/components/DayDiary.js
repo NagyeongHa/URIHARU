@@ -1,57 +1,42 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/auth";
-//import { date } from "../recoil/date";
-import { getDno } from "../recoil/diary";
+import { getDateDiary, getDno } from "../recoil/diary";
+import { call } from "../service/ApiService";
 
-function DayDiary({ dateTest }) {
+function DayDiary() {
   const navigate = useNavigate();
-  //const calendarData = useRecoilValue(date);
-  // const diary = useRecoilValue(getDateDiary(calendarData));
+  const diary = useRecoilValue(getDateDiary); //날짜별 다이어리 가져오기
   const { id } = useRecoilValue(userState);
-  const setDno = useSetRecoilState(getDno);
-  const [diary, setDiary] = useState({});
-  console.log("클릭한 날짜", dateTest);
+  const setDno = useSetRecoilState(getDno); //수정페이지에 보낼 게시물 dno 저장 (수정페이지에서 dno별 다이어리를 가져오기 위해서)
+
   //수정화면으로
-  const goModify = dno => {
+  const goModifyOnClick = dno => {
     setDno(dno);
     navigate(`/diary/modify`);
   };
 
-  useEffect(() => {
-    const getDateDiary = () => {
-      const accessToken = localStorage.getItem("ACCESS_TOKEN");
+  console.log("daydiary", diary);
 
-      let headers = new Headers({
-        "Content-Type": "application/json",
-      });
+  //다이어리 삭제
+  const deleteDiary = diaryDTO => {
+    call("/diary/remove", "DELETE", diaryDTO).then(response => {
+      console.log(response);
+      navigate("/");
+    });
+  };
 
-      let options = {
-        method: "get",
-        headers: headers,
-      };
+  //삭제 버튼 누를 시
+  const deleteDiaryOnclick = () => {
+    deleteDiary(diary);
+  };
 
-      if (accessToken && accessToken !== null) {
-        headers.append("Authorization", "Bearer " + accessToken);
-      }
-
-      return fetch(
-        `http://localhost:8080/uriharu/diary/dateread/${dateTest}`,
-        options
-      )
-        .then(res => res.json())
-        .then(data => setDiary(data.data));
-    };
-
-    getDateDiary();
-  }, [dateTest]);
   return (
     <>
       <Diary>
         <>
-          {diary.length > 0 ? (
+          {diary ? (
             diary.map((list, idx) => (
               <div key={idx}>
                 <div>
@@ -65,9 +50,10 @@ function DayDiary({ dateTest }) {
                   {list.yyyymmdd}
                   {list.writer === id ? (
                     <div>
-                      <Button onClick={() => goModify(list.dno)}>
+                      <Button onClick={() => goModifyOnClick(list.dno)}>
                         수정하기
                       </Button>
+                      <Button onClick={deleteDiaryOnclick}>삭제하기</Button>
                     </div>
                   ) : (
                     ""

@@ -1,51 +1,30 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { call } from "../service/ApiService";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { getDno } from "../recoil/diary";
+import { getDnoDiary } from "../recoil/diary";
 
 function DiaryModify() {
   const navigate = useNavigate();
-  const dno = useRecoilValue(getDno);
+  const DnoDiary = useRecoilValue(getDnoDiary); //dno별 다이어리 가져오기
   const [diary, setDiary] = useState({
+    //
     title: "",
     contents: "",
     writer: "",
   });
 
-  console.log("dno", dno, "diaryData", diary);
+  console.log("diaryModify diary", DnoDiary);
 
   //다이어리 글 하루치 불러오기
   useEffect(() => {
-    const getOneDayDiary = () => {
-      const accessToken = localStorage.getItem("ACCESS_TOKEN");
-
-      let headers = new Headers({
-        "Content-Type": "application/json",
-      });
-
-      let options = {
-        method: "get",
-        headers: headers,
-      };
-
-      if (accessToken && accessToken !== null) {
-        headers.append("Authorization", "Bearer " + accessToken);
-      }
-
-      return fetch(`http://localhost:8080/uriharu/diary/read/${dno}`, options)
-        .then(res => res.json())
-        .then(data => setDiary(data)); //diary에 저장
-    };
-
-    getOneDayDiary();
-  }, [dno]);
+    setDiary(DnoDiary);
+  }, [DnoDiary]);
 
   //제목, 작성자, 내용 onChange로 받아서 diary에 저장
   const onChangeDiryInfo = useCallback(
     e => {
       const { name, value } = e.target;
-      console.log(diary);
       setDiary({
         ...diary,
         [name]: value,
