@@ -3,7 +3,7 @@ import { Input, Container, Button } from "../styles/GlobalStyle";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
-import { userState } from "../atoms/auth";
+import { userState } from "../recoil/auth";
 
 function Login() {
   const navigate = useNavigate();

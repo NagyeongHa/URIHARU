@@ -1,51 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { call } from "../service/ApiService";
 import { Link, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { date } from "../recoil/date";
+import { oneDayDiary } from "../recoil/auth";
 
 function DiaryModify() {
   const navigate = useNavigate();
-  const [diary, setDiary] = useState({
-    title: "",
-    contents: "",
-  });
-  
-  const test = new Date();
-  console.log(test);
-  //다이어리 글 하루치 불러오기
+  const calendarData = useRecoilValue(date);
+  const diaryData = useRecoilValue(oneDayDiary(calendarData));
+  const initialstate = {
+    title: diaryData.map(list => list.title),
+    contents: diaryData.map(list => list.contents),
+  };
+  const [diary, setDiary] = useState(initialstate);
+
   useEffect(() => {
-    const getOneDayDiary = () => {
-      const accessToken = localStorage.getItem("ACCESS_TOKEN");
-
-      let headers = new Headers({
-        "Content-Type": "application/json",
-      });
-
-      let options = {
-        method: "get",
-        headers: headers,
-      };
-
-      if (accessToken && accessToken !== null) {
-        headers.append("Authorization", "Bearer " + accessToken);
-      }
-
-      return fetch("http://localhost:8080/uriharu/diary/read/14", options)
-        .then(res => res.json())
-        .then(data => setDiary(data)); //diary에 저장
-    };
-
-    getOneDayDiary();
-  }, []);
+    setDiary(diaryData);
+  }, [diary]);
 
   //제목, 작성자, 내용 onChange로 받아서 diary에 저장
-  const onChangeDiryInfo = e => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    setDiary({
-      ...diary,
-      [name]: value,
-    });
-  };
+  const onChangeDiryInfo = useCallback(
+    e => {
+      const { name, value } = e.target;
+      console.log(diary);
+      setDiary({
+        ...diary,
+        [name]: value,
+      });
+    },
+    [diary]
+  );
 
   //다이어리 수정 API
   const modify = diaryDTO => {
@@ -55,12 +40,12 @@ function DiaryModify() {
     });
   };
 
-  //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 비동기처리
+  //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
   const onButtonClick = () => {
     modify(diary);
   };
 
-  console.log("prev", diary);
+  console.log("diary", diary);
   return (
     <>
       <div>
@@ -71,9 +56,6 @@ function DiaryModify() {
           value={diary.title}
           onChange={onChangeDiryInfo}
         />
-      </div>
-      <div>
-        <span> 날짜</span>
       </div>
       <div>
         <span>내용</span>

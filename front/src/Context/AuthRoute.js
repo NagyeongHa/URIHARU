@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { userState } from "../atoms/auth";
+import { userState } from "../recoil/auth";
 import { useRecoilValue } from "recoil";
 // import { userIdState } from "../atoms/auth";
 

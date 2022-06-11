@@ -16,7 +16,6 @@ export const call = (api, method, request) => {
   };
 
   if (request) {
-    
     options.body = JSON.stringify(request);
   }
 
@@ -70,6 +69,7 @@ export const signin = userDTO => {
 export const signout = () => {
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem("ID");
+  localStorage.removeItem("recoil-persist");
   window.location.href = "/login";
 };
 
