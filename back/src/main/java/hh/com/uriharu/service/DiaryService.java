@@ -3,7 +3,10 @@ package hh.com.uriharu.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.Entity;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import hh.com.uriharu.model.DiaryEntity;
@@ -76,15 +79,9 @@ public class DiaryService {
         }
 
         //삭제
-        public List<DiaryEntity> delete(final DiaryEntity entity) {
-            validate(entity);
-            try {
-                repository.delete(entity);
-            } catch (Exception e) {
-                log.error("error deleting entity ", entity.getDno(),e);
-                throw new RuntimeException("error deleting entity "+ entity.getDno());
-            }
-            return retrieve(entity.getWriter());
+        @Modifying
+        public void deleteByDto(DiaryEntity entity) {
+            repository.delete(entity);
         }
 
         //id 일치하는 계정 닉네임 찾기

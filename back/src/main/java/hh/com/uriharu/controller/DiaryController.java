@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -97,5 +98,20 @@ public class DiaryController {
         return ResponseEntity.ok().body(response);
     }
 
-  
+    @DeleteMapping("remove")  
+    private ResponseEntity<?> removeHaruByDno(@AuthenticationPrincipal String userId,@RequestBody DiaryDTO dto) {
+        try {
+            DiaryEntity entity = DiaryDTO.toEntity(dto);
+            String date = dto.getYyyymmdd();
+
+                service.deleteByDto(entity);
+            
+            return retieveHaruByDate(userId , date);
+            
+        } catch (Exception e) {
+            String error = e.getMessage();
+            ResponseDTO<DiaryDTO> response = ResponseDTO.<DiaryDTO>builder().error(error).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
 }
