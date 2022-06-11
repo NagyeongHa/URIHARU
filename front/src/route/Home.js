@@ -1,75 +1,32 @@
-import Header from "../components/Header";
+// import Header from "../components/Header";
 import Calendar from "../components/Calendar";
 import DayDiary from "../components/DayDiary";
-import { UserIdContext } from "../App";
-import { useEffect, useState, useContext } from "react";
-// import { callGet } from "../service/ApiService";
-// import { getOneDayDiary } from "../service/ApiService";
-//import { callGet } from "../service/ApiService";
+// import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { userState } from "../recoil/auth";
+import { Link } from "react-router-dom";
+import { date } from "../recoil/date";
+import { getDateDiary } from "../recoil/diary";
 
 function Home() {
-  const [getdate, setDate] = useState("");
-  // const [dno, setDno] = useState(4);
-  const [getDiary, setDiary] = useState(); //text에 보내기 위해 다이어리 글 저장
+  const getDate = useRecoilValue(date); //Calendar에서 받은 날짜값
+  // const [getDiary, setDiary] = useState(); //달력에서 날짜 클릭 시 보여줄 당일 다이어리
+  const diaryData = useRecoilValue(getDateDiary(getDate));
+  const { id, email } = useRecoilValue(userState);
+  console.log("로그인한 유저", id, email);
+  console.log("diarySelector", diaryData);
 
-  //context로 불러온 로그인한 유저 아이디
-  const userId = useContext(UserIdContext);
+  // 하위 Calendar 컴포넌트에서 클릭된 달력 값
+  // const showClickedDate = date => {
+  //   setDate(date);
+  // };
 
-  // console.log(setDno);
+  // useEffect(() => {
+  //   showClickedDate();
+  // }, []);
 
-  //Calendar 컴포넌트에서 클릭된 달력 값
-  const showClickedDate = date => {
-    setDate(date);
-  };
-
-  useEffect(() => {
-    showClickedDate();
-  }, [getdate]);
-  console.log("homeDate", getdate);
-
-  //getDate 데이터 있으면 날짜 값 분리하기
-  if (getdate) {
-    const sliceYear = getdate.getFullYear().toString();
-    console.log(sliceYear);
-  }
-
-  //다이어리 글 하루치 불러오기
-  useEffect(() => {
-    const getOneDayDiary = () => {
-      const accessToken = localStorage.getItem("ACCESS_TOKEN");
-
-      let headers = new Headers({
-        "Content-Type": "application/json",
-      });
-
-      let options = {
-        method: "get",
-        headers: headers,
-      };
-
-      if (accessToken && accessToken !== null) {
-        headers.append("Authorization", "Bearer " + accessToken);
-      }
-
-      return fetch("http://localhost:8080/uriharu/diary/read/14", options)
-        .then(res => res.json())
-        .then(data => setDiary(data));
-    };
-
-    getOneDayDiary();
-  }, []);
-
-  console.log("로그인한 유저", userId);
-  console.log("다이어리 내용", getDiary);
-  //날짜가 같은 다이어리의 dno 가져오기
-  //getDate의 날짜와 db의 날짜와 같은 것을 들고옴
-  //1날짜를 잘라서 들고옴 2날짜 비교
-  // const getDnoByClickedDate = ()=>{
-
-  // }
-
-  // getDiary();
-  // console.log("diary", diary);
+  console.log("getDate", getDate);
+  // console.log("getDiary", getDiary);
   {
     /*
   diary의 아이디와 로그인 유저의 아이디 값 O / 글 작성 X => 글 작성 
@@ -85,22 +42,9 @@ diary의 아이디와 로그인 유저의 아이디 값 X / 글 작성 O => 글 
 
   return (
     <>
-      <Header />
-      <Calendar date={showClickedDate} />
-      {/* <DayDiary date={getdate} showdiary={diary} />*/}
-      {getDiary ? (
-        <DayDiary
-          dno={getDiary.dno}
-          nickname={getDiary.nickname}
-          writer={getDiary.writer}
-          title={getDiary.title}
-          contents={getDiary.contents}
-          regdate={getDiary.regdate}
-          moddate={getDiary.moddate}
-        />
-      ) : (
-        ""
-      )}
+      <Calendar />
+      <DayDiary />
+      <Link to='diary/create'>글쓰러</Link>
     </>
   );
 }
