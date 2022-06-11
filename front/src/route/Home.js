@@ -3,14 +3,15 @@ import Calendar from "../components/Calendar";
 import DayDiary from "../components/DayDiary";
 // import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { oneDayDiary, userState } from "../recoil/auth";
+import { userState } from "../recoil/auth";
 import { Link } from "react-router-dom";
 import { date } from "../recoil/date";
+import { getDateDiary } from "../recoil/diary";
 
 function Home() {
   const getDate = useRecoilValue(date); //Calendar에서 받은 날짜값
   // const [getDiary, setDiary] = useState(); //달력에서 날짜 클릭 시 보여줄 당일 다이어리
-  const diaryData = useRecoilValue(oneDayDiary(getDate));
+  const diaryData = useRecoilValue(getDateDiary(getDate));
   const { id, email } = useRecoilValue(userState);
   console.log("로그인한 유저", id, email);
   console.log("diarySelector", diaryData);

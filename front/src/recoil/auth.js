@@ -1,4 +1,4 @@
-import { atom, selectorFamily } from "recoil";
+import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
@@ -25,31 +25,4 @@ export const userState = atom({
   key: "userState",
   default: { id: "", token: localStorage.getItem("ACCESS_TOKEN"), email: "" },
   effects_UNSTABLE: [persistAtom],
-});
-
-export const oneDayDiary = selectorFamily({
-  key: "diary/dateread",
-  get: date => async () => {
-    const accessToken = localStorage.getItem("ACCESS_TOKEN");
-
-    let headers = new Headers({
-      "Content-Type": "application/json",
-    });
-
-    let options = {
-      method: "get",
-      headers: headers,
-    };
-
-    if (accessToken && accessToken !== null) {
-      headers.append("Authorization", "Bearer " + accessToken);
-    }
-
-    return fetch(
-      `http://localhost:8080/uriharu/diary/dateread/${date}`,
-      options
-    )
-      .then(res => res.json())
-      .then(data => data.data);
-  },
 });
