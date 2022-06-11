@@ -21,7 +21,7 @@ function MyPage() {
     <>
       <h1>MaPage</h1>
       {diary.map((list, idx) => (
-        <div className="harucard" key={idx}>
+        <div className='harucard' key={idx}>
           <p>제목</p>
           {list.title}
           <p>글쓴이</p>
