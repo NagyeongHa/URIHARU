@@ -1,15 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { call } from "../service/ApiService";
 import { Link, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { getDno } from "../recoil/diary";
 
 function DiaryModify() {
   const navigate = useNavigate();
+  const dno = useRecoilValue(getDno);
   const [diary, setDiary] = useState({
     title: "",
     contents: "",
+    writer: "",
   });
-  const test = new Date();
-  console.log(test);
+
+  console.log("dno", dno, "diaryData", diary);
+
   //다이어리 글 하루치 불러오기
   useEffect(() => {
     const getOneDayDiary = () => {
@@ -28,7 +33,7 @@ function DiaryModify() {
         headers.append("Authorization", "Bearer " + accessToken);
       }
 
-      return fetch("http://localhost:8080/uriharu/diary/read/14", options)
+      return fetch(`http://localhost:8080/uriharu/diary/read/${dno}`, options)
         .then(res => res.json())
         .then(data => setDiary(data)); //diary에 저장
     };
@@ -37,14 +42,17 @@ function DiaryModify() {
   }, []);
 
   //제목, 작성자, 내용 onChange로 받아서 diary에 저장
-  const onChangeDiryInfo = e => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    setDiary({
-      ...diary,
-      [name]: value,
-    });
-  };
+  const onChangeDiryInfo = useCallback(
+    e => {
+      const { name, value } = e.target;
+      console.log(diary);
+      setDiary({
+        ...diary,
+        [name]: value,
+      });
+    },
+    [diary]
+  );
 
   //다이어리 수정 API
   const modify = diaryDTO => {
@@ -54,12 +62,12 @@ function DiaryModify() {
     });
   };
 
-  //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 비동기처리
+  //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
   const onButtonClick = () => {
     modify(diary);
   };
 
-  console.log("prev", diary);
+  console.log("diary", diary);
   return (
     <>
       <div>
@@ -70,9 +78,6 @@ function DiaryModify() {
           value={diary.title}
           onChange={onChangeDiryInfo}
         />
-      </div>
-      <div>
-        <span> 날짜</span>
       </div>
       <div>
         <span>내용</span>
