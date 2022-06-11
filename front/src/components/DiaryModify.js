@@ -39,7 +39,7 @@ function DiaryModify() {
     };
 
     getOneDayDiary();
-  }, []);
+  }, [dno]);
 
   //제목, 작성자, 내용 onChange로 받아서 diary에 저장
   const onChangeDiryInfo = useCallback(

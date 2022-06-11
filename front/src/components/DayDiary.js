@@ -1,23 +1,52 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/auth";
-import { date } from "../recoil/date";
-import { getDateDiary, getDno } from "../recoil/diary";
+//import { date } from "../recoil/date";
+import { getDno } from "../recoil/diary";
 
-function DayDiary() {
+function DayDiary({ dateTest }) {
   const navigate = useNavigate();
-  const calendarData = useRecoilValue(date);
-  const diary = useRecoilValue(getDateDiary(calendarData));
+  //const calendarData = useRecoilValue(date);
+  // const diary = useRecoilValue(getDateDiary(calendarData));
   const { id } = useRecoilValue(userState);
   const setDno = useSetRecoilState(getDno);
-
+  const [diary, setDiary] = useState({});
+  console.log("클릭한 날짜", dateTest);
   //수정화면으로
   const goModify = dno => {
     setDno(dno);
     navigate(`/diary/modify`);
   };
 
+  useEffect(() => {
+    const getDateDiary = () => {
+      const accessToken = localStorage.getItem("ACCESS_TOKEN");
+
+      let headers = new Headers({
+        "Content-Type": "application/json",
+      });
+
+      let options = {
+        method: "get",
+        headers: headers,
+      };
+
+      if (accessToken && accessToken !== null) {
+        headers.append("Authorization", "Bearer " + accessToken);
+      }
+
+      return fetch(
+        `http://localhost:8080/uriharu/diary/dateread/${dateTest}`,
+        options
+      )
+        .then(res => res.json())
+        .then(data => setDiary(data.data));
+    };
+
+    getDateDiary();
+  }, [dateTest]);
   return (
     <>
       <Diary>

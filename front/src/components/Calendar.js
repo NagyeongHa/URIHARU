@@ -4,23 +4,13 @@ import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import { Container } from "../styles/GlobalStyle";
 import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
-import { date } from "../recoil/date";
-import { useState } from "react";
+// import { useSetRecoilState } from "recoil";
+// import { date } from "../recoil/date";
+import { useEffect, useState } from "react";
 
-const Calendar = () => {
+const Calendar = ({ showClickedDate }) => {
   const [startDate, setStartDate] = useState(new Date());
-  const setDate = useSetRecoilState(date);
-
-  const handlerOnChange = date => {
-    setStartDate(date);
-    setDate(dateToStringText(startDate));
-  };
-
-  // //클릭한 날짜값을 스트링으로 변환 후  Home의 onclick이벤트 실행
-  // useEffect(() => {
-  //   showClickedDate(dateToStringText(startDate));
-  // }, [showClickedDate, startDate]);
+  //const setDate = useSetRecoilState(date); //리코일에 날짜값 저장
 
   //선택한 달력 날짜 값을 연-월-일 형태로 변환
   const dateToStringText = date => {
@@ -32,6 +22,18 @@ const Calendar = () => {
       date.getDate().toString().padStart(2, "0")
     );
   };
+
+  console.log("startDate", startDate);
+  const handlerOnChange = date => {
+    // setDate(dateToStringText(startDate));
+    setStartDate(date);
+    console.log("캘린더 date", date);
+  };
+
+  //클릭한 날짜값을 스트링으로 변환 후  Home의 onclick이벤트 실행
+  useEffect(() => {
+    showClickedDate(dateToStringText(startDate));
+  }, [showClickedDate, startDate]);
 
   return (
     <CalendarContent>
