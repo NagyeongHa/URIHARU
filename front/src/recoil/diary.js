@@ -57,31 +57,6 @@ export const getDno = atom({
   default: "",
 });
 
-//dno별 다이어리 들고오기
-// export const getDnoDiary = selectorFamily({
-//   key: "diary/dnoread",
-//   get: dno => async () => {
-//     const accessToken = localStorage.getItem("ACCESS_TOKEN");
-
-//     let headers = new Headers({
-//       "Content-Type": "application/json",
-//     });
-
-//     let options = {
-//       method: "get",
-//       headers: headers,
-//     };
-
-//     if (accessToken && accessToken !== null) {
-//       headers.append("Authorization", "Bearer " + accessToken);
-//     }
-
-//     return fetch(`http://localhost:8080/uriharu/diary/read/${dno}`, options)
-//       .then(res => res.json())
-//       .then(data => data.data);
-//   },
-// });
-
 export const getDnoDiary = selector({
   key: "diaty/dnoread",
   get: async ({ get }) => {
@@ -113,7 +88,7 @@ export const getDnoDiary = selector({
     }
   },
   cachePolicy_UNSTABLE: {
-    //   // Only store the most recent set of dependencies and their values
+    // Only store the most recent set of dependencies and their values
     eviction: "most-recent",
   },
 });

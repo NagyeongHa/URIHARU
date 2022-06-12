@@ -19,17 +19,17 @@ function DayDiary() {
 
   console.log("daydiary", diary);
 
+  //삭제 버튼 누를 시
+  const deleteDiaryOnclick = () => {
+    deleteDiary(diary[0]);
+  };
+
   //다이어리 삭제
   const deleteDiary = diaryDTO => {
     call("/diary/remove", "DELETE", diaryDTO).then(response => {
       console.log(response);
       navigate("/");
     });
-  };
-
-  //삭제 버튼 누를 시
-  const deleteDiaryOnclick = () => {
-    deleteDiary(diary);
   };
 
   return (

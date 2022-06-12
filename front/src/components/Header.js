@@ -1,4 +1,3 @@
-// import logo from "../assets/icon/logo.png";
 import { Link } from "react-router-dom";
 import { signout } from "../service/ApiService";
 //import { isAuth } from "../service/ApiService";
@@ -7,11 +6,8 @@ import { userState } from "../recoil/auth";
 import styled from "styled-components";
 
 function Header() {
-  //const isLogin = isAuth();
-  // const email = useRecoilValue(userEmailState);
-  //console.log(email);
   const { token, email } = useRecoilValue(userState);
-  console.log("idddddddddddd", email);
+  console.log("헤더의 email", email);
   return (
     <Container>
       <StyledLink to='/'>

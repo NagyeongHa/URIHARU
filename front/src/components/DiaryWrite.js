@@ -37,7 +37,6 @@ function DiaryEdit() {
   const onButtonClick = () => {
     create(diary);
   };
-  //내용가져오는 api를 가져와서 그건 view state에 담아서 아이디가 있으면 viewstate 볼 수 있게?
 
   return (
     <>

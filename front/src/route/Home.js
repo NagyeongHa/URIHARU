@@ -1,18 +1,8 @@
-// import Header from "../components/Header";
 import Calendar from "../components/Calendar";
 import DayDiary from "../components/DayDiary";
-import { useRecoilValue } from "recoil";
-import { userState } from "../recoil/auth";
 import { Link } from "react-router-dom";
-import { getDateDiary } from "../recoil/diary";
 
 function Home() {
-  const diaryData = useRecoilValue(getDateDiary); // 날짜별 다이어리 가져오기
-  const { id, email } = useRecoilValue(userState);
-
-  console.log("로그인한 유저", id, email);
-  console.log("home diary", diaryData);
-
   {
     /*
   diary의 아이디와 로그인 유저의 아이디 값 O / 글 작성 X => 글 작성 

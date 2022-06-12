@@ -7,9 +7,6 @@ import { userState } from "../recoil/auth";
 
 function Login() {
   const navigate = useNavigate();
-  // const setUserEmailState = useSetRecoilState(userEmailState);
-  // const setUserIdState = useSetRecoilState(userIdState);
-  // const setUserTokenState = useSetRecoilState(userTokenState);
   const setUser = useSetRecoilState(userState);
 
   const handleLogin = e => {
@@ -22,8 +19,6 @@ function Login() {
       if (response.token) {
         //로컬스토리지에 토큰 저장
         localStorage.setItem("ACCESS_TOKEN", response.token);
-        // setUserTokenState(response.token);
-        // setUserEmailState(response.email);
         setUser({
           id: response.id,
           email: response.email,
