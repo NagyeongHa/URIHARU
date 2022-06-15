@@ -3,7 +3,6 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { date } from "../recoil/diary";
 import { call } from "../service/ApiService";
-//import "../styles/DiaryWrite.css";
 
 function DiaryEdit() {
   const yyyymmdd = useRecoilValue(date);
@@ -17,7 +16,6 @@ function DiaryEdit() {
   const onChangeDiryInfo = useCallback(
     e => {
       const { name, value } = e.target;
-      console.log(diary);
       setDiary({
         ...diary,
         [name]: value,
@@ -36,6 +34,15 @@ function DiaryEdit() {
 
   //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
   const onButtonClick = () => {
+    //유효성 테스트
+    if (diary.title === "") {
+      alert("제목을 입력해 주세요");
+      return;
+    }
+    if (diary.contents === "") {
+      alert("내용을 입력해 주세요");
+      return;
+    }
     create(diary);
   };
 

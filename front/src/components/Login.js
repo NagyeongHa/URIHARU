@@ -4,37 +4,101 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../recoil/auth";
+import { useCallback, useEffect, useState } from "react";
 
 function Login() {
   const navigate = useNavigate();
   const setUser = useSetRecoilState(userState);
+  const [getEmailPw, setEmailPw] = useState({ email: "", password: "" }); //아이디비밀번호 Onchange
+  const [IsIdPwMatch, setIsIdPwMatch] = useState({ text: "", color: false }); //유효성검사용 텍스트 및 텍스트 색깔
 
+  //아이디&비밀번호 onChange
+  const handlerOnChange = useCallback(
+    e => {
+      const { name, value } = e.target;
+      setEmailPw({
+        ...getEmailPw,
+        [name]: value,
+      });
+    },
+    [getEmailPw]
+  );
+
+  //로그인 버튼 눌리기전 유효성 검사
+  useEffect(() => {
+    //아이디나 비밀번호 입력안됐을 때
+    if (getEmailPw.email === "" || getEmailPw.password === "") {
+      setIsIdPwMatch({
+        text: "아이디와 비밀번호를 입력해주세요.",
+        color: false,
+      });
+      return;
+    }
+    //아이디, 비밀번호 입력했을 때
+    setIsIdPwMatch({
+      text: "",
+    });
+  }, [getEmailPw]);
+
+  //로그인버튼 눌릴 때
   const handleLogin = e => {
     e.preventDefault();
-    const data = new FormData(e.target);
-    const email = data.get("email");
-    const password = data.get("password");
+
     //apiserver의 signin 함수
-    signin({ email: email, password: password }).then(response => {
-      if (response.token) {
-        //로컬스토리지에 토큰 저장
-        localStorage.setItem("ACCESS_TOKEN", response.token);
-        setUser({
-          id: response.id,
-          email: response.email,
-          token: response.token,
-        });
-        //토큰 있으면 메인 화면으로 이동
-        navigate("/");
-      }
-    });
+    signin({ email: getEmailPw.email, password: getEmailPw.password })
+      .then(response => {
+        if (response.token) {
+          //로컬스토리지에 토큰 저장
+          localStorage.setItem("ACCESS_TOKEN", response.token);
+          setUser({
+            id: response.id,
+            email: response.email,
+            token: response.token,
+          });
+          //토큰 있으면 메인 화면으로 이동
+          navigate("/");
+        }
+      })
+      .catch(err => {
+        //로그인버튼 눌렸을 때 빈값일 시
+        if (getEmailPw.email === "" || getEmailPw.password === "") {
+          setIsIdPwMatch({
+            text: "아이디와 비밀번호를 입력해주세요.",
+            color: false,
+          });
+          return;
+        }
+        //아이디와 비밀번호가 일치하지 않을 때
+        if (err.error === "Login failed.") {
+          setIsIdPwMatch({
+            text: "아이디와 비밀번호가 일치하지 않습니다",
+            color: true,
+          });
+        }
+      });
   };
+
   return (
     <Container>
       <form onSubmit={handleLogin}>
         <Title>Login</Title>
-        <Input type='text' name='email' placeholder='아이디' />
-        <Input type='password' name='password' placeholder='비밀번호' />
+        <Input
+          type='text'
+          name='email'
+          placeholder='아이디'
+          onChange={handlerOnChange}
+        />
+        <Input
+          type='password'
+          name='password'
+          placeholder='비밀번호'
+          onChange={handlerOnChange}
+        />
+        <IsMatch
+          style={{ color: IsIdPwMatch.color ? " red" : "cornflowerblue" }}
+        >
+          {IsIdPwMatch.text}
+        </IsMatch>
         <Button type='submit'>로그인</Button>
         <StyledLink to='/signup'>
           <p>계정이 없으신가요? 회원가입 하기</p>
@@ -56,5 +120,12 @@ const StyledLink = styled(Link)`
 const Title = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
+  margin-bottom: 0.9rem;
 `;
+
+const IsMatch = styled.p`
+  font-size: 0.9rem;
+  margin: 0.2rem 0;
+`;
+
 export default Login;

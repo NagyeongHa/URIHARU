@@ -8,7 +8,6 @@ function DiaryModify() {
   const navigate = useNavigate();
   const DnoDiary = useRecoilValue(getDnoDiary); //dno별 다이어리 가져오기
   const [diary, setDiary] = useState({
-    //
     title: "",
     contents: "",
     writer: "",
@@ -43,6 +42,15 @@ function DiaryModify() {
 
   //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
   const onButtonClick = () => {
+    //유효성 테스트
+    if (diary.title === "") {
+      alert("제목을 입력해 주세요");
+      return;
+    }
+    if (diary.contents === "") {
+      alert("내용을 입력해 주세요");
+      return;
+    }
     modify(diary);
   };
 
