@@ -6,15 +6,17 @@ import { userState } from "../recoil/auth";
 import styled from "styled-components";
 
 function Header() {
-  const { token, email } = useRecoilValue(userState);
-  console.log("헤더의 email", email);
+  const { email } = useRecoilValue(userState);
+
+  //마이페이지는 header 숨기기
+  // if (window.location.pathname === "/mypage") return null;
   return (
     <Container>
       <StyledLink to='/'>
         {/* <img src={logo} alt='' style={{ width: "2.2rem", padding: "0.5rem" }} /> */}
         <LogoName>URI,HARU</LogoName>
       </StyledLink>
-      {token ? (
+      {email ? (
         <Wrapper>
           <Link to='/mypage'>
             <Button>{email}님</Button>

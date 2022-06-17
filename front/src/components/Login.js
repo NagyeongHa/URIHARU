@@ -53,7 +53,6 @@ function Login() {
           setUser({
             id: response.id,
             email: response.email,
-            token: response.token,
           });
           //토큰 있으면 메인 화면으로 이동
           navigate("/");

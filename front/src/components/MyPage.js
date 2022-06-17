@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import styled from "styled-components";
+import { userState } from "../recoil/auth";
 import { call } from "../service/ApiService";
-import "../styles/MyPage.css";
+
+import Accordion from "./Accordion";
 
 function MyPage() {
   const [diary, setDiary] = useState([]);
+  const { email } = useRecoilValue(userState);
 
   //내가 쓴 글 가져오기
   const getMyDiary = () => {
@@ -19,20 +24,32 @@ function MyPage() {
 
   return (
     <>
-      <h1>MaPage</h1>
+      <Title>
+        {diary.length > 0
+          ? `${email} 님의 글 모아보기`
+          : `작성된 글이 없습니다.`}
+      </Title>
+
       {diary.map((list, idx) => (
-        <div className='harucard' key={idx}>
-          <p>제목</p>
-          {list.title}
-          <p>글쓴이</p>
-          {list.nickname}
-          <p>내용</p>
-          {list.contents}
-        </div>
+        <Accordion
+          idx={idx + 1}
+          title={list.title}
+          contents={list.contents}
+          yyyymmdd={list.yyyymmdd}
+          key={idx}
+          dno={list.dno}
+        />
       ))}
       {/* {diary.contents}
       {diary.writer} */}
     </>
   );
 }
+
+const Title = styled.div`
+  text-align: center;
+  font-size: 1.1rem;
+  margin: 1.8rem auto;
+`;
+
 export default MyPage;
