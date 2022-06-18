@@ -8,22 +8,25 @@ import styled from "styled-components";
 function Header() {
   const { email } = useRecoilValue(userState);
 
-  //마이페이지는 header 숨기기
-  // if (window.location.pathname === "/mypage") return null;
   return (
     <Container>
-      <StyledLink to='/'>
-        {/* <img src={logo} alt='' style={{ width: "2.2rem", padding: "0.5rem" }} /> */}
-        <LogoName>URI,HARU</LogoName>
-      </StyledLink>
       {email ? (
-        <Wrapper>
-          <Link to='/mypage'>
-            <Button>{email}님</Button>
-          </Link>
-          <Button onClick={signout}>로그아웃</Button>
-        </Wrapper>
-      ) : null}
+        <>
+          <StyledLink to='/'>
+            <Span>URI,HARU</Span>
+          </StyledLink>
+          <Wrapper>
+            <Link to='/mypage'>
+              <Button>{email}님</Button>
+            </Link>
+            <Button onClick={signout}>로그아웃</Button>
+          </Wrapper>
+        </>
+      ) : (
+        <>
+          <Span>URI,HARU</Span>
+        </>
+      )}
     </Container>
   );
 }
@@ -31,9 +34,14 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   margin-left: 0.6rem;
 `;
-const LogoName = styled.span`
+
+const Span = styled.span`
   color: black;
   font-weight: bold;
+  &:last-child {
+    width: 100vw;
+    text-align: center;
+  }
 `;
 
 const Container = styled.div`
@@ -42,6 +50,7 @@ const Container = styled.div`
   border-bottom: 1px solid gray;
   display: flex;
   margin: 0;
+  padding: 0;
   align-items: center;
   justify-content: space-between;
   & > span {

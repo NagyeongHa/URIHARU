@@ -1,5 +1,3 @@
-// import { useSetRecoilState } from "recoil";
-// import { userEmailState } from "../atoms/auth";
 import { API_BASE_URL } from "../config";
 
 const ACCESS_TOKEN = "ACCESS_TOKEN";
@@ -57,17 +55,6 @@ export const checkedId = userDTO => {
 //로그인
 export const signin = userDTO => {
   return call("/auth/signin", "POST", userDTO);
-  // .then(response => {
-  //   if (response.token) {
-  //     //console.log("뭐가들었나", response);
-  //     //로컬스토리지에 토큰 저장
-  //     localStorage.setItem(ACCESS_TOKEN, response.token);
-  //     localStorage.setItem("ID", response.id);
-  //     setUserEmailState(response.email);
-  //     //토큰 있으면 메인 화면으로 이동
-  //     //window.location.href = "/";
-  //   }
-  // });
 };
 
 //로그아웃

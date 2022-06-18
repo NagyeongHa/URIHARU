@@ -34,45 +34,37 @@ function DayDiary() {
 
   return (
     <>
-      <Diary>
-        <>
-          {diary ? (
-            diary.map((list, idx) => (
-              <div key={idx}>
-                <Card>
-                  <Input value={list.title} readOnly/>
-                  <DateofDay value={list.yyyymmdd} readOnly/>
-                  <hr/>
-                  <Input value={list.nickname} readOnly/>
-                  <hr/>
-                  <Contents>{list.contents}</Contents>
-                  </Card>
-                  {list.writer === id ? (
-                    <div>
-                      <Buttons>
-                      <Button onClick={() => goModifyOnClick(list.dno)}>
-                        수정하기
-                      </Button>
-                      <Button onClick={deleteDiaryOnclick}>삭제하기</Button>
-                      </Buttons>
-                    </div>
-                  ) : (
-                    ""
-                  )}
+      {diary.length > 0 ? (
+        diary.map((list, idx) => (
+          <div key={idx}>
+            <Card>
+              <Input value={list.title} readOnly />
+              <DateofDay value={list.yyyymmdd} readOnly />
+              <hr />
+              <Input value={list.nickname} readOnly />
+              <hr />
+              <Contents>{list.contents}</Contents>
+            </Card>
+            {list.writer === id ? (
+              <div>
+                <ButtonWrapper>
+                  <Button onClick={() => goModifyOnClick(list.dno)}>
+                    수정하기
+                  </Button>
+                  <Button onClick={deleteDiaryOnclick}>삭제하기</Button>
+                </ButtonWrapper>
               </div>
-            ))
-          ) : (
-            <p>작성된 일기가 없습니다</p>
-          )}
-        </>
-      </Diary>
+            ) : (
+              ""
+            )}
+          </div>
+        ))
+      ) : (
+        <P>작성된 일기가 없습니다</P>
+      )}
     </>
   );
 }
-
-const Diary = styled.div`
- 
-`;
 
 // const Button = styled.button`
 //   border: none;
@@ -82,34 +74,40 @@ const Diary = styled.div`
 // `;
 const Input = styled.input`
   border: none;
-  width:90%;
+  width: 90%;
   text-align: center;
   font-size: 1rem;
   padding: 0.3rem 0.6rem;
   border-radius: 3rem;
-  font-size:17px;
-  display:inline;
+  font-size: 17px;
+  display: inline;
 `;
-const Contents = styled.p`
 
-`;
-const DateofDay = styled.input`
-border: none;
-text-align: center;
-display:inline;
-width:97%;
-heigth:100%;
-color:grey;
-display:inline;
-
-`;
 const Card = styled.div`
-border:1px solid grey;
-border-radius:10px;
-margin-top:10%;
-text-align: center;
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin-top: 10%;
+  text-align: center;
 `;
 
+const Contents = styled.p``;
+
+const DateofDay = styled.input`
+  border: none;
+  text-align: center;
+  display: inline;
+  width: 97%;
+  height: 100%;
+  color: grey;
+  display: inline;
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 30px;
+  text-align: center;
+`;
 
 const Button = styled.button`
   border-radius: 0.3rem;
@@ -119,16 +117,12 @@ const Button = styled.button`
   margin: 0 auto;
   touch-action: auto;
   background-color: rgb(253, 245, 232);
-  margin-bottom:6px;
-  margin-right:6px;
-
+  margin: 0.5rem 0.7rem;
+  font-size: 0.9rem;
 `;
 
-const Buttons = styled.div`
-  width:100%;
-  margin: 0 auto;
-  margin-top:30px;
-  margin-left:20%;
+const P = styled.p`
+  text-align: center;
+  margin-top: 3rem;
 `;
-
 export default DayDiary;
