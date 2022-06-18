@@ -1,7 +1,7 @@
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
-import { Container } from "../styles/GlobalStyle";
+import { GlobalContainer } from "../styles/GlobalStyle";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { date } from "../recoil/diary";
@@ -29,7 +29,7 @@ const Calendar = () => {
   };
 
   return (
-    <CalendarContent>
+    <Container>
       <DatePicker
         selected={startDate}
         onChange={date => handlerOnChange(date)}
@@ -39,11 +39,11 @@ const Calendar = () => {
         //dateFormat='YY-MM-DD'
         //popperPlacement='auto' //팝업 가운데로
       />
-    </CalendarContent>
+    </Container>
   );
 };
 
-const CalendarContent = styled(Container)`
+const Container = styled(GlobalContainer)`
   height: auto;
   margin-top: 2.5rem;
 `;

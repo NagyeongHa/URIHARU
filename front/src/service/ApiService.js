@@ -49,6 +49,11 @@ export const signup = userDTO => {
   return call("/auth/signup", "POST", userDTO);
 };
 
+//아이디 중복확인
+export const checkedId = userDTO => {
+  return call("/auth/checkid", "POST", userDTO);
+};
+
 //로그인
 export const signin = userDTO => {
   return call("/auth/signin", "POST", userDTO);
@@ -68,18 +73,17 @@ export const signin = userDTO => {
 //로그아웃
 export const signout = () => {
   localStorage.removeItem(ACCESS_TOKEN);
-  localStorage.removeItem("ID");
   localStorage.removeItem("recoil-persist");
   window.location.href = "/login";
 };
 
 //현재 로그인 유저 아이디 가져오기
-export const isAuth = () => {
-  if (localStorage.getItem("ID")) {
-    return localStorage.getItem("ID");
-  }
-  return null;
-};
+// export const isAuth = () => {
+//   if (localStorage.getItem("ID")) {
+//     return localStorage.getItem("ID");
+//   }
+//   return null;
+// };
 
 // context root
 

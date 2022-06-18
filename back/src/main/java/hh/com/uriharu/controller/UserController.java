@@ -83,7 +83,7 @@ public class UserController {
         
     }
 
-    @GetMapping(value="checkid")
+    @PostMapping(value="checkid")
     public boolean checkDuplicateId(@RequestBody UserDTO userDTO) {
         log.info("email:",userDTO.getEmail());
         return userService.checkingId(userDTO.getEmail());

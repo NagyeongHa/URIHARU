@@ -1,9 +1,8 @@
 import styled from "styled-components";
-export const Input = styled.input`
-  width: 13rem;
+export const GlobalInput = styled.input`
   height: 1.5rem;
   padding: 0.3rem;
-  margin: 0.3rem;
+  margin: 0.4rem;
   border-radius: 0.2rem;
   border: 0.5px solid gray;
   &:focus {
@@ -11,18 +10,15 @@ export const Input = styled.input`
   }
 `;
 
-export const Container = styled.div`
+export const GlobalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 97vh;
-  margin: 0;
+  margin: 0 auto;
   text-align: center;
 `;
 
-export const Button = styled.button`
-  width: 13.8rem;
+export const GlobalButton = styled.button`
   height: 2.5rem;
   padding: 0.3rem;
   margin: 0.3rem;
