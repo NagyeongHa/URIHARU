@@ -1,3 +1,5 @@
+// import { useSetRecoilState } from "recoil";
+// import { userEmailState } from "../atoms/auth";
 import { API_BASE_URL } from "../config";
 
 const ACCESS_TOKEN = "ACCESS_TOKEN";
@@ -49,25 +51,28 @@ export const signup = userDTO => {
 
 //로그인
 export const signin = userDTO => {
-  return call("/auth/signin", "POST", userDTO).then(response => {
-    if (response.token) {
-      console.log("뭐가들었나", response);
-      //로컬스토리지에 토큰 저장
-      localStorage.setItem(ACCESS_TOKEN, response.token);
-      localStorage.setItem("ID", response.id);
-      //토큰 있으면 메인 화면으로 이동
-      window.location.href = "/";
-    }
-  });
+  return call("/auth/signin", "POST", userDTO);
+  // .then(response => {
+  //   if (response.token) {
+  //     //console.log("뭐가들었나", response);
+  //     //로컬스토리지에 토큰 저장
+  //     localStorage.setItem(ACCESS_TOKEN, response.token);
+  //     localStorage.setItem("ID", response.id);
+  //     setUserEmailState(response.email);
+  //     //토큰 있으면 메인 화면으로 이동
+  //     //window.location.href = "/";
+  //   }
+  // });
 };
 
 //로그아웃
 export const signout = () => {
-  localStorage.setItem(ACCESS_TOKEN, null);
-  localStorage.setItem("ID", null);
+  localStorage.removeItem(ACCESS_TOKEN);
+  localStorage.removeItem("recoil-persist");
   window.location.href = "/login";
 };
 
+<<<<<<< HEAD
 //현재 로그인 유저 아이디 가져오기
 export const getCurrentUser = () => {
   if (localStorage.getItem("ID")) {
@@ -129,6 +134,8 @@ export const getOneDayDiary = () => {
   // .then(data => console.log(data));
 };
 
+=======
+>>>>>>> a7b5b50a54f64142b89d4cd2c459c2b2fa6ef460
 // context root
 
 // localhost:8080/uriharu

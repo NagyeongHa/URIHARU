@@ -21,6 +21,7 @@ function MyPage() {
     <>
       <h1>MaPage</h1>
       {diary.map((list, idx) => (
+<<<<<<< HEAD
         <div className="harucard" key={idx}>
           <p>제목</p>
           {list.title}
@@ -29,9 +30,17 @@ function MyPage() {
           <p>내용</p>
           {list.contents}
         </div>
+=======
+        <Accordion
+          idx={idx + 1}
+          title={list.title}
+          contents={list.contents}
+          yyyymmdd={list.yyyymmdd}
+          key={idx}
+          dno={list.dno}
+        />
+>>>>>>> a7b5b50a54f64142b89d4cd2c459c2b2fa6ef460
       ))}
-      {/* {diary.contents}
-      {diary.writer} */}
     </>
   );
 }
