@@ -23,6 +23,6 @@ export const userTokenState = atom({
 
 export const userState = atom({
   key: "userState",
-  default: { id: "", token: localStorage.getItem("ACCESS_TOKEN"), email: "" },
+  default: { id: "", email: "" },
   effects_UNSTABLE: [persistAtom],
 });

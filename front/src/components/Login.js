@@ -1,9 +1,4 @@
 import { signin } from "../service/ApiService";
-<<<<<<< HEAD
-import { Link } from "react-router-dom";
-
-function Login() {
-=======
 import { Input, Container, Button } from "../styles/GlobalStyle";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -46,16 +41,10 @@ function Login() {
   }, [getEmailPw]);
 
   //로그인버튼 눌릴 때
->>>>>>> a7b5b50a54f64142b89d4cd2c459c2b2fa6ef460
   const handleLogin = e => {
     e.preventDefault();
-    const data = new FormData(e.target);
-    const email = data.get("email");
-    const password = data.get("password");
+
     //apiserver의 signin 함수
-<<<<<<< HEAD
-    signin({ email: email, password: password });
-=======
     signin({ email: getEmailPw.email, password: getEmailPw.password })
       .then(response => {
         if (response.token) {
@@ -86,17 +75,11 @@ function Login() {
           });
         }
       });
->>>>>>> a7b5b50a54f64142b89d4cd2c459c2b2fa6ef460
   };
 
   return (
     <Container>
       <form onSubmit={handleLogin}>
-<<<<<<< HEAD
-        <input type='text' name='email' placeholder='아이디' />
-        <input type='password' name='password' placeholder='비밀번호' />
-        <button type='submit'>로그인</button>
-=======
         <Title>Login</Title>
         <Input
           type='text'
@@ -119,13 +102,10 @@ function Login() {
         <StyledLink to='/signup'>
           <p>계정이 없으신가요? 회원가입 하기</p>
         </StyledLink>
->>>>>>> a7b5b50a54f64142b89d4cd2c459c2b2fa6ef460
       </form>
     </Container>
   );
 }
-<<<<<<< HEAD
-=======
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -147,5 +127,4 @@ const IsMatch = styled.p`
   margin: 0.2rem 0;
 `;
 
->>>>>>> a7b5b50a54f64142b89d4cd2c459c2b2fa6ef460
 export default Login;

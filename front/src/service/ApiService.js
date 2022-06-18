@@ -68,74 +68,19 @@ export const signin = userDTO => {
 //로그아웃
 export const signout = () => {
   localStorage.removeItem(ACCESS_TOKEN);
+  localStorage.removeItem("ID");
   localStorage.removeItem("recoil-persist");
   window.location.href = "/login";
 };
 
-<<<<<<< HEAD
 //현재 로그인 유저 아이디 가져오기
-export const getCurrentUser = () => {
+export const isAuth = () => {
   if (localStorage.getItem("ID")) {
     return localStorage.getItem("ID");
-  } else {
-    console.log("로그인 아이디 없음");
   }
+  return null;
 };
 
-//Get
-// export const callGet = (api, method) => {
-//   const accessToken = localStorage.getItem("ACCESS_TOKEN");
-
-//   let headers = new Headers({
-//     "Content-Type": "application/json",
-//   });
-
-//   let options = {
-//     method: method,
-//     url: API_BASE_URL + api,
-//     headers: headers,
-//   };
-
-//   if (accessToken && accessToken !== null) {
-//     headers.append("Authorization", "Bearer " + accessToken);
-//   }
-
-//   return fetch(options.url, options)
-//     .then(res => res.stringfy(res))
-//     .catch(error => {
-//       console.log(error.status);
-//       // if (error.status === 403) {
-//       //   window.location.href = "/login";
-//       // }
-//       return Promise.reject(error);
-//     });
-// };
-
-//Home > DayDiay 메인의 하루 다이어리 가져오기
-export const getOneDayDiary = () => {
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-
-  let headers = new Headers({
-    "Content-Type": "application/json",
-  });
-
-  let options = {
-    method: "get",
-    headers: headers,
-  };
-
-  if (accessToken && accessToken !== null) {
-    headers.append("Authorization", "Bearer " + accessToken);
-  }
-
-  return fetch("http://localhost:8080/uriharu/diary/read/4", options).then(
-    res => res.json()
-  );
-  // .then(data => console.log(data));
-};
-
-=======
->>>>>>> a7b5b50a54f64142b89d4cd2c459c2b2fa6ef460
 // context root
 
 // localhost:8080/uriharu
@@ -149,6 +94,8 @@ export const getOneDayDiary = () => {
 // /diary/create-다이어리 일기 추가 post
 
 // /diary/modify- 다이어리 일기 수정 put
+
+// /diary/remove- 다이어리 일기 삭제 delete
 
 // /diary/myread-다이어리 읽기(내가 쓴 일기 리스트) get
 

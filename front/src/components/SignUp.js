@@ -51,8 +51,6 @@ function SignUp() {
     </Container>
   );
 }
-<<<<<<< HEAD
-=======
 
 const Title = styled.div`
   font-size: 1.2rem;
@@ -75,5 +73,4 @@ const Label = styled.p`
   padding: 0.1rem;
   margin-left: 0.3rem;
 `;
->>>>>>> a7b5b50a54f64142b89d4cd2c459c2b2fa6ef460
 export default SignUp;

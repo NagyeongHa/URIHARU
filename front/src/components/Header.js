@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import "../styles/Header.css";
-import logo from "../assets/icon/logo.png";
-=======
->>>>>>> a7b5b50a54f64142b89d4cd2c459c2b2fa6ef460
 import { Link } from "react-router-dom";
 import { signout } from "../service/ApiService";
 //import { isAuth } from "../service/ApiService";
@@ -11,18 +6,6 @@ import { userState } from "../recoil/auth";
 import styled from "styled-components";
 
 function Header() {
-<<<<<<< HEAD
-  return (
-    <div className='header'>
-      <Link to='/'>
-        <img src={logo} alt='' style={{ width: "2.2rem", padding: "0.5rem" }} />
-      </Link>
-      <button onClick={signout}>로그아웃</button>
-      <Link to='/mypage'>
-        <button>My</button>
-      </Link>
-    </div>
-=======
   const { email } = useRecoilValue(userState);
 
   //마이페이지는 header 숨기기
@@ -42,7 +25,6 @@ function Header() {
         </Wrapper>
       ) : null}
     </Container>
->>>>>>> a7b5b50a54f64142b89d4cd2c459c2b2fa6ef460
   );
 }
 const StyledLink = styled(Link)`
