@@ -40,4 +40,9 @@ public class UserService {
         }
         return null;
     }
+
+    public boolean checkingId(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
 }
