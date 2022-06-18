@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { call } from "../service/ApiService";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 import { getDnoDiary } from "../recoil/diary";
 
 function DiaryModify() {
@@ -57,9 +58,10 @@ function DiaryModify() {
   console.log("diary", diary);
   return (
     <>
+    <Container>
       <div>
-        <span>제목</span>
-        <input
+        <Input
+        placeholder=" 제목을 입력해주세요"
           type='text'
           name='title'
           value={diary.title}
@@ -67,8 +69,8 @@ function DiaryModify() {
         />
       </div>
       <div>
-        <span>내용</span>
-        <textarea
+        <Textarea
+         placeholder="내용을 입력해주세요"
           type='text'
           name='contents'
           cols='30'
@@ -77,10 +79,59 @@ function DiaryModify() {
           onChange={onChangeDiryInfo}
         />
       </div>
-      <button onClick={onButtonClick}>수정</button>
-      <Link to={"/"}>취소</Link>
+      <Button onClick={onButtonClick}>수정</Button>
+      <Button><StyledLink to={"/"}>취소</StyledLink></Button>
+    </Container>
     </>
   );
 }
+const Input = styled.input`
+  border-radius: 0.3rem;
+  border: 1px solid gray;
+  height: 1.6rem;
+  width: 90%;
+  padding: 0.4rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+
+`;
+
+const Textarea = styled.textarea`
+  border-radius: 0.3rem;
+  border: 1px solid gray;
+  width: 90%;
+  padding: 0.4rem;
+  overflow: scroll;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.4rem;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  height: 93vh;
+  width: 100vw;
+  flex-direction: column;
+`;
+
+const Button = styled.button`
+  border-radius: 0.3rem;
+  border: none;
+  width: 75%;
+  padding: 10px;
+  margin: 0 auto;
+  touch-action: auto;
+  background-color: rgb(253, 245, 232);
+  margin-bottom:6px;
+`;
+
+const StyledLink = styled(Link)`
+
+text-decoration: none;
+color: black;
+`;
 
 export default DiaryModify;

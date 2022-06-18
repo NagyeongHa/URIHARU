@@ -1,10 +1,12 @@
 import { useCallback, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
 import { date } from "../recoil/diary";
 import { call } from "../service/ApiService";
 
 function DiaryEdit() {
+  const navigate = useNavigate();
   const yyyymmdd = useRecoilValue(date);
   const [diary, setDiary] = useState({
     title: "",
@@ -28,6 +30,8 @@ function DiaryEdit() {
   const create = diaryDTO => {
     call("/diary/create", "POST", diaryDTO).then(response => {
       console.log(response);
+      navigate("/");
+
       window.location.href = "/";
     });
   };
@@ -73,6 +77,8 @@ function DiaryEdit() {
         <Button onClick={onButtonClick} className='btn'>
           작성하기
         </Button>
+        <Button><StyledLink to={"/"}>취소</StyledLink></Button>
+
       </Container>
     </>
   );
@@ -86,6 +92,7 @@ const Input = styled.input`
   padding: 0.4rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
+
 `;
 
 const Textarea = styled.textarea`
@@ -97,6 +104,7 @@ const Textarea = styled.textarea`
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
   line-height: 1.4rem;
+
 `;
 
 const Container = styled.div`
@@ -117,5 +125,13 @@ const Button = styled.button`
   margin: 0 auto;
   touch-action: auto;
   background-color: rgb(253, 245, 232);
+  margin-bottom:6px;
+
+`;
+
+const StyledLink = styled(Link)`
+
+text-decoration: none;
+color: black;
 `;
 export default DiaryEdit;
