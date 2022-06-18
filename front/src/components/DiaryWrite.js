@@ -1,9 +1,16 @@
 import { useCallback, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { date } from "../recoil/diary";
 import { call } from "../service/ApiService";
 
 function DiaryEdit() {
-  const [diary, setDiary] = useState({ title: "", contents: "" });
+  const yyyymmdd = useRecoilValue(date);
+  const [diary, setDiary] = useState({
+    title: "",
+    contents: "",
+    yyyymmdd: yyyymmdd,
+  });
 
   //제목, 작성자, 내용 onChange로 받아서 diary에 저장
   const onChangeDiryInfo = useCallback(
@@ -25,7 +32,7 @@ function DiaryEdit() {
     });
   };
 
-  //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 비동기처리
+  //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
   const onButtonClick = () => {
     //유효성 테스트
     if (diary.title === "") {
