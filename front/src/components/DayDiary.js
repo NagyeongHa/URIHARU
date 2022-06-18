@@ -39,26 +39,26 @@ function DayDiary() {
           {diary ? (
             diary.map((list, idx) => (
               <div key={idx}>
-                <div>
-                  <p>제목</p>
-                  {list.title}
-                  <p>글쓴이</p>
-                  {list.nickname}
-                  <p>내용</p>
-                  {list.contents}
-                  <p>작성 날짜</p>
-                  {list.yyyymmdd}
+                <Card>
+                  <Input value={list.title} readOnly/>
+                  <DateofDay value={list.yyyymmdd} readOnly/>
+                  <hr/>
+                  <Input value={list.nickname} readOnly/>
+                  <hr/>
+                  <Contents>{list.contents}</Contents>
+                  </Card>
                   {list.writer === id ? (
                     <div>
+                      <Buttons>
                       <Button onClick={() => goModifyOnClick(list.dno)}>
                         수정하기
                       </Button>
                       <Button onClick={deleteDiaryOnclick}>삭제하기</Button>
+                      </Buttons>
                     </div>
                   ) : (
                     ""
                   )}
-                </div>
               </div>
             ))
           ) : (
@@ -71,13 +71,64 @@ function DayDiary() {
 }
 
 const Diary = styled.div`
-  text-align: center;
+ 
 `;
 
-const Button = styled.button`
+// const Button = styled.button`
+//   border: none;
+//   font-size: 1rem;
+//   padding: 0.3rem 0.6rem;
+//   border-radius: 3rem;
+// `;
+const Input = styled.input`
   border: none;
+  width:90%;
+  text-align: center;
   font-size: 1rem;
   padding: 0.3rem 0.6rem;
   border-radius: 3rem;
+  font-size:17px;
+  display:inline;
 `;
+const Contents = styled.p`
+
+`;
+const DateofDay = styled.input`
+border: none;
+text-align: center;
+display:inline;
+width:97%;
+heigth:100%;
+color:grey;
+display:inline;
+
+`;
+const Card = styled.div`
+border:1px solid grey;
+border-radius:10px;
+margin-top:10%;
+text-align: center;
+`;
+
+
+const Button = styled.button`
+  border-radius: 0.3rem;
+  border: none;
+  width: 30%;
+  padding: 10px;
+  margin: 0 auto;
+  touch-action: auto;
+  background-color: rgb(253, 245, 232);
+  margin-bottom:6px;
+  margin-right:6px;
+
+`;
+
+const Buttons = styled.div`
+  width:100%;
+  margin: 0 auto;
+  margin-top:30px;
+  margin-left:20%;
+`;
+
 export default DayDiary;
