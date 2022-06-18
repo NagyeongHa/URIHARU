@@ -1,21 +1,21 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import styled from "styled-components";
 import { call } from "../service/ApiService";
-import "../styles/DiaryWrite.css";
 
 function DiaryEdit() {
-  // const writer = match.params.id;
-  // console.log("writer", writer);
   const [diary, setDiary] = useState({ title: "", contents: "" });
 
   //제목, 작성자, 내용 onChange로 받아서 diary에 저장
-  const onChangeDiryInfo = e => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    setDiary({
-      ...diary,
-      [name]: value,
-    });
-  };
+  const onChangeDiryInfo = useCallback(
+    e => {
+      const { name, value } = e.target;
+      setDiary({
+        ...diary,
+        [name]: value,
+      });
+    },
+    [diary]
+  );
 
   //다이어리 추가 API (create)
   const create = diaryDTO => {
@@ -27,37 +27,88 @@ function DiaryEdit() {
 
   //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 비동기처리
   const onButtonClick = () => {
+    //유효성 테스트
+    if (diary.title === "") {
+      alert("제목을 입력해 주세요");
+      return;
+    }
+    if (diary.contents === "") {
+      alert("내용을 입력해 주세요");
+      return;
+    }
     create(diary);
   };
-  //내용가져오는 api를 가져와서 그건 view state에 담아서 아이디가 있으면 viewstate 볼 수 있게?
 
   return (
     <>
-    <div className="container">
-      <div >
-        <input className="titlebox" type='text' name='title' onChange={onChangeDiryInfo} placeholder="제목"/>
-      </div>
-      <div>
-        <input type='hidden' name='writer' onChange={onChangeDiryInfo} />
-      </div>
-      <div>
-        <input type='hidden' name='nickname' onChange={onChangeDiryInfo} />
-      </div>
-      <div>
-      </div>
-      <div>
-        <textarea className="contents" placeholder="내용"
-          type='text'
-          name='contents'
-          cols='30'
-          rows='10'
-          onChange={onChangeDiryInfo}
-        />
-      </div>
-      <button onClick={onButtonClick} className="btn">작성하기</button>
-      </div>
+      <Container>
+        <div>
+          <Input
+            className='titlebox'
+            type='text'
+            name='title'
+            onChange={onChangeDiryInfo}
+            placeholder='제목을 입력해주세요.'
+          />
+        </div>
+        <div>
+          <Textarea
+            className='contents'
+            placeholder='내용을 입력해주세요'
+            type='text'
+            name='contents'
+            cols='30'
+            rows='10'
+            onChange={onChangeDiryInfo}
+          />
+        </div>
+
+        <Button onClick={onButtonClick} className='btn'>
+          작성하기
+        </Button>
+      </Container>
     </>
   );
 }
 
+const Input = styled.input`
+  border-radius: 0.3rem;
+  border: 1px solid gray;
+  height: 1.6rem;
+  width: 90%;
+  padding: 0.4rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+`;
+
+const Textarea = styled.textarea`
+  border-radius: 0.3rem;
+  border: 1px solid gray;
+  width: 90%;
+  padding: 0.4rem;
+  overflow: scroll;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.4rem;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  height: 93vh;
+  width: 100vw;
+  flex-direction: column;
+`;
+
+const Button = styled.button`
+  border-radius: 0.3rem;
+  border: none;
+  width: 75%;
+  padding: 10px;
+  margin: 0 auto;
+  touch-action: auto;
+  background-color: rgb(253, 245, 232);
+`;
 export default DiaryEdit;

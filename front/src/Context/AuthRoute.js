@@ -1,10 +1,11 @@
 import { Navigate } from "react-router-dom";
-import { getCurrentUser } from "../service/ApiService";
 
 const AuthRoute = ({ children }) => {
-  const isAuth = getCurrentUser();
-
-  return isAuth ? children : <Navigate to='/Login' />;
+  const token = localStorage.getItem("ACCESS_TOKEN");
+  if (!token) {
+    return <Navigate to='/login' state={{ from: location }} />;
+  }
+  return children;
 };
 
 export default AuthRoute;
