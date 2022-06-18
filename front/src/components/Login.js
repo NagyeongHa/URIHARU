@@ -1,5 +1,9 @@
 import { signin } from "../service/ApiService";
-import { Input, Container, Button } from "../styles/GlobalStyle";
+import {
+  GlobalInput,
+  GlobalContainer,
+  GlobalButton,
+} from "../styles/GlobalStyle";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
@@ -106,7 +110,9 @@ function Login() {
     </Container>
   );
 }
-
+const Container = styled(GlobalContainer)`
+  height: 90vh;
+`;
 const StyledLink = styled(Link)`
   text-decoration: none;
   & > p {
@@ -127,4 +133,12 @@ const IsMatch = styled.p`
   margin: 0.2rem 0;
 `;
 
+const Input = styled(GlobalInput)`
+  width: 70vw;
+`;
+
+const Button = styled(GlobalButton)`
+  margin-top: 0.8rem;
+  width: 75vw;
+`;
 export default Login;
