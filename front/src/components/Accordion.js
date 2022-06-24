@@ -5,6 +5,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { getDno } from "../recoil/diary";
 import { call } from "../service/ApiService";
+import theme from "../styles/theme";
 
 function Accordion(props) {
   const parentRef = useRef();
@@ -77,10 +78,14 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 1rem auto;
+  margin: 2rem auto;
   border-radius: 4px;
   border: 1px solid silver;
   overflow: hidden;
+
+  @media ${theme.device.desktop} {
+    width: 70vw;
+  }
 `;
 
 const Header = styled.div`
@@ -123,6 +128,10 @@ const ButtonWrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   padding: 0.6rem;
+
+  @media ${theme.device.desktop} {
+    width: 70vw;
+  }
 `;
 
 const EditButton = styled.button`

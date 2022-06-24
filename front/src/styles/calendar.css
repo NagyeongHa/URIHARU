@@ -1,0 +1,99 @@
+@media (max-width: 767px) {
+  /* 선택된 날 */
+  .react-datepicker__day--selected,
+  .react-datepicker__day--keyboard-selected {
+    background-color: orange;
+    border-radius: 50%;
+  }
+
+  /* 선택된 날 호버 */
+  .react-datepicker__day--selected:hover,
+  .react-datepicker__day--keyboard-selected:hover {
+    background-color: orange;
+    border-radius: 50%;
+  }
+
+  /* 달력 날짜 호버 */
+  .react-datepicker__day:hover {
+    border-radius: 50%;
+    /* background-color: rgb(253, 245, 232); */
+  }
+
+  /* 달력 헤더  */
+  .react-datepicker__header {
+    background-color: #f6f6f6;
+    padding-top: 1rem;
+  }
+
+  /* 헤더 월 글자*/
+  .react-datepicker__current-month {
+    padding: 0.4rem 0;
+  }
+
+  /* 월 화살표 */
+  .react-datepicker__navigation {
+    top: 27px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* 선택된 날 */
+  .react-datepicker__day--selected,
+  .react-datepicker__day--keyboard-selected {
+    background-color: orange;
+    border-radius: 50%;
+  }
+
+  /* 선택된 날 호버 */
+  .react-datepicker__day--selected:hover,
+  .react-datepicker__day--keyboard-selected:hover {
+    background-color: orange;
+    border-radius: 50%;
+  }
+
+  /* 달력 날짜 호버 */
+  .react-datepicker__day:hover {
+    border-radius: 50%;
+    /* background-color: rgb(253, 245, 232); */
+  }
+
+  /* 달력 헤더  */
+  .react-datepicker__header {
+    background-color: #f6f6f6;
+    padding-top: 1rem;
+  }
+
+  /* 헤더 월 글자*/
+  .react-datepicker__current-month {
+    padding: 0.8rem 0;
+    font-size: 1.7em;
+  }
+
+  /* 월 화살표 */
+  .react-datepicker__navigation {
+    top: 1.8rem;
+  }
+
+  /* 개별 일 */
+  .react-datepicker__day,
+  .react-datepicker__month-text,
+  .react-datepicker__quarter-text,
+  .react-datepicker__year-text {
+    cursor: pointer;
+    padding: 0.8rem;
+    font-size: 1.3em;
+  }
+
+  .react-datepicker__day-name,
+  .react-datepicker__day,
+  .react-datepicker__time-name {
+    width: 2rem;
+    line-height: 2rem;
+  }
+
+  /* 요일 개별 글자 */
+  .react-datepicker__day-name {
+    padding: 0 0.8rem;
+    font-size: 1.2em;
+  }
+}

@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../recoil/auth";
 import { useCallback, useEffect, useState } from "react";
+import theme from "../styles/theme";
 
 function Login() {
   const navigate = useNavigate();
@@ -83,36 +84,44 @@ function Login() {
 
   return (
     <Container>
-      <form onSubmit={handleLogin}>
-        <Title>Login</Title>
-        <Input
-          type='text'
-          name='email'
-          placeholder='아이디'
-          onChange={handlerOnChange}
-        />
-        <Input
-          type='password'
-          name='password'
-          placeholder='비밀번호'
-          onChange={handlerOnChange}
-        />
-        <IsMatch
-          style={{ color: IsIdPwMatch.color ? " red" : "cornflowerblue" }}
-        >
-          {IsIdPwMatch.text}
-        </IsMatch>
-        <Button type='submit'>로그인</Button>
-        <StyledLink to='/signup'>
-          <p>계정이 없으신가요? 회원가입 하기</p>
-        </StyledLink>
-      </form>
+      <Title>Login</Title>
+      <Input
+        type='text'
+        name='email'
+        placeholder='아이디'
+        onChange={handlerOnChange}
+      />
+      <Input
+        type='password'
+        name='password'
+        placeholder='비밀번호'
+        onChange={handlerOnChange}
+      />
+      <IsMatch style={{ color: IsIdPwMatch.color ? " red" : "cornflowerblue" }}>
+        {IsIdPwMatch.text}
+      </IsMatch>
+      <Button type='submit' onClick={handleLogin}>
+        로그인
+      </Button>
+      <StyledLink to='/signup'>
+        <p>계정이 없으신가요? 회원가입 하기</p>
+      </StyledLink>
     </Container>
   );
 }
+
 const Container = styled(GlobalContainer)`
-  height: 90vh;
+  @media ${theme.device.mobile} {
+    height: 90vh;
+    flex-direction: column;
+  }
+
+  @media ${theme.device.desktop} {
+    flex-direction: column;
+    height: 90vh;
+  }
 `;
+
 const StyledLink = styled(Link)`
   text-decoration: none;
   & > p {
@@ -120,25 +129,60 @@ const StyledLink = styled(Link)`
     color: gray;
     cursor: pointer;
   }
+
+  @media ${theme.device.desktop} {
+    & > p {
+      font-size: 0.9rem;
+    }
+  }
 `;
 
 const Title = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 0.9rem;
+
+  @media ${theme.device.desktop} {
+    font-size: 2rem;
+  }
 `;
 
 const IsMatch = styled.p`
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin: 0.2rem 0;
+
+  @media ${theme.device.desktop} {
+    font-size: 0.9rem;
+    width: 100%;
+    margin: 0.7rem 0;
+  }
 `;
 
 const Input = styled(GlobalInput)`
-  width: 70vw;
+  @media ${theme.device.mobile} {
+    width: 70vw;
+  }
+
+  @media ${theme.device.desktop} {
+    width: 30%;
+    padding: 0.6rem;
+    margin: 0.5rem;
+    font-size: 1rem;
+  }
 `;
 
 const Button = styled(GlobalButton)`
   margin-top: 0.8rem;
   width: 75vw;
+  cursor: pointer;
+  background-color: ${({ theme }) => theme.colors.main};
+  color: ${({ theme }) => theme.colors.text};
+
+  @media ${theme.device.desktop} {
+    width: 31.5%;
+    height: 3rem;
+    font-size: 1rem;
+    /* border-radius: 0.3rem; */
+  }
 `;
 export default Login;

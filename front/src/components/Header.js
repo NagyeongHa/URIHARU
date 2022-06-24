@@ -4,6 +4,7 @@ import { signout } from "../service/ApiService";
 import { useRecoilValue } from "recoil";
 import { userState } from "../recoil/auth";
 import styled from "styled-components";
+import theme from "../styles/theme";
 
 function Header() {
   const { email } = useRecoilValue(userState);
@@ -30,6 +31,25 @@ function Header() {
     </Container>
   );
 }
+const Container = styled.div`
+  width: 100vw;
+  height: 3rem;
+  border-bottom: 1px solid gray;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  justify-content: space-between;
+  & > span {
+    padding: 1rem;
+  }
+
+  @media ${theme.device.desktop} {
+    width: auto;
+    padding: 0 0.6rem 0 0.6rem;
+  }
+`;
+
 const StyledLink = styled(Link)`
   text-decoration: none;
   margin-left: 0.6rem;
@@ -42,19 +62,8 @@ const Span = styled.span`
     width: 100vw;
     text-align: center;
   }
-`;
-
-const Container = styled.div`
-  width: 100%;
-  height: 3rem;
-  border-bottom: 1px solid gray;
-  display: flex;
-  margin: 0;
-  padding: 0;
-  align-items: center;
-  justify-content: space-between;
-  & > span {
-    padding: 1rem;
+  @media ${theme.device.desktop} {
+    font-size: 1.5rem;
   }
 `;
 
@@ -70,10 +79,15 @@ const Button = styled.button`
   background-color: transparent;
   border: none;
   margin-right: 0.3rem;
+  cursor: pointer;
   &:first-child {
     font-weight: bold;
     /* background-color: beige;
     border-radius: 5rem; */
+  }
+
+  @media ${theme.device.desktop} {
+    font-size: 1rem;
   }
 `;
 export default Header;

@@ -9,6 +9,7 @@ import {
 import { checkedId } from "../service/ApiService";
 import { useState } from "react";
 import { useCallback } from "react";
+import theme from "../styles/theme";
 
 function SignUp() {
   //유효성테스트 텍스트 & 유효성검사 통과 여부,
@@ -154,51 +155,65 @@ function SignUp() {
 
   return (
     <Container>
-      <form onSubmit={handleSubmit}>
-        <Title>SignUp</Title>
-        <div>
-          <Label>닉네임</Label>
-          <Input type='text' name='nickname' onChange={onChangeNickname} />
-          <IsMatch>{nicknameErr.txt}</IsMatch>
-        </div>
-        <div>
-          <Label>아이디</Label>
-          <Input type='text' name='email' onChange={onChangeEmail} />
-          {/* <button onClick={handlerCheckedId}>중복확인</button> */}
-          <IsMatch>{emailErr.txt}</IsMatch>
-        </div>
-        <div>
-          <Label>비밀번호</Label>
-          <Input type='password' name='password' onChange={onChangePassword} />
-          <IsMatch>{passwordErr.txt}</IsMatch>
-        </div>
-        <div>
-          <Label>비밀번호 확인</Label>
-          <Input
-            type='password'
-            name='repassword'
-            onChange={onchangeRepassword}
-          />
-          <IsMatch>{rePasswordErr.txt}</IsMatch>
-        </div>
-        <Button type='submit'>회원가입하기</Button>
-        <StyledLink to='/login'>
-          <p>계정이 이미 있으신가요? 로그인 하기</p>
-        </StyledLink>
-      </form>
+      <Title>SignUp</Title>
+      <div>
+        <Label>닉네임</Label>
+        <Input type='text' name='nickname' onChange={onChangeNickname} />
+        <IsMatch>{nicknameErr.txt}</IsMatch>
+      </div>
+      <div>
+        <Label>아이디</Label>
+        <Input type='text' name='email' onChange={onChangeEmail} />
+        {/* <button onClick={handlerCheckedId}>중복확인</button> */}
+        <IsMatch>{emailErr.txt}</IsMatch>
+      </div>
+      <div>
+        <Label>비밀번호</Label>
+        <Input type='password' name='password' onChange={onChangePassword} />
+        <IsMatch>{passwordErr.txt}</IsMatch>
+      </div>
+      <div>
+        <Label>비밀번호 확인</Label>
+        <Input
+          type='password'
+          name='repassword'
+          onChange={onchangeRepassword}
+        />
+        <IsMatch>{rePasswordErr.txt}</IsMatch>
+      </div>
+      <Button type='submit' onClick={handleSubmit}>
+        회원가입하기
+      </Button>
+      <StyledLink to='/login'>
+        <p>계정이 이미 있으신가요? 로그인 하기</p>
+      </StyledLink>
     </Container>
   );
 }
 
 const Container = styled(GlobalContainer)`
-  height: auto;
-  margin: 1.5rem auto;
+  @media ${theme.device.mobile} {
+    height: auto;
+    margin: 1.5rem auto;
+    flex-direction: column;
+  }
+
+  @media ${theme.device.desktop} {
+    flex-direction: column;
+    width: 45vw;
+    margin-bottom: 3rem;
+  }
 `;
 
 const Title = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
   margin: 1.5rem auto;
+
+  @media ${theme.device.desktop} {
+    font-size: 2rem;
+    margin: 4rem auto 2rem auto;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -208,10 +223,24 @@ const StyledLink = styled(Link)`
     color: gray;
     cursor: pointer;
   }
+
+  @media ${theme.device.desktop} {
+    & > p {
+      font-size: 0.9rem;
+    }
+  }
 `;
 
 const Input = styled(GlobalInput)`
   width: 83vw;
+
+  @media ${theme.device.desktop} {
+    width: 32vw;
+    height: 1.7rem;
+    padding: 0.6rem;
+    margin: 0.5rem;
+    font-size: 1rem;
+  }
 `;
 
 const Label = styled.div`
@@ -232,6 +261,12 @@ const IsMatch = styled.div`
 const Button = styled(GlobalButton)`
   margin-top: 1.2rem;
   width: 87vw;
+
+  @media ${theme.device.desktop} {
+    width: 33.5vw;
+    height: 3rem;
+    margin-top: 1.7rem;
+  }
 `;
 
 export default SignUp;

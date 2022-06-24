@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { date } from "../recoil/diary";
 import { useState } from "react";
+import theme from "../styles/theme";
+import "../styles/calendar.css";
 
 const Calendar = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -30,7 +32,7 @@ const Calendar = () => {
 
   return (
     <Container>
-      <DatePicker
+      <MyDatePicker
         selected={startDate}
         onChange={date => handlerOnChange(date)}
         locale={ko} //한글로 변경
@@ -46,5 +48,22 @@ const Calendar = () => {
 const Container = styled(GlobalContainer)`
   height: auto;
   margin-top: 2.5rem;
+
+  @media ${theme.device.desktop} {
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+  }
+`;
+
+const MyDatePicker = styled(DatePicker)`
+  @media ${theme.device.desktop} {
+    width: 90%;
+    height: 3rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background-color: transparent;
+    color: white;
+    border: 1px solid;
+  }
 `;
 export default Calendar;

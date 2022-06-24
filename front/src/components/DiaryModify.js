@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { call } from "../service/ApiService";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { getDnoDiary } from "../recoil/diary";
+import theme from "../styles/theme";
+import { Button, StyledLink } from "../styles/GlobalStyle";
 
 function DiaryModify() {
   const navigate = useNavigate();
@@ -58,80 +60,93 @@ function DiaryModify() {
   console.log("diary", diary);
   return (
     <>
-    <Container>
-      <div>
-        <Input
-        placeholder=" 제목을 입력해주세요"
-          type='text'
-          name='title'
-          value={diary.title}
-          onChange={onChangeDiryInfo}
-        />
-      </div>
-      <div>
-        <Textarea
-         placeholder="내용을 입력해주세요"
-          type='text'
-          name='contents'
-          cols='30'
-          rows='10'
-          value={diary.contents}
-          onChange={onChangeDiryInfo}
-        />
-      </div>
-      <Button onClick={onButtonClick}>수정</Button>
-      <Button><StyledLink to={"/"}>취소</StyledLink></Button>
-    </Container>
+      <Container>
+        <div>
+          <Input
+            placeholder=' 제목을 입력해주세요'
+            type='text'
+            name='title'
+            value={diary.title}
+            onChange={onChangeDiryInfo}
+          />
+        </div>
+        <div>
+          <Textarea
+            placeholder='내용을 입력해주세요'
+            type='text'
+            name='contents'
+            cols='30'
+            rows='10'
+            value={diary.contents}
+            onChange={onChangeDiryInfo}
+          />
+        </div>
+        <>
+          <Button onClick={onButtonClick}>수정</Button>
+          <StyledLink to={"/"}>취소</StyledLink>
+        </>
+      </Container>
     </>
   );
 }
+const Container = styled.div`
+  @media ${theme.device.mobile} {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    height: 93vh;
+    width: 95vw;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+
+  @media ${theme.device.desktop} {
+    margin: 4rem auto;
+    height: auto;
+    text-align: center;
+  }
+`;
+
 const Input = styled.input`
   border-radius: 0.3rem;
   border: 1px solid gray;
+  width: 85vw;
   height: 1.6rem;
-  width: 90%;
   padding: 0.4rem;
-  margin-bottom: 1.5rem;
   font-weight: 600;
+  margin: 1.2rem auto;
 
+  @media ${theme.device.desktop} {
+    width: 70vw;
+    height: 1.9rem;
+    font-size: 1.3rem;
+  }
 `;
 
 const Textarea = styled.textarea`
-  border-radius: 0.3rem;
-  border: 1px solid gray;
-  width: 90%;
-  padding: 0.4rem;
-  overflow: scroll;
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.4rem;
-`;
+  @media ${theme.device.mobile} {
+    border-radius: 0.3rem;
+    border: 1px solid gray;
+    width: 85vw;
+    padding: 0.4rem;
+    font-size: 0.9rem;
+    margin: 1.2rem auto;
+    line-height: 1.4rem;
+    overflow: scroll;
+  }
 
-const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
-  height: 93vh;
-  width: 100vw;
-  flex-direction: column;
-`;
-
-const Button = styled.button`
-  border-radius: 0.3rem;
-  border: none;
-  width: 75%;
-  padding: 10px;
-  margin: 0 auto;
-  touch-action: auto;
-  background-color: rgb(253, 245, 232);
-  margin-bottom:6px;
-`;
-
-const StyledLink = styled(Link)`
-
-text-decoration: none;
-color: black;
+  @media ${theme.device.desktop} {
+    border-radius: 0.3rem;
+    overflow: scroll;
+    width: 70vw;
+    height: 40vw;
+    line-height: 1.7rem;
+    padding: 0.5rem;
+    margin: 1.2rem auto;
+    font-size: 1.1rem;
+    margin-bottom: 4rem;
+  }
 `;
 
 export default DiaryModify;
