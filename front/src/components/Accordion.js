@@ -55,17 +55,19 @@ function Accordion(props) {
   return (
     <Container>
       <Header onClick={handlerButtonClick}>
-        {props.idx} / {props.title}
+        <div>{props.idx}</div>
+        <Hr />
+        <HeaderTitle>{props.title}</HeaderTitle>
         <Button>{buttonText}</Button>
       </Header>
       <ContentsWrapper ref={parentRef}>
-        <Contents ref={childRef}>
-          {props.contents}
-          <p>작성일자 : {props.yyyymmdd}</p>
-        </Contents>
+        <Contents ref={childRef}>{props.contents}</Contents>
+        <Date>{props.yyyymmdd}</Date>
       </ContentsWrapper>
       <ButtonWrapper>
         <EditButton onClick={modifyDiaryOnclick}>수정</EditButton>
+        <Hr />
+
         <EditButton onClick={deleteDiaryOnclick}>삭제</EditButton>
       </ButtonWrapper>
     </Container>
@@ -93,11 +95,32 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   height: 32px;
-  /* margin: 0 32px 0 8px; */
-  padding: 0.5rem;
+  padding: 1.3rem 0.8rem;
   border-bottom: 1px solid lightgray;
-  /* background-color: red; */
   width: 90vw;
+  word-break: keep-all;
+`;
+
+const HeaderTitle = styled.div`
+  width: 12rem;
+  line-height: 1.5rem;
+
+  @media ${theme.device.desktop} {
+    width: 60vw;
+  }
+`;
+
+const Hr = styled.hr`
+  border-width: 1px;
+  color: black;
+  height: 100%;
+  margin: 0 0.8rem;
+`;
+
+const Date = styled.div`
+  color: gray;
+  font-size: 0.9rem;
+  margin-left: 1rem;
 `;
 
 const ContentsWrapper = styled.div`
@@ -110,13 +133,18 @@ const ContentsWrapper = styled.div`
 
 const Contents = styled.div`
   padding: 1.2rem 0.5rem;
+  line-height: 1.7rem;
 `;
 
 const Button = styled.div`
-  top: 8px;
+  top: 15px;
   right: 8px;
   font-size: 14px;
   position: absolute;
+
+  @media ${theme.device.desktop} {
+    top: 5px;
+  }
 `;
 
 const ButtonWrapper = styled.div`

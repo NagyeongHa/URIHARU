@@ -29,16 +29,12 @@ function DayDiary() {
 
   //다이어리 삭제
   const deleteDiary = diaryDTO => {
-    //   call("/diary/remove", "DELETE", diaryDTO).then(response => {
-    //     console.log(response);
-    //   });
-
     if (confirm("삭제 시 되돌릴 수 없습니다. 정말 삭제하시겠습니까?")) {
       call("/diary/remove", "DELETE", diaryDTO).then(response => {
         console.log(response);
       });
       alert("삭제되었습니다.");
-      navigate("/");
+      window.location.replace("/");
     }
   };
 

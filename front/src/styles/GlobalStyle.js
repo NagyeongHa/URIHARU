@@ -35,9 +35,10 @@ export const Button = styled.button`
   color: ${props => props.theme.colors.text};
 
   @media ${theme.device.mobile} {
+    width: 70vw;
     touch-action: auto;
     padding: 0.6rem 1rem;
-    margin: 0 0.5rem;
+    margin: 0.7rem auto;
     font-size: 0.9rem;
   }
 
@@ -60,8 +61,11 @@ export const StyledLink = styled(Link)`
   text-align: center;
 
   @media ${theme.device.mobile} {
-    width: 70%;
-    margin: 0.4rem auto;
+    width: 60vw;
+    touch-action: auto;
+    padding: 0.6rem 1rem;
+    margin: 0 auto;
+    font-size: 0.9rem;
   }
   @media ${theme.device.desktop} {
     padding: 0.7rem 3.2rem;

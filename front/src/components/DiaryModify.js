@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { call } from "../service/ApiService";
-import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { getDnoDiary } from "../recoil/diary";
@@ -8,7 +7,6 @@ import theme from "../styles/theme";
 import { Button, StyledLink } from "../styles/GlobalStyle";
 
 function DiaryModify() {
-  const navigate = useNavigate();
   const DnoDiary = useRecoilValue(getDnoDiary); //dno별 다이어리 가져오기
   const [diary, setDiary] = useState({
     title: "",
@@ -39,7 +37,7 @@ function DiaryModify() {
   const modify = diaryDTO => {
     call("/diary/modify", "PUT", diaryDTO).then(response => {
       console.log(response);
-      navigate("/");
+      window.location.replace("/");
     });
   };
 
