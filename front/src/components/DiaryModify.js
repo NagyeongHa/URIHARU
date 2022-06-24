@@ -2,18 +2,18 @@ import { useCallback, useEffect, useState } from "react";
 import { call } from "../service/ApiService";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getDnoDiary } from "../recoil/diary";
+import { getDnoDiary, pathnameState } from "../recoil/diary";
 import theme from "../styles/theme";
 import { Button, StyledLink } from "../styles/GlobalStyle";
 
 function DiaryModify() {
   const DnoDiary = useRecoilValue(getDnoDiary); //dno별 다이어리 가져오기
+  const pathname = useRecoilValue(pathnameState);
   const [diary, setDiary] = useState({
     title: "",
     contents: "",
     writer: "",
   });
-
   console.log("diaryModify diary", DnoDiary);
 
   //다이어리 글 하루치 불러오기
@@ -37,7 +37,12 @@ function DiaryModify() {
   const modify = diaryDTO => {
     call("/diary/modify", "PUT", diaryDTO).then(response => {
       console.log(response);
-      window.location.replace("/");
+
+      if (pathname === "/") {
+        window.location.replace("/");
+        return;
+      }
+      window.location.replace("/mypage");
     });
   };
 

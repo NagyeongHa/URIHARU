@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/auth";
-import { date, getDateDiary, getDno } from "../recoil/diary";
+import { date, getDateDiary, getDno, pathnameState } from "../recoil/diary";
 import { call } from "../service/ApiService";
 import { Button } from "../styles/GlobalStyle";
 import theme from "../styles/theme";
@@ -12,11 +12,14 @@ function DayDiary() {
   const diary = useRecoilValue(getDateDiary); //날짜별 다이어리 가져오기
   const { id } = useRecoilValue(userState);
   const setDno = useSetRecoilState(getDno); //수정페이지에 보낼 게시물 dno 저장 (수정페이지에서 dno별 다이어리를 가져오기 위해서)
+  const setPathName = useSetRecoilState(pathnameState); //수정페이지에서 수정 후 메인 / 마페 어디로 갈지 결정
   const clickeddate = useRecoilValue(date);
 
   //수정화면으로
   const goModifyOnClick = dno => {
     setDno(dno);
+    setPathName(window.location.pathname);
+    console.log(window.location.pathname);
     navigate(`/diary/modify`);
   };
 
@@ -33,8 +36,8 @@ function DayDiary() {
       call("/diary/remove", "DELETE", diaryDTO).then(response => {
         console.log(response);
       });
-      alert("삭제되었습니다.");
       window.location.replace("/");
+      alert("삭제되었습니다.");
     }
   };
 

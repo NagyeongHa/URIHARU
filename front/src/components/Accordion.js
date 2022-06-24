@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { getDno } from "../recoil/diary";
+import { getDno, pathnameState } from "../recoil/diary";
 import { call } from "../service/ApiService";
 import theme from "../styles/theme";
 
@@ -13,6 +13,8 @@ function Accordion(props) {
   const { dno } = props;
   const [isCollapse, setIsCollapse] = useState(false);
   const setDno = useSetRecoilState(getDno); //수정페이지에 보낼 게시물 dno 저장 (수정페이지에서 dno별 다이어리를 가져오기 위해서)
+  const setPathName = useSetRecoilState(pathnameState); //수정페이지에서 수정 후 메인 / 마페 어디로 갈지 결정
+
   const navigate = useNavigate();
 
   //Header 클릭 시 내용물 보여주기
@@ -39,6 +41,7 @@ function Accordion(props) {
   //다이어리 수정
   const modifyDiaryOnclick = () => {
     setDno(dno);
+    setPathName(window.location.pathname);
     navigate(`/diary/modify`);
   };
 
@@ -48,6 +51,7 @@ function Accordion(props) {
       call("/diary/remove", "DELETE", { dno }).then(response => {
         console.log(response);
       });
+      window.location.replace("/mypage");
       alert("삭제되었습니다.");
     }
   };
@@ -67,7 +71,6 @@ function Accordion(props) {
       <ButtonWrapper>
         <EditButton onClick={modifyDiaryOnclick}>수정</EditButton>
         <Hr />
-
         <EditButton onClick={deleteDiaryOnclick}>삭제</EditButton>
       </ButtonWrapper>
     </Container>

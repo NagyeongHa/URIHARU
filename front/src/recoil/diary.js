@@ -57,6 +57,11 @@ export const getDno = atom({
   default: "",
 });
 
+export const pathnameState = atom({
+  key: "pathnameState",
+  default: "",
+});
+
 export const getDnoDiary = selector({
   key: "diaty/dnoread",
   get: async ({ get }) => {
