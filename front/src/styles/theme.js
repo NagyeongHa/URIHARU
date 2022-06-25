@@ -5,7 +5,7 @@ const size = {
 };
 
 const colors = {
-  main: "orange",
+  main: "skyblue",
   text: "white",
 };
 const device = {

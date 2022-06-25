@@ -50,7 +50,7 @@ const Container = styled(GlobalContainer)`
   margin-top: 2.5rem;
 
   @media ${theme.device.desktop} {
-    margin-top: 5rem;
+    margin-top: 3rem;
     margin-bottom: 2rem;
   }
 `;
