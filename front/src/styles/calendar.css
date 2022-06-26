@@ -2,14 +2,14 @@
   /* 선택된 날 */
   .react-datepicker__day--selected,
   .react-datepicker__day--keyboard-selected {
-    background-color: orange;
+    background-color: #ffa600d0;
     border-radius: 50%;
   }
 
   /* 선택된 날 호버 */
   .react-datepicker__day--selected:hover,
   .react-datepicker__day--keyboard-selected:hover {
-    background-color: orange;
+    background-color: #ffa600d0;
     border-radius: 50%;
   }
 
@@ -40,14 +40,14 @@
   /* 선택된 날 */
   .react-datepicker__day--selected,
   .react-datepicker__day--keyboard-selected {
-    background-color: orange;
+    background-color: #ffa600d0;
     border-radius: 50%;
   }
 
   /* 선택된 날 호버 */
   .react-datepicker__day--selected:hover,
   .react-datepicker__day--keyboard-selected:hover {
-    background-color: orange;
+    background-color: skyblue(201, 198, 192);
     border-radius: 50%;
   }
 
