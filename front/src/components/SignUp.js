@@ -67,8 +67,6 @@ function SignUp() {
 
       //아이디중복 API
       checkedId({ email: value }).then(response => {
-        console.log("response", response);
-        console.log("유효성", isCheckedEmail.test(value));
         if (!isCheckedEmail.test(value)) {
           setEmailErr({
             txt: "5~20자의 영문 대 소문자, 숫자를 사용하세요.",
@@ -142,14 +140,10 @@ function SignUp() {
       rePasswordErr.isOk
     ) {
       //apiserver의 signup 함수
-      signup({ email: email, password: password, nickname: nickname }).then(
-        response => {
-          console.log(response);
-          alert("회원가입을 축하합니다 :)");
-          //회원 생성되면 로그인 페이지로 이동
-          navigate("/login");
-        }
-      );
+      signup({ email: email, password: password, nickname: nickname });
+      alert("회원가입을 축하합니다 :)");
+      //회원 생성되면 로그인 페이지로 이동
+      navigate("/login");
     }
   };
 

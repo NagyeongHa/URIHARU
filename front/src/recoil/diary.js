@@ -97,10 +97,3 @@ export const getDnoDiary = selector({
     eviction: "most-recent",
   },
 });
-
-//selector 캐시
-// //가장 최근 값만 보관함
-// cachePolicy_UNSTABLE: {
-//   // Only store the most recent set of dependencies and their values
-//   eviction: "most-recent",
-// },

@@ -1,14 +1,12 @@
 import { useCallback, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { date } from "../recoil/diary";
 import { call } from "../service/ApiService";
 import theme from "../styles/theme";
 import { Button, StyledLink } from "../styles/GlobalStyle";
 
 function DiaryEdit() {
-  const navigate = useNavigate();
   const yyyymmdd = useRecoilValue(date);
   const [diary, setDiary] = useState({
     title: "",
@@ -30,12 +28,8 @@ function DiaryEdit() {
 
   //다이어리 추가 API (create)
   const create = diaryDTO => {
-    call("/diary/create", "POST", diaryDTO).then(response => {
-      console.log(response);
-      navigate("/");
-
-      window.location.href = "/";
-    });
+    call("/diary/create", "POST", diaryDTO);
+    window.location.href = "/";
   };
 
   //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리

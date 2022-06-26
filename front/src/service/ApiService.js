@@ -34,7 +34,7 @@ export const call = (api, method, request) => {
       })
     )
     .catch(error => {
-      console.log(error.status);
+      // console.log(error.status);
       if (error.status === 403) {
         window.location.href = "/login";
       }
@@ -64,14 +64,6 @@ export const signout = () => {
   window.location.href = "/login";
 };
 
-//현재 로그인 유저 아이디 가져오기
-// export const isAuth = () => {
-//   if (localStorage.getItem("ID")) {
-//     return localStorage.getItem("ID");
-//   }
-//   return null;
-// };
-
 // context root
 
 // localhost:8080/uriharu
@@ -91,5 +83,3 @@ export const signout = () => {
 // /diary/myread-다이어리 읽기(내가 쓴 일기 리스트) get
 
 // /diary/read/{dno}-다이어리 읽기(dno로 조회-하루치 일기만 출력) get
-
-// ex ) localhost:8080/uriharu/readharu/{hno}

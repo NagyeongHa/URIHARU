@@ -26,17 +26,17 @@ const Turn = () => {
     // 종료일 - 현재날짜
     gap = endDay - now,
     //종료일 - 시작일 - 1
-    fixdgap = endDay - startDay - 1,
-    //
+    fixedgap = endDay - startDay - 1,
     result = Math.floor(gap / (1000 * 60 * 60 * 24)),
-    fixdresult = Math.floor(fixdgap / (1000 * 60 * 60 * 24));
+    fixdresult = Math.floor(fixedgap / (1000 * 60 * 60 * 24));
 
   const turn = (fixdresult - result) % length;
 
   return (
     <Div>
       <div>💙</div>
-      &nbsp;오늘은 &nbsp; <b>{arr[turn]}</b> &nbsp;님이 일기 쓰는 날입니다&nbsp;
+      &nbsp;오늘은 &nbsp; <b>{arr[turn]}</b> &nbsp;님이 일기 작성하는
+      날입니다&nbsp;
       <div>💙</div>
     </Div>
   );
@@ -61,8 +61,6 @@ const Div = styled.div`
 
     margin: 4rem auto 0 auto;
     font-size: 1.1rem;
-    /* letter-spacing: 3px; */
-    /* word-spacing: 0.4rem; */
   }
 `;
 export default Turn;
