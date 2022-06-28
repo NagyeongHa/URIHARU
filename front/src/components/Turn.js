@@ -35,7 +35,7 @@ const Turn = () => {
   return (
     <Div>
       <div>💙</div>
-      &nbsp;오늘은 &nbsp; <b>{arr[turn]}</b> &nbsp;님이 일기 작성하는
+      &nbsp;오늘은&nbsp;<b>{arr[turn]}</b>&nbsp;님이 일기 작성하는
       날입니다&nbsp;
       <div>💙</div>
     </Div>
