@@ -64,14 +64,6 @@ export const signout = () => {
   window.location.href = "/login";
 };
 
-//현재 로그인 유저 아이디 가져오기
-// export const isAuth = () => {
-//   if (localStorage.getItem("ID")) {
-//     return localStorage.getItem("ID");
-//   }
-//   return null;
-// };
-
 // context root
 
 // localhost:8080/uriharu

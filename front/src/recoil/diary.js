@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import { API_BASE_URL } from "../config";
 
 //현재 날짜를 연-월-일 형태로 변환
 const dateToStringText = date => {
@@ -39,7 +40,7 @@ export const getDateDiary = selector({
       method: "GET",
     };
 
-    const url = `http://localhost:8080/uriharu/diary/dateread/${yyyymmdd}`;
+    const url = `${API_BASE_URL}/${yyyymmdd}`;
 
     try {
       return await fetch(url, options)
