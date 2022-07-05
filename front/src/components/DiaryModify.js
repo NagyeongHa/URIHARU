@@ -35,15 +35,14 @@ function DiaryModify() {
 
   //다이어리 수정 API
   const modify = diaryDTO => {
-    call("/diary/modify", "PUT", diaryDTO).then(response => {
-      console.log(response);
+    call("/diary/modify", "PUT", diaryDTO);
 
-      if (pathname === "/") {
-        window.location.replace("/");
-        return;
-      }
-      window.location.replace("/mypage");
-    });
+    //수정 후 메인->메인 , 마이페이지-> 마이페이지 각각 이동
+    if (pathname === "/") {
+      window.location.replace("/");
+      return;
+    }
+    window.location.replace("/mypage");
   };
 
   //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
@@ -60,7 +59,6 @@ function DiaryModify() {
     modify(diary);
   };
 
-  console.log("diary", diary);
   return (
     <>
       <Container>

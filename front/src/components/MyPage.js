@@ -13,7 +13,6 @@ function MyPage() {
   //내가 쓴 글 가져오기
   const getMyDiary = () => {
     call("/diary/myread", "GET", null).then(response => {
-      console.log(response);
       setDiary(response.data);
     });
   };
@@ -40,8 +39,6 @@ function MyPage() {
           dno={list.dno}
         />
       ))}
-      {/* {diary.contents}
-      {diary.writer} */}
     </>
   );
 }

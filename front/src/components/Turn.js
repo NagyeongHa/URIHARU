@@ -62,8 +62,6 @@ const Div = styled.div`
 
     margin: 4rem auto 0 auto;
     font-size: 1.1rem;
-    /* letter-spacing: 3px; */
-    /* word-spacing: 0.4rem; */
   }
 `;
 export default Turn;

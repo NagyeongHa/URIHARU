@@ -19,7 +19,6 @@ function DayDiary() {
   const goModifyOnClick = dno => {
     setDno(dno);
     setPathName(window.location.pathname);
-    console.log(window.location.pathname);
     navigate(`/diary/modify`);
   };
 
@@ -33,9 +32,7 @@ function DayDiary() {
   //다이어리 삭제
   const deleteDiary = diaryDTO => {
     if (confirm("삭제 시 되돌릴 수 없습니다. 정말 삭제하시겠습니까?")) {
-      call("/diary/remove", "DELETE", diaryDTO).then(response => {
-        console.log(response);
-      });
+      call("/diary/remove", "DELETE", diaryDTO);
       window.location.replace("/");
       alert("삭제되었습니다.");
     }
@@ -128,7 +125,6 @@ const DiaryNickname = styled.p`
 `;
 
 const DiaryContents = styled.p`
-  /* word-break: keep-all; */
   line-height: 1.7rem;
   @media ${theme.device.desktop} {
     font-size: 1.1rem;
@@ -149,23 +145,6 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `;
 
-// const Button = styled.button`
-//   border-radius: 10rem;
-//   border: none;
-//   touch-action: auto;
-//   /* background-color: rgb(253, 245, 232); */
-//   background-color: ${props => props.theme.colors.main};
-//   color: ${props => props.theme.colors.text};
-//   padding: 0.4rem 1.5rem;
-//   margin: 0 0.5rem;
-//   font-size: 0.9rem;
-
-//   @media ${theme.device.desktop} {
-//     padding: 0.7rem 2.5rem;
-//     margin: 0 1.4rem;
-//   }
-// `;
-
 const P = styled.p`
   text-align: center;
   margin: 3rem auto;
@@ -176,7 +155,6 @@ const StyledLink = styled(Link)`
   border: none;
   padding: 10px;
   touch-action: auto;
-  /* background-color: rgb(253, 245, 232); */
   background-color: ${({ theme }) => theme.colors.main};
   color: ${({ theme }) => theme.colors.text};
 
