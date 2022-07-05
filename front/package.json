@@ -24,7 +24,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync ./build s3://uriharu --profile=master"
+    "deploy": "aws s3 sync ./build s3://uriharu --profile=master",
+    "invalidate": "aws cloudfront create-invalidation --distribution-id ERFGTTS7DSLPJ --paths \"/*\"",
+    "all": "npm-run-all -s build deploy invalidate"
   },
   "eslintConfig": {
     "extends": [
