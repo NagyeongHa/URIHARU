@@ -4,15 +4,16 @@ import theme from "../styles/theme";
 const Turn = () => {
   const arr = [
     "리즌",
-    "어피치",
-    "미미",
-    "윰",
+    "일하는네오",
     "지구",
+    "권경",
     "머리빗는 네오",
     "프로도",
-    "귤",
-    "일하는네오",
     "아이스크림 네오",
+    "윰",
+    "귤",
+    "어피치",
+    "미미",
   ];
 
   const length = arr.length;
@@ -27,7 +28,6 @@ const Turn = () => {
     gap = endDay - now,
     //종료일 - 시작일 - 1
     fixdgap = endDay - startDay - 1,
-    //
     result = Math.floor(gap / (1000 * 60 * 60 * 24)),
     fixdresult = Math.floor(fixdgap / (1000 * 60 * 60 * 24));
 
