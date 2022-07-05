@@ -43,7 +43,7 @@ function SignUp() {
 
       if (!isCheckedNickname.test(value)) {
         setNicknameErr({
-          txt: "1~10자의 영문 대 소문자, 숫자로 입력해주세요.",
+          txt: "1~10자의 영문 대 소문자, 숫자만 입력 가능합니다.",
           isOk: false,
         });
         return;
@@ -67,19 +67,23 @@ function SignUp() {
 
       //아이디중복 API
       checkedId({ email: value }).then(response => {
-        if (!isCheckedEmail.test(value)) {
-          setEmailErr({
-            txt: "5~20자의 영문 대 소문자, 숫자를 사용하세요.",
-            isOk: false,
-          });
+        if (!response && isCheckedEmail.test(value)) {
+          setEmailErr({ txt: "올바른 아이디입니다.", isOk: true });
+          return;
         }
 
         if (value !== "" && response) {
-          setEmailErr({ txt: "중복된 아이디 입니다.", isOk: false });
+          setEmailErr({ txt: "중복된 아이디입니다.", isOk: false });
+          return;
         }
 
-        if (!response && isCheckedEmail.test(value))
-          setEmailErr({ txt: "올바른 아이디입니다.", isOk: true });
+        if (!isCheckedEmail.test(value)) {
+          setEmailErr({
+            txt: "5~20자의 영문 대 소문자, 숫자만 입력 가능합니다.",
+            isOk: false,
+          });
+          return;
+        }
       });
     },
     [inputValue]
@@ -100,7 +104,7 @@ function SignUp() {
 
       if (!isCheckedPassword.test(value)) {
         setPasswordErr({
-          txt: "8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.",
+          txt: "8~16자 영문 대 소문자+숫자+특수문자 조합을 입력해주세요.",
           isOk: false,
         });
         return;
@@ -193,7 +197,8 @@ const Container = styled(GlobalContainer)`
 
   @media ${theme.device.desktop} {
     flex-direction: column;
-    width: 45vw;
+    width: 70vw;
+    /* width: auto; */
     margin-bottom: 3rem;
   }
 `;
@@ -231,11 +236,15 @@ const Input = styled(GlobalInput)`
   padding: 0.6rem;
 
   @media ${theme.device.desktop} {
-    width: 32vw;
+    width: 63vw;
     height: 1.7rem;
     padding: 0.6rem;
     margin: 0.5rem;
     font-size: 1rem;
+  }
+
+  @media (min-width: 1000px) {
+    width: 32vw;
   }
 `;
 
@@ -247,11 +256,17 @@ const Label = styled.div`
 `;
 
 const IsMatch = styled.div`
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   padding: 0.1rem;
-  margin-left: 0.4rem;
+  margin-left: 0.5rem;
   color: red;
   text-align: left;
+  word-break: keep-all;
+  line-height: 1.2rem;
+
+  @media ${theme.device.desktop} {
+    font-size: 0.86rem;
+  }
 `;
 
 const Button = styled(GlobalButton)`
@@ -263,9 +278,13 @@ const Button = styled(GlobalButton)`
   height: 3rem;
 
   @media ${theme.device.desktop} {
-    width: 33.5vw;
+    width: 66.5vw;
     height: 3rem;
     margin-top: 1.7rem;
+  }
+
+  @media (min-width: 1000px) {
+    width: 33.5vw;
   }
 `;
 

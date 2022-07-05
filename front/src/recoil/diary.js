@@ -22,7 +22,7 @@ export const date = atom({
 export const getDateDiary = selector({
   key: "diary/dateread",
   get: async ({ get }) => {
-    const yyyymmdd = get(date); //15번의 date 값을 get 주소의 파라미터로 넣음 => date atom 값이 변경되면 selector도 새롭게 get 해옴
+    const yyyymmdd = get(date); //16번의 date 값을 get 주소의 파라미터로 넣음 => date atom 값이 변경되면 selector도 새롭게 get 해옴
     if (!yyyymmdd) return;
 
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
@@ -40,7 +40,7 @@ export const getDateDiary = selector({
       method: "GET",
     };
 
-    const url = `${API_BASE_URL}/${yyyymmdd}`;
+    const url = `${API_BASE_URL}/diary/dateread/${yyyymmdd}`;
 
     try {
       return await fetch(url, options)
@@ -52,17 +52,19 @@ export const getDateDiary = selector({
   },
 });
 
-//DayDiary의 수정버튼(수정페이지로이동) 눌릴 시 해당 게시물의 dno 저장
+//DayDiary(Home)의 수정버튼(수정페이지로이동) 눌릴 시 해당 게시물의 dno 저장
 export const getDno = atom({
   key: "getDno",
   default: "",
 });
 
+//mypage? home?
 export const pathnameState = atom({
   key: "pathnameState",
   default: "",
 });
 
+//selector로 Dno별 다이어리 들고오기
 export const getDnoDiary = selector({
   key: "diaty/dnoread",
   get: async ({ get }) => {
@@ -83,7 +85,7 @@ export const getDnoDiary = selector({
       headers.append("Authorization", "Bearer " + accessToken);
     }
 
-    const url = `http://localhost:8080/uriharu/diary/read/${dno}`;
+    const url = `${API_BASE_URL}/diary/read/${dno}`;
 
     try {
       return await fetch(url, options)

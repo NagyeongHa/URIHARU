@@ -22,8 +22,6 @@ function DayDiary() {
     navigate(`/diary/modify`);
   };
 
-  console.log("daydiary", diary);
-
   //삭제 버튼 누를 시
   const deleteDiaryOnclick = () => {
     deleteDiary(diary[0]);
@@ -40,7 +38,7 @@ function DayDiary() {
 
   return (
     <Container>
-      {diary.length > 0 ? (
+      {Object.keys(diary).length > 0 ? (
         diary.map((list, idx) => (
           <div key={idx}>
             <Card>
