@@ -27,6 +27,7 @@ export const GlobalButton = styled.button`
   margin: 0.3rem;
   border-radius: 0.2rem;
   border: none;
+  cursor: pointer;
 `;
 
 //다이어리 버튼
@@ -35,6 +36,7 @@ export const Button = styled.button`
   border-radius: 15rem;
   background-color: ${props => props.theme.colors.main};
   color: ${props => props.theme.colors.text};
+  cursor: pointer;
 
   @media ${theme.device.mobile} {
     width: 70vw;
@@ -47,7 +49,6 @@ export const Button = styled.button`
   @media ${theme.device.desktop} {
     padding: 0.77rem 3.2rem;
     margin: 0 1.4rem;
-    cursor: pointer;
   }
 `;
 
@@ -61,6 +62,7 @@ export const StyledLink = styled(Link)`
 
   text-decoration: none;
   text-align: center;
+  cursor: pointer;
 
   @media ${theme.device.mobile} {
     width: 60vw;
