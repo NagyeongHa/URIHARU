@@ -164,7 +164,6 @@ function SignUp() {
       <div>
         <Label>아이디</Label>
         <Input type='text' name='email' onChange={onChangeEmail} />
-        {/* <button onClick={handlerCheckedId}>중복확인</button> */}
         <IsMatch>{emailErr.txt}</IsMatch>
       </div>
       <div>
@@ -206,7 +205,7 @@ const Container = styled(GlobalContainer)`
 `;
 
 const Title = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
   margin: 1.5rem auto;
 
@@ -233,6 +232,9 @@ const StyledLink = styled(Link)`
 
 const Input = styled(GlobalInput)`
   width: 83vw;
+  height: 1.8rem;
+  font-size: 1rem;
+  padding: 0.6rem;
 
   @media ${theme.device.desktop} {
     width: 32vw;
@@ -261,6 +263,10 @@ const IsMatch = styled.div`
 const Button = styled(GlobalButton)`
   margin-top: 1.2rem;
   width: 87vw;
+  background-color: ${theme.colors.main};
+  color: ${theme.colors.text};
+  font-size: 1rem;
+  height: 3rem;
 
   @media ${theme.device.desktop} {
     width: 33.5vw;
