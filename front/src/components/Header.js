@@ -32,7 +32,6 @@ function Header() {
   );
 }
 const Container = styled.div`
-  width: 100vw;
   height: 3rem;
   border-bottom: 1px solid gray;
   display: flex;
