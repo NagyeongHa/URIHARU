@@ -67,8 +67,6 @@ function SignUp() {
 
       //아이디중복 API
       checkedId({ email: value }).then(response => {
-        console.log("response", response);
-        console.log("유효성", isCheckedEmail.test(value));
         if (!isCheckedEmail.test(value)) {
           setEmailErr({
             txt: "5~20자의 영문 대 소문자, 숫자를 사용하세요.",
@@ -142,14 +140,10 @@ function SignUp() {
       rePasswordErr.isOk
     ) {
       //apiserver의 signup 함수
-      signup({ email: email, password: password, nickname: nickname }).then(
-        response => {
-          console.log(response);
-          alert("회원가입을 축하합니다 :)");
-          //회원 생성되면 로그인 페이지로 이동
-          navigate("/login");
-        }
-      );
+      signup({ email: email, password: password, nickname: nickname });
+      alert("회원가입을 축하합니다 :)");
+      //회원 생성되면 로그인 페이지로 이동
+      navigate("/login");
     }
   };
 
@@ -164,7 +158,6 @@ function SignUp() {
       <div>
         <Label>아이디</Label>
         <Input type='text' name='email' onChange={onChangeEmail} />
-        {/* <button onClick={handlerCheckedId}>중복확인</button> */}
         <IsMatch>{emailErr.txt}</IsMatch>
       </div>
       <div>
@@ -206,7 +199,7 @@ const Container = styled(GlobalContainer)`
 `;
 
 const Title = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
   margin: 1.5rem auto;
 
@@ -233,6 +226,9 @@ const StyledLink = styled(Link)`
 
 const Input = styled(GlobalInput)`
   width: 83vw;
+  height: 1.8rem;
+  font-size: 1rem;
+  padding: 0.6rem;
 
   @media ${theme.device.desktop} {
     width: 32vw;
@@ -261,6 +257,10 @@ const IsMatch = styled.div`
 const Button = styled(GlobalButton)`
   margin-top: 1.2rem;
   width: 87vw;
+  background-color: ${theme.colors.main};
+  color: ${theme.colors.text};
+  font-size: 1rem;
+  height: 3rem;
 
   @media ${theme.device.desktop} {
     width: 33.5vw;

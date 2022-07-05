@@ -61,6 +61,8 @@ const Span = styled.span`
   &:last-child {
     width: 100vw;
     text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
   }
   @media ${theme.device.desktop} {
     font-size: 1.5rem;

@@ -20,6 +20,7 @@ export const GlobalContainer = styled.div`
   text-align: center;
 `;
 
+//회원가입 / 로그인 버튼
 export const GlobalButton = styled.button`
   height: 2.5rem;
   padding: 0.3rem;
@@ -28,6 +29,7 @@ export const GlobalButton = styled.button`
   border: none;
 `;
 
+//다이어리 버튼
 export const Button = styled.button`
   border: none;
   border-radius: 15rem;

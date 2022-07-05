@@ -138,7 +138,7 @@ const StyledLink = styled(Link)`
 `;
 
 const Title = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
   margin-bottom: 0.9rem;
 
@@ -148,7 +148,7 @@ const Title = styled.div`
 `;
 
 const IsMatch = styled.p`
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   margin: 0.2rem 0;
 
   @media ${theme.device.desktop} {
@@ -161,6 +161,9 @@ const IsMatch = styled.p`
 const Input = styled(GlobalInput)`
   @media ${theme.device.mobile} {
     width: 70vw;
+    height: 1.8rem;
+    font-size: 1rem;
+    padding: 0.6rem;
   }
 
   @media ${theme.device.desktop} {
@@ -174,6 +177,8 @@ const Input = styled(GlobalInput)`
 const Button = styled(GlobalButton)`
   margin-top: 0.8rem;
   width: 75vw;
+  height: 3rem;
+  font-size: 1rem;
   cursor: pointer;
   background-color: ${({ theme }) => theme.colors.main};
   color: ${({ theme }) => theme.colors.text};

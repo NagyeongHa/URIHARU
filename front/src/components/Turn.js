@@ -36,7 +36,8 @@ const Turn = () => {
   return (
     <Div>
       <div>💙</div>
-      &nbsp;오늘은 &nbsp; <b>{arr[turn]}</b> &nbsp;님이 일기 쓰는 날입니다&nbsp;
+      &nbsp;오늘은&nbsp;<b>{arr[turn]}</b>&nbsp;님이 일기 작성하는
+      날입니다&nbsp;
       <div>💙</div>
     </Div>
   );
@@ -61,8 +62,6 @@ const Div = styled.div`
 
     margin: 4rem auto 0 auto;
     font-size: 1.1rem;
-    /* letter-spacing: 3px; */
-    /* word-spacing: 0.4rem; */
   }
 `;
 export default Turn;

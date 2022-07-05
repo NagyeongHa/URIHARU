@@ -47,7 +47,7 @@
   /* 선택된 날 호버 */
   .react-datepicker__day--selected:hover,
   .react-datepicker__day--keyboard-selected:hover {
-    background-color: skyblue;
+    background-color: skyblue(201, 198, 192);
     border-radius: 50%;
   }
 
