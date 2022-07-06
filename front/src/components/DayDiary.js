@@ -106,6 +106,8 @@ const DiaryTitle = styled.p`
     margin: 0 auto;
     text-align: center;
     word-break: keep-all;
+    font-size: 1.1rem;
+    font-weight: bold;
   }
 
   @media ${theme.device.desktop} {

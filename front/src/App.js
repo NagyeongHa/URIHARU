@@ -12,6 +12,7 @@ import MyPage from "./components/MyPage";
 import Header from "./components/Header";
 import theme from "./styles/theme";
 import { ThemeProvider } from "styled-components";
+import PublicRoute from "./Context/PublicRoute";
 
 function App() {
   return (
@@ -20,8 +21,22 @@ function App() {
         <ThemeProvider theme={theme}>
           <Header />
           <Routes>
-            <Route path='/login' element={<Login />}></Route>
-            <Route path='/signup' element={<SignUp />}></Route>
+            <Route
+              path='/login'
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path='/signup'
+              element={
+                <PublicRoute>
+                  <SignUp />
+                </PublicRoute>
+              }
+            />
             <Route
               path='/'
               element={
