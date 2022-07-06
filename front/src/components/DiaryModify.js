@@ -5,8 +5,10 @@ import styled from "styled-components";
 import { getDnoDiary, pathnameState } from "../recoil/diary";
 import theme from "../styles/theme";
 import { Button, StyledLink } from "../styles/GlobalStyle";
+import { useNavigate } from "react-router-dom";
 
 function DiaryModify() {
+  const navigate = useNavigate();
   const DnoDiary = useRecoilValue(getDnoDiary); //dno별 다이어리 가져오기
   const pathname = useRecoilValue(pathnameState);
   const [diary, setDiary] = useState({
@@ -39,9 +41,11 @@ function DiaryModify() {
 
     //수정 후 메인->메인 , 마이페이지-> 마이페이지 각각 이동
     if (pathname === "/") {
+      navigate("/");
       window.location.replace("/");
       return;
     }
+    navigate("/mypage");
     window.location.replace("/mypage");
   };
 
@@ -76,8 +80,6 @@ function DiaryModify() {
             placeholder='내용을 입력해주세요'
             type='text'
             name='contents'
-            cols='30'
-            rows='10'
             value={diary.contents}
             onChange={onChangeDiryInfo}
           />

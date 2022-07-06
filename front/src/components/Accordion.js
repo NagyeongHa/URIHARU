@@ -49,6 +49,7 @@ function Accordion(props) {
   const deleteDiaryOnclick = () => {
     if (confirm("삭제 시 되돌릴 수 없습니다. 정말 삭제하시겠습니까?")) {
       call("/diary/remove", "DELETE", { dno });
+      navigate(`/mypage`);
       window.location.replace("/mypage");
       alert("삭제되었습니다.");
     }

@@ -5,8 +5,10 @@ import { date } from "../recoil/diary";
 import { call } from "../service/ApiService";
 import theme from "../styles/theme";
 import { Button, StyledLink } from "../styles/GlobalStyle";
+import { useNavigate } from "react-router-dom";
 
 function DiaryEdit() {
+  const navigate = useNavigate();
   const yyyymmdd = useRecoilValue(date);
   const [diary, setDiary] = useState({
     title: "",
@@ -29,18 +31,19 @@ function DiaryEdit() {
   //다이어리 추가 API (create)
   const create = diaryDTO => {
     call("/diary/create", "POST", diaryDTO);
-    window.location.href = "/";
+    navigate("/");
+    window.location.reload();
   };
 
   //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
   const onButtonClick = () => {
     //유효성 테스트
     if (diary.title === "") {
-      alert("제목을 입력해 주세요");
+      alert("제목을 입력해 주세요.");
       return;
     }
     if (diary.contents === "") {
-      alert("내용을 입력해 주세요");
+      alert("내용을 입력해 주세요.");
       return;
     }
     create(diary);
@@ -64,8 +67,6 @@ function DiaryEdit() {
             placeholder='내용을 입력해주세요'
             type='text'
             name='contents'
-            cols='30'
-            rows='10'
             onChange={onChangeDiryInfo}
           />
         </div>
