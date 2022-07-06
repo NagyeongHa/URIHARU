@@ -21,7 +21,7 @@ const Turn = () => {
   //현재 날짜 가져오기
   let now = new Date(),
     //다이어리 시작일
-    startDay = new Date("2022/06/01"),
+    startDay = new Date("2022/07/01"),
     //다이어리 종료일
     endDay = new Date("2022/12/31").getTime(),
     // 종료일 - 현재날짜
