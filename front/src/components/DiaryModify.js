@@ -16,7 +16,6 @@ function DiaryModify() {
     contents: "",
     writer: "",
   });
-  console.log("diaryModify diary", DnoDiary);
 
   //다이어리 글 하루치 불러오기
   useEffect(() => {
@@ -37,16 +36,18 @@ function DiaryModify() {
 
   //다이어리 수정 API
   const modify = diaryDTO => {
-    call("/diary/modify", "PUT", diaryDTO);
+    try {
+      call("/diary/modify", "PUT", diaryDTO);
 
-    //수정 후 메인->메인 , 마이페이지-> 마이페이지 각각 이동
-    if (pathname === "/") {
-      navigate("/");
-      window.location.replace("/");
-      return;
+      //수정 후 메인->메인 , 마이페이지-> 마이페이지 각각 이동
+      if (pathname === "/") {
+        navigate("/");
+        return;
+      }
+      navigate("/mypage");
+    } catch (error) {
+      console.log(error);
     }
-    navigate("/mypage");
-    window.location.replace("/mypage");
   };
 
   //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
@@ -119,6 +120,7 @@ const Input = styled.input`
   padding: 0.4rem;
   font-weight: 600;
   margin: 1.2rem auto;
+  font-size: 1.1rem;
 
   @media ${theme.device.desktop} {
     width: 70vw;
@@ -137,6 +139,8 @@ const Textarea = styled.textarea`
     margin: 1.2rem auto;
     line-height: 1.4rem;
     overflow: scroll;
+    height: 85vw;
+    font-size: 1.1rem;
   }
 
   @media ${theme.device.desktop} {
