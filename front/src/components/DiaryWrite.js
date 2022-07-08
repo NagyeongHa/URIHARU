@@ -33,7 +33,6 @@ function DiaryEdit() {
     try {
       call("/diary/create", "POST", diaryDTO);
       navigate("/");
-      // window.location.replace("/");
     } catch (error) {
       console.log(error);
     }

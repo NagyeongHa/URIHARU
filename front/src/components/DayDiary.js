@@ -23,14 +23,10 @@ function DayDiary() {
   const clickeddate = useRecoilValue(date);
   const [diary, setDiary] = useState({});
 
-  console.log(yyyymmdd);
-  console.log(typeof diary, diary);
-  console.log(location);
-
   //다이어리 가져오기
   useEffect(() => {
     dateDiary(yyyymmdd).then(response => setDiary(response));
-  }, [yyyymmdd, location.pathname]);
+  }, [yyyymmdd, location.pathname, diary]);
 
   //수정화면으로
   const goModifyOnClick = dno => {

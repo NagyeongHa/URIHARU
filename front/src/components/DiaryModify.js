@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
-import { call } from "../service/ApiService";
+import { call, dnoDiary } from "../service/ApiService";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getDnoDiary, pathnameState } from "../recoil/diary";
+import { getDno, pathnameState } from "../recoil/diary";
 import theme from "../styles/theme";
-import { Button, StyledLink } from "../styles/GlobalStyle";
-import { useNavigate } from "react-router-dom";
+import { Button } from "../styles/GlobalStyle";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function DiaryModify() {
+  const location = useLocation();
   const navigate = useNavigate();
-  const DnoDiary = useRecoilValue(getDnoDiary); //dno별 다이어리 가져오기
+  const dno = useRecoilValue(getDno);
   const pathname = useRecoilValue(pathnameState);
   const [diary, setDiary] = useState({
     title: "",
@@ -19,8 +20,8 @@ function DiaryModify() {
 
   //다이어리 글 하루치 불러오기
   useEffect(() => {
-    setDiary(DnoDiary);
-  }, [DnoDiary]);
+    dnoDiary(dno).then(response => setDiary(response));
+  }, [dno, location]);
 
   //제목, 작성자, 내용 onChange로 받아서 diary에 저장
   const onChangeDiryInfo = useCallback(
@@ -51,7 +52,7 @@ function DiaryModify() {
   };
 
   //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
-  const onButtonClick = () => {
+  const modifyHandler = () => {
     //유효성 테스트
     if (diary.title === "") {
       alert("제목을 입력해 주세요");
@@ -62,6 +63,15 @@ function DiaryModify() {
       return;
     }
     modify(diary);
+  };
+
+  //취소버튼 클릭 시
+  const cancelHandler = () => {
+    if (pathname === "/") {
+      navigate("/");
+      return;
+    }
+    navigate("/mypage");
   };
 
   return (
@@ -86,8 +96,8 @@ function DiaryModify() {
           />
         </div>
         <>
-          <Button onClick={onButtonClick}>수정</Button>
-          <StyledLink to={"/"}>취소</StyledLink>
+          <Button onClick={modifyHandler}>수정</Button>
+          <Button onClick={cancelHandler}>취소</Button>
         </>
       </Container>
     </>

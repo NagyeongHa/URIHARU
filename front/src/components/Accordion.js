@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { getDno, pathnameState } from "../recoil/diary";
@@ -12,6 +12,7 @@ function Accordion(props) {
   const childRef = useRef();
   const { dno } = props;
   const [isCollapse, setIsCollapse] = useState(false);
+  const location = useLocation();
   const setDno = useSetRecoilState(getDno); //수정페이지에 보낼 게시물 dno 저장 (수정페이지에서 dno별 다이어리를 가져오기 위해서)
   const setPathName = useSetRecoilState(pathnameState); //수정페이지에서 수정 후 메인 / 마페 어디로 갈지 결정
 
@@ -24,9 +25,11 @@ function Accordion(props) {
       if (!parentRef.current || !childRef.current) {
         return;
       }
+
       if (parentRef.current.clientHeight > 0) {
         parentRef.current.style.height = "0";
         parentRef.current.style.background = "white";
+        return;
       } else {
         parentRef.current.style.height = `${childRef.current.clientHeight}px`;
       }
@@ -41,8 +44,8 @@ function Accordion(props) {
   //다이어리 수정
   const modifyDiaryOnclick = () => {
     setDno(dno);
-    setPathName(window.location.pathname);
-    navigate(`/diary/modify`);
+    setPathName(location.pathname);
+    navigate("/diary/modify");
   };
 
   //다이어리 삭제
@@ -50,7 +53,6 @@ function Accordion(props) {
     if (confirm("삭제 시 되돌릴 수 없습니다. 정말 삭제하시겠습니까?")) {
       call("/diary/remove", "DELETE", { dno });
       navigate(`/mypage`);
-      window.location.replace("/mypage");
       alert("삭제되었습니다.");
     }
   };
@@ -77,7 +79,7 @@ function Accordion(props) {
 }
 
 const Container = styled.div`
-  display: fles;
+  display: flex;
   position: relative;
   flex-direction: column;
   justify-content: center;
