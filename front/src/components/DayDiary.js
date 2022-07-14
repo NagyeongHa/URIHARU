@@ -26,7 +26,8 @@ function DayDiary() {
   //다이어리 가져오기
   useEffect(() => {
     dateDiary(yyyymmdd).then(response => setDiary(response));
-  }, [yyyymmdd, location.pathname, diary]);
+  }, [location, yyyymmdd]);
+  // }, [yyyymmdd, location.pathname, diary]);
 
   //수정화면으로
   const goModifyOnClick = dno => {
@@ -45,7 +46,8 @@ function DayDiary() {
     if (confirm("삭제 시 되돌릴 수 없습니다. 정말 삭제하시겠습니까?")) {
       call("/diary/remove", "DELETE", diaryDTO);
       alert("삭제되었습니다.");
-      window.location.replace("/");
+      navigate("/");
+      // window.location.replace("/");
     }
   };
 

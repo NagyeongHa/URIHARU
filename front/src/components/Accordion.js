@@ -66,8 +66,10 @@ function Accordion(props) {
         <Button>{buttonText}</Button>
       </Header>
       <ContentsWrapper ref={parentRef}>
-        <Contents ref={childRef}>{props.contents}</Contents>
-        <Date>{props.yyyymmdd}</Date>
+        <Contents ref={childRef}>
+          {props.contents}
+          <Date>{props.yyyymmdd}</Date>
+        </Contents>
       </ContentsWrapper>
       <ButtonWrapper>
         <EditButton onClick={modifyDiaryOnclick}>수정</EditButton>
@@ -124,7 +126,7 @@ const Hr = styled.hr`
 const Date = styled.div`
   color: gray;
   font-size: 0.9rem;
-  margin-left: 1rem;
+  margin-top: 1rem;
 `;
 
 const ContentsWrapper = styled.div`
