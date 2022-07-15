@@ -30,9 +30,12 @@ function DiaryEdit() {
 
   //다이어리 추가 API (create)
   const create = diaryDTO => {
-    call("/diary/create", "POST", diaryDTO);
-    navigate("/");
-    window.location.reload();
+    try {
+      call("/diary/create", "POST", diaryDTO);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
@@ -106,6 +109,7 @@ const Input = styled.input`
   padding: 0.4rem;
   font-weight: 600;
   margin: 1.2rem auto;
+  font-size: 1.1rem;
 
   @media ${theme.device.desktop} {
     width: 70vw;
@@ -120,10 +124,11 @@ const Textarea = styled.textarea`
     border: 1px solid gray;
     width: 85vw;
     padding: 0.4rem;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     margin: 1.2rem auto;
     line-height: 1.4rem;
     overflow: scroll;
+    height: 85vw;
   }
 
   @media ${theme.device.desktop} {

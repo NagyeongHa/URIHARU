@@ -17,8 +17,8 @@ export const call = (api, method, request) => {
     options.body = JSON.stringify(request);
   }
 
-  //로컬 스토리지에서 ACCESS TOKEN 가져오기
-  const accessToken = localStorage.getItem(ACCESS_TOKEN);
+  //세션 스토리지에서 ACCESS TOKEN 가져오기
+  const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
   if (accessToken && accessToken !== null) {
     headers.append("Authorization", "Bearer " + accessToken);
   }
@@ -59,11 +59,64 @@ export const signin = userDTO => {
 
 //로그아웃
 export const signout = () => {
-  localStorage.removeItem(ACCESS_TOKEN);
-  localStorage.removeItem("recoil-persist");
+  sessionStorage.removeItem(ACCESS_TOKEN);
+  sessionStorage.removeItem("recoil-persist");
   window.location.href = "/login";
 };
 
+export const dateDiary = yyyymmdd => {
+  const accessToken = sessionStorage.getItem("ACCESS_TOKEN");
+
+  const headers = new Headers({
+    "Content-Type": "application/json",
+  });
+
+  if (accessToken && accessToken !== null) {
+    headers.append("Authorization", "Bearer " + accessToken);
+  }
+
+  const options = {
+    headers: headers,
+    method: "GET",
+  };
+
+  const url = `${API_BASE_URL}/diary/dateread/${yyyymmdd}`;
+
+  try {
+    return fetch(url, options)
+      .then(response => response.json())
+      .then(data => data.data);
+  } catch (error) {
+    throw Error("날짜별 다이어리를 들고오지 못했습니다");
+  }
+};
+
+export const dnoDiary = dno => {
+  const accessToken = sessionStorage.getItem("ACCESS_TOKEN");
+
+  const headers = new Headers({
+    "Content-Type": "application/json",
+  });
+
+  const options = {
+    headers: headers,
+    method: "GET",
+  };
+
+  if (accessToken && accessToken !== null) {
+    headers.append("Authorization", "Bearer " + accessToken);
+  }
+
+  const url = `${API_BASE_URL}/diary/read/${dno}`;
+
+  try {
+    return fetch(url, options)
+      .then(response => response.json())
+      .then(data => data);
+  } catch (error) {
+    throw Error("Dno별 다이어리를 들고오지 못했습니다");
+  }
+};
 // context root
 
 // localhost:8080/uriharu
@@ -84,4 +137,5 @@ export const signout = () => {
 
 // /diary/read/{dno}-다이어리 읽기(dno로 조회-하루치 일기만 출력) get
 
+//${API_BASE_URL}/diary/dateread/${yyyymmdd}
 // ex ) localhost:8080/uriharu/readharu/{hno}

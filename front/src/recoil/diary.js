@@ -70,7 +70,7 @@ export const getDnoDiary = selector({
   get: async ({ get }) => {
     const dno = get(getDno);
 
-    const accessToken = localStorage.getItem("ACCESS_TOKEN");
+    const accessToken = sessionStorage.getItem("ACCESS_TOKEN");
 
     const headers = new Headers({
       "Content-Type": "application/json",

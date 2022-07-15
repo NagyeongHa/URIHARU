@@ -145,7 +145,7 @@ function SignUp() {
     ) {
       //apiserver의 signup 함수
       signup({ email: email, password: password, nickname: nickname });
-      alert("회원가입을 축하합니다 :)");
+      alert(`${nickname}님, 회원가입을 축하합니다 :)`);
       //회원 생성되면 로그인 페이지로 이동
       navigate("/login");
     }

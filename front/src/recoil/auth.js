@@ -15,10 +15,10 @@ export const userEmailState = atom({
   default: "",
 });
 
-//로컬에 저장된 유저 토큰 (isAuth)
+//세션에 저장된 유저 토큰 (isAuth)
 export const userTokenState = atom({
   key: "userTokenState",
-  default: localStorage.getItem("ACCESS_TOKEN"),
+  default: sessionStorage.getItem("ACCESS_TOKEN"),
 });
 
 export const userState = atom({

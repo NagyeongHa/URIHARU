@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/auth";
@@ -9,7 +10,7 @@ import Accordion from "./Accordion";
 function MyPage() {
   const [diary, setDiary] = useState([]);
   const { email } = useRecoilValue(userState);
-
+  const location = useLocation();
   //내가 쓴 글 가져오기
   const getMyDiary = () => {
     call("/diary/myread", "GET", null).then(response => {
@@ -19,7 +20,7 @@ function MyPage() {
 
   useEffect(() => {
     getMyDiary();
-  }, []);
+  }, [location]);
 
   return (
     <>

@@ -1,27 +1,27 @@
 import { useCallback, useEffect, useState } from "react";
-import { call } from "../service/ApiService";
+import { call, dnoDiary } from "../service/ApiService";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getDnoDiary, pathnameState } from "../recoil/diary";
+import { getDno, pathnameState } from "../recoil/diary";
 import theme from "../styles/theme";
-import { Button, StyledLink } from "../styles/GlobalStyle";
-import { useNavigate } from "react-router-dom";
+import { Button } from "../styles/GlobalStyle";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function DiaryModify() {
+  const location = useLocation();
   const navigate = useNavigate();
-  const DnoDiary = useRecoilValue(getDnoDiary); //dno별 다이어리 가져오기
+  const dno = useRecoilValue(getDno);
   const pathname = useRecoilValue(pathnameState);
   const [diary, setDiary] = useState({
     title: "",
     contents: "",
     writer: "",
   });
-  console.log("diaryModify diary", DnoDiary);
 
   //다이어리 글 하루치 불러오기
   useEffect(() => {
-    setDiary(DnoDiary);
-  }, [DnoDiary]);
+    dnoDiary(dno).then(response => setDiary(response));
+  }, [dno, location]);
 
   //제목, 작성자, 내용 onChange로 받아서 diary에 저장
   const onChangeDiryInfo = useCallback(
@@ -37,20 +37,22 @@ function DiaryModify() {
 
   //다이어리 수정 API
   const modify = diaryDTO => {
-    call("/diary/modify", "PUT", diaryDTO);
+    try {
+      call("/diary/modify", "PUT", diaryDTO);
 
-    //수정 후 메인->메인 , 마이페이지-> 마이페이지 각각 이동
-    if (pathname === "/") {
-      navigate("/");
-      window.location.replace("/");
-      return;
+      //수정 후 메인->메인 , 마이페이지-> 마이페이지 각각 이동
+      if (pathname === "/") {
+        navigate("/");
+        return;
+      }
+      navigate("/mypage");
+    } catch (error) {
+      console.log(error);
     }
-    navigate("/mypage");
-    window.location.replace("/mypage");
   };
 
   //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
-  const onButtonClick = () => {
+  const modifyHandler = () => {
     //유효성 테스트
     if (diary.title === "") {
       alert("제목을 입력해 주세요");
@@ -61,6 +63,15 @@ function DiaryModify() {
       return;
     }
     modify(diary);
+  };
+
+  //취소버튼 클릭 시
+  const cancelHandler = () => {
+    if (pathname === "/") {
+      navigate("/");
+      return;
+    }
+    navigate("/mypage");
   };
 
   return (
@@ -85,8 +96,8 @@ function DiaryModify() {
           />
         </div>
         <>
-          <Button onClick={onButtonClick}>수정</Button>
-          <StyledLink to={"/"}>취소</StyledLink>
+          <Button onClick={modifyHandler}>수정</Button>
+          <Button onClick={cancelHandler}>취소</Button>
         </>
       </Container>
     </>
@@ -95,13 +106,13 @@ function DiaryModify() {
 const Container = styled.div`
   @media ${theme.device.mobile} {
     display: flex;
-    flex-wrap: wrap;
+    text-align: center;
     justify-content: center;
     align-content: center;
     height: 93vh;
     width: 95vw;
     flex-direction: column;
-    margin: 0 auto;
+    margin: 0px auto;
   }
 
   @media ${theme.device.desktop} {
@@ -119,6 +130,7 @@ const Input = styled.input`
   padding: 0.4rem;
   font-weight: 600;
   margin: 1.2rem auto;
+  font-size: 1.1rem;
 
   @media ${theme.device.desktop} {
     width: 70vw;
@@ -133,10 +145,11 @@ const Textarea = styled.textarea`
     border: 1px solid gray;
     width: 85vw;
     padding: 0.4rem;
-    font-size: 0.9rem;
     margin: 1.2rem auto;
     line-height: 1.4rem;
     overflow: scroll;
+    height: 85vw;
+    font-size: 1.1rem;
   }
 
   @media ${theme.device.desktop} {

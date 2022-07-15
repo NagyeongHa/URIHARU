@@ -1,25 +1,39 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/auth";
-import { date, getDateDiary, getDno, pathnameState } from "../recoil/diary";
-import { call } from "../service/ApiService";
+import {
+  date,
+  //  getDateDiary,
+  getDno,
+  pathnameState,
+} from "../recoil/diary";
+import { call, dateDiary } from "../service/ApiService";
 import { Button } from "../styles/GlobalStyle";
 import theme from "../styles/theme";
 
 function DayDiary() {
   const navigate = useNavigate();
-  const diary = useRecoilValue(getDateDiary); //날짜별 다이어리 가져오기
+  const location = useLocation();
+  const yyyymmdd = useRecoilValue(date);
   const { id } = useRecoilValue(userState);
   const setDno = useSetRecoilState(getDno); //수정페이지에 보낼 게시물 dno 저장 (수정페이지에서 dno별 다이어리를 가져오기 위해서)
   const setPathName = useSetRecoilState(pathnameState); //수정페이지에서 수정 후 메인 / 마페 어디로 갈지 결정
   const clickeddate = useRecoilValue(date);
+  const [diary, setDiary] = useState({});
+
+  //다이어리 가져오기
+  useEffect(() => {
+    dateDiary(yyyymmdd).then(response => setDiary(response));
+  }, [location, yyyymmdd]);
+  // }, [yyyymmdd, location.pathname, diary]);
 
   //수정화면으로
   const goModifyOnClick = dno => {
     setDno(dno);
-    setPathName(window.location.pathname);
-    navigate(`/diary/modify`);
+    setPathName(location.pathname);
+    navigate("/diary/modify");
   };
 
   //삭제 버튼 누를 시
@@ -32,14 +46,15 @@ function DayDiary() {
     if (confirm("삭제 시 되돌릴 수 없습니다. 정말 삭제하시겠습니까?")) {
       call("/diary/remove", "DELETE", diaryDTO);
       alert("삭제되었습니다.");
-      window.location.replace("/");
+      navigate("/");
+      // window.location.replace("/");
     }
   };
 
   return (
     <Container>
       {Object.keys(diary).length > 0 ? (
-        diary.map((list, idx) => (
+        Object.values(diary).map((list, idx) => (
           <div key={idx}>
             <Card>
               <Hr />
