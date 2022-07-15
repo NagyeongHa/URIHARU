@@ -1,0 +1,45 @@
+package hh.com.uriharu.controller;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import hh.com.uriharu.dto.ReplyDTO;
+import hh.com.uriharu.dto.ResponseDTO;
+import hh.com.uriharu.model.ReplyEntity;
+import hh.com.uriharu.service.ReplyService;
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@Slf4j
+@RequestMapping("reply")
+public class ReplyController {
+    @Autowired
+    private ReplyService service;
+
+    @PostMapping("add")
+    public ResponseEntity<?> addReply(@AuthenticationPrincipal String userId,@RequestBody ReplyDTO dto){
+        try {
+            ReplyEntity entity = ReplyDTO.toEntity(dto);
+            entity.setRno(null);
+            entity.setWriter(userId);
+            entity.setNickname(service.nicknameById(userId));
+            
+            List<ReplyEntity> entities = service.create(entity);
+            List<ReplyDTO> dtos = entities.stream().map(ReplyDTO :: new).collect(Collectors.toList());
+            ResponseDTO<ReplyDTO> response = ResponseDTO.<ReplyDTO>builder().data(dtos).build();
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            String error = e.getMessage();
+            ResponseDTO<ReplyDTO> response = ResponseDTO.<ReplyDTO>builder().error(error).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+}

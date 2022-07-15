@@ -21,7 +21,8 @@ public class DiaryService {
     @Autowired
     private DiaryRepository repository;
 
-    @Autowired UserRepository userRepository;
+    @Autowired 
+    private UserRepository userRepository;
 
 
     public List<DiaryEntity> create(final DiaryEntity entity) {
