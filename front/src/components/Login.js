@@ -16,7 +16,7 @@ function Login() {
   const setUser = useSetRecoilState(userState);
   const [getEmailPw, setEmailPw] = useState({ email: "", password: "" }); //아이디비밀번호 Onchange
   const [IsIdPwMatch, setIsIdPwMatch] = useState({ text: "", color: false }); //유효성검사용 텍스트 및 텍스트 색깔
-
+  const [isLoading, setIsLoading] = useState(false);
   //아이디&비밀번호 onChange
   const handlerOnChange = useCallback(
     e => {
@@ -48,13 +48,13 @@ function Login() {
   //로그인버튼 눌릴 때
   const handleLogin = e => {
     e.preventDefault();
-
+    setIsLoading(true);
     //apiserver의 signin 함수
     signin({ email: getEmailPw.email, password: getEmailPw.password })
       .then(response => {
         if (response.token) {
-          //로컬스토리지에 토큰 저장
-          localStorage.setItem("ACCESS_TOKEN", response.token);
+          //세션스토리지에 토큰 저장
+          sessionStorage.setItem("ACCESS_TOKEN", response.token);
           setUser({
             id: response.id,
             email: response.email,
@@ -64,16 +64,9 @@ function Login() {
         }
       })
       .catch(err => {
-        //로그인버튼 눌렸을 때 빈값일 시
-        if (getEmailPw.email === "" || getEmailPw.password === "") {
-          setIsIdPwMatch({
-            text: "아이디와 비밀번호를 입력해주세요.",
-            color: false,
-          });
-          return;
-        }
         //아이디와 비밀번호가 일치하지 않을 때
         if (err.error === "Login failed.") {
+          setIsLoading(false);
           setIsIdPwMatch({
             text: "아이디와 비밀번호가 일치하지 않습니다",
             color: true,
@@ -83,30 +76,35 @@ function Login() {
   };
 
   return (
-    <Container>
-      <Title>Login</Title>
-      <Input
-        type='text'
-        name='email'
-        placeholder='아이디'
-        onChange={handlerOnChange}
-      />
-      <Input
-        type='password'
-        name='password'
-        placeholder='비밀번호'
-        onChange={handlerOnChange}
-      />
-      <IsMatch style={{ color: IsIdPwMatch.color ? " red" : "cornflowerblue" }}>
-        {IsIdPwMatch.text}
-      </IsMatch>
-      <Button type='submit' onClick={handleLogin}>
-        로그인
-      </Button>
-      <StyledLink to='/signup'>
-        <p>계정이 없으신가요? 회원가입 하기</p>
-      </StyledLink>
-    </Container>
+    <form onSubmit={handleLogin}>
+      <Container>
+        <Title>Login</Title>
+        <Input
+          type='text'
+          name='email'
+          placeholder='아이디'
+          onChange={handlerOnChange}
+        />
+        <Input
+          type='password'
+          name='password'
+          placeholder='비밀번호'
+          onChange={handlerOnChange}
+        />
+        <IsMatch
+          style={{ color: IsIdPwMatch.color ? " red" : "cornflowerblue" }}
+        >
+          {IsIdPwMatch.text}
+        </IsMatch>
+
+        <Button type='submit' disabled={isLoading} isLoading={isLoading}>
+          {isLoading ? "로그인 중" : "로그인"}
+        </Button>
+        <StyledLink to='/signup'>
+          <p>계정이 없으신가요? 회원가입 하기</p>
+        </StyledLink>
+      </Container>
+    </form>
   );
 }
 
@@ -179,9 +177,9 @@ const Button = styled(GlobalButton)`
   width: 75vw;
   height: 3rem;
   font-size: 1rem;
-  cursor: pointer;
-  background-color: ${({ theme }) => theme.colors.main};
-  color: ${({ theme }) => theme.colors.text};
+  cursor: ${props => (props.isLoading ? "default" : "pointer")};
+  color: ${props => (props.isLoading ? "black" : "white")};
+  background-color: ${props => (props.isLoading ? "#d3d3d3" : "skyblue")};
 
   @media ${theme.device.desktop} {
     width: 31.5%;

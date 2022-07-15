@@ -7,11 +7,13 @@ import styled from "styled-components";
 import theme from "../styles/theme";
 
 function Header() {
+  // const token = useRecoilValue(userTokenState);
   const { email } = useRecoilValue(userState);
+  const token = sessionStorage.getItem("ACCESS_TOKEN");
 
   return (
     <Container>
-      {email ? (
+      {token ? (
         <>
           <StyledLink to='/'>
             <Span>URI,HARU</Span>

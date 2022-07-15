@@ -17,8 +17,8 @@ export const call = (api, method, request) => {
     options.body = JSON.stringify(request);
   }
 
-  //로컬 스토리지에서 ACCESS TOKEN 가져오기
-  const accessToken = localStorage.getItem(ACCESS_TOKEN);
+  //세션 스토리지에서 ACCESS TOKEN 가져오기
+  const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
   if (accessToken && accessToken !== null) {
     headers.append("Authorization", "Bearer " + accessToken);
   }
@@ -59,18 +59,13 @@ export const signin = userDTO => {
 
 //로그아웃
 export const signout = () => {
-  localStorage.removeItem(ACCESS_TOKEN);
-  localStorage.removeItem("recoil-persist");
+  sessionStorage.removeItem(ACCESS_TOKEN);
+  sessionStorage.removeItem("recoil-persist");
   window.location.href = "/login";
 };
 
-//날짜별 다이어리 가져오기
-// export const dateDiary = yyyymmdd => {
-//   return call(`/diary/dateread/${yyyymmdd}`, "GET");
-// };
-
 export const dateDiary = yyyymmdd => {
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
+  const accessToken = sessionStorage.getItem("ACCESS_TOKEN");
 
   const headers = new Headers({
     "Content-Type": "application/json",
@@ -97,7 +92,7 @@ export const dateDiary = yyyymmdd => {
 };
 
 export const dnoDiary = dno => {
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
+  const accessToken = sessionStorage.getItem("ACCESS_TOKEN");
 
   const headers = new Headers({
     "Content-Type": "application/json",

@@ -106,13 +106,13 @@ function DiaryModify() {
 const Container = styled.div`
   @media ${theme.device.mobile} {
     display: flex;
-    flex-wrap: wrap;
+    text-align: center;
     justify-content: center;
     align-content: center;
     height: 93vh;
     width: 95vw;
     flex-direction: column;
-    margin: 0 auto;
+    margin: 0px auto;
   }
 
   @media ${theme.device.desktop} {
@@ -145,7 +145,6 @@ const Textarea = styled.textarea`
     border: 1px solid gray;
     width: 85vw;
     padding: 0.4rem;
-    font-size: 0.9rem;
     margin: 1.2rem auto;
     line-height: 1.4rem;
     overflow: scroll;

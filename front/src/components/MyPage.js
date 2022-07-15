@@ -20,7 +20,7 @@ function MyPage() {
 
   useEffect(() => {
     getMyDiary();
-  }, [diary, location.pathname]);
+  }, [location]);
 
   return (
     <>
