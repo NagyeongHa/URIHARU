@@ -155,14 +155,14 @@ function SignUp() {
     <Container>
       <Title>SignUp</Title>
       <div>
-        <Label>닉네임</Label>
-        <Input type='text' name='nickname' onChange={onChangeNickname} />
-        <IsMatch>{nicknameErr.txt}</IsMatch>
-      </div>
-      <div>
         <Label>아이디</Label>
         <Input type='text' name='email' onChange={onChangeEmail} />
         <IsMatch>{emailErr.txt}</IsMatch>
+      </div>
+      <div>
+        <Label>닉네임</Label>
+        <Input type='text' name='nickname' onChange={onChangeNickname} />
+        <IsMatch>{nicknameErr.txt}</IsMatch>
       </div>
       <div>
         <Label>비밀번호</Label>

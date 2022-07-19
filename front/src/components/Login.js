@@ -20,6 +20,7 @@ function Login() {
   //아이디&비밀번호 onChange
   const handlerOnChange = useCallback(
     e => {
+      setIsLoading(false);
       const { name, value } = e.target;
       setEmailPw({
         ...getEmailPw,
@@ -64,11 +65,19 @@ function Login() {
         }
       })
       .catch(err => {
+        console.log(err.status);
         //아이디와 비밀번호가 일치하지 않을 때
         if (err.error === "Login failed.") {
           setIsLoading(false);
           setIsIdPwMatch({
             text: "아이디와 비밀번호가 일치하지 않습니다",
+            color: true,
+          });
+        }
+        if (err.status === undefined) {
+          setIsLoading(false);
+          setIsIdPwMatch({
+            text: "등록되지 않은 아이디입니다.",
             color: true,
           });
         }

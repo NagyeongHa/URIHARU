@@ -3,6 +3,7 @@ import DayDiary from "../components/DayDiary";
 import styled from "styled-components";
 import theme from "../styles/theme";
 import Turn from "../components/Turn";
+import Comment from "../components/Comment";
 
 function Home() {
   return (
@@ -10,6 +11,7 @@ function Home() {
       <Turn />
       <Calendar />
       <DayDiary />
+      <Comment />
     </Container>
   );
 }
