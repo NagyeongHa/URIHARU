@@ -43,7 +43,7 @@ export const Button = styled.button`
     touch-action: auto;
     padding: 0.6rem 1rem;
     margin: 0.5rem auto;
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   @media ${theme.device.desktop} {

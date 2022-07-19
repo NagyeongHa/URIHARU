@@ -3,35 +3,34 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/auth";
-import {
-  date,
-  //  getDateDiary,
-  getDno,
-  pathnameState,
-} from "../recoil/diary";
+import { dateState, dnoState, pathnameState } from "../recoil/diary";
 import { call, dateDiary } from "../service/ApiService";
 import { Button } from "../styles/GlobalStyle";
 import theme from "../styles/theme";
+import Comment from "./Comment";
 
 function DayDiary() {
   const navigate = useNavigate();
   const location = useLocation();
-  const yyyymmdd = useRecoilValue(date);
+  const yyyymmdd = useRecoilValue(dateState);
   const { id } = useRecoilValue(userState);
-  const setDno = useSetRecoilState(getDno); //수정페이지에 보낼 게시물 dno 저장 (수정페이지에서 dno별 다이어리를 가져오기 위해서)
+  const setDno = useSetRecoilState(dnoState); //수정페이지에 보낼 게시물 dno 저장 (수정페이지에서 dno별 다이어리를 가져오기 위해서)
   const setPathName = useSetRecoilState(pathnameState); //수정페이지에서 수정 후 메인 / 마페 어디로 갈지 결정
-  const clickeddate = useRecoilValue(date);
   const [diary, setDiary] = useState({});
 
   //다이어리 가져오기
   useEffect(() => {
-    dateDiary(yyyymmdd).then(response => setDiary(response));
-  }, [location, yyyymmdd]);
+    dateDiary(yyyymmdd).then(response => {
+      setDiary(response);
+      if (response.length > 0) {
+        setDno(response[0].dno);
+      }
+    });
+  }, [location, setDno, yyyymmdd]);
   // }, [yyyymmdd, location.pathname, diary]);
 
   //수정화면으로
-  const goModifyOnClick = dno => {
-    setDno(dno);
+  const goModifyOnClick = () => {
     setPathName(location.pathname);
     navigate("/diary/modify");
   };
@@ -57,12 +56,11 @@ function DayDiary() {
         Object.values(diary).map((list, idx) => (
           <div key={idx}>
             <Card>
-              <Hr />
               <DiaryTitle>{list.title}</DiaryTitle>
               <DiaryNickname>{list.nickname}</DiaryNickname>
               <DiaryContents>{list.contents}</DiaryContents>
               <DateofDay>{list.yyyymmdd}</DateofDay>
-              <Hr />
+              <Comment />
             </Card>
 
             {list.writer === id ? (
@@ -82,7 +80,7 @@ function DayDiary() {
       ) : (
         <>
           <P>작성된 일기가 없습니다</P>
-          <StyledLink to='diary/create'>{clickeddate} 일에 글쓰기</StyledLink>
+          <StyledLink to='diary/create'>{yyyymmdd} 일에 글쓰기</StyledLink>
         </>
       )}
     </Container>
@@ -95,14 +93,7 @@ const Container = styled.div`
   @media ${theme.device.desktop} {
     width: 60vw;
     text-align: center;
-    /* background-color: aliceblue; */
   }
-`;
-
-const Hr = styled.hr`
-  border: 0.5px solid #aaaaaa;
-  width: 20%;
-  margin: 3rem auto;
 `;
 
 const Card = styled.div`
@@ -121,7 +112,7 @@ const DiaryTitle = styled.p`
     margin: 0 auto;
     text-align: center;
     word-break: keep-all;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: bold;
   }
 
@@ -141,13 +132,12 @@ const DiaryNickname = styled.p`
 
 const DiaryContents = styled.p`
   line-height: 1.7rem;
-  @media ${theme.device.desktop} {
-    font-size: 1.1rem;
-  }
+  font-size: 1.1rem;
 `;
 
 const DateofDay = styled.p`
-  text-align: center;
+  text-align: left;
+  padding-left: 1rem;
 
   @media ${theme.device.desktop} {
     font-size: 0.9rem;

@@ -51,40 +51,38 @@ function Login() {
     e.preventDefault();
     setIsLoading(true);
 
-    if (isLoading) {
-      //apiserver의 signin 함수
-      signin({ email: getEmailPw.email, password: getEmailPw.password })
-        .then(response => {
-          if (response.token) {
-            //세션스토리지에 토큰 저장
-            sessionStorage.setItem("ACCESS_TOKEN", response.token);
-            setUser({
-              id: response.id,
-              email: response.email,
-            });
-            //토큰 있으면 메인 화면으로 이동
-            navigate("/");
-          }
-        })
-        .catch(err => {
-          console.log(err.status);
-          //아이디와 비밀번호가 일치하지 않을 때
-          if (err.error === "Login failed.") {
-            setIsLoading(false);
-            setIsIdPwMatch({
-              text: "아이디와 비밀번호가 일치하지 않습니다",
-              color: true,
-            });
-          }
-          if (err.status === undefined) {
-            setIsLoading(false);
-            setIsIdPwMatch({
-              text: "등록되지 않은 아이디입니다.",
-              color: true,
-            });
-          }
-        });
-    }
+    //apiserver의 signin 함수
+    signin({ email: getEmailPw.email, password: getEmailPw.password })
+      .then(response => {
+        if (response.token) {
+          //세션스토리지에 토큰 저장
+          sessionStorage.setItem("ACCESS_TOKEN", response.token);
+          setUser({
+            id: response.id,
+            email: response.email,
+          });
+          //토큰 있으면 메인 화면으로 이동
+          navigate("/");
+        }
+      })
+      .catch(err => {
+        console.log(err.status);
+        //아이디와 비밀번호가 일치하지 않을 때
+        if (err.error === "Login failed.") {
+          setIsLoading(false);
+          setIsIdPwMatch({
+            text: "아이디와 비밀번호가 일치하지 않습니다",
+            color: true,
+          });
+        }
+        if (err.status === undefined) {
+          setIsLoading(false);
+          setIsIdPwMatch({
+            text: "등록되지 않은 아이디입니다.",
+            color: true,
+          });
+        }
+      });
   };
 
   return (

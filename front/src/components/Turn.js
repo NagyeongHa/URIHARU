@@ -49,7 +49,7 @@ const Div = styled.div`
     flex-direction: column;
 
     margin: 2rem auto;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     line-height: 1.5rem;
   }
 

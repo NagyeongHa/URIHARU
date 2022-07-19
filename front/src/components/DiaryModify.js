@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { call, dnoDiary } from "../service/ApiService";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getDno, pathnameState } from "../recoil/diary";
+import { dnoState, pathnameState } from "../recoil/diary";
 import theme from "../styles/theme";
 import { Button } from "../styles/GlobalStyle";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 function DiaryModify() {
   const location = useLocation();
   const navigate = useNavigate();
-  const dno = useRecoilValue(getDno);
+  const dno = useRecoilValue(dnoState);
   const pathname = useRecoilValue(pathnameState);
   const [diary, setDiary] = useState({
     title: "",

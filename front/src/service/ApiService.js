@@ -117,6 +117,33 @@ export const dnoDiary = dno => {
     throw Error("Dno별 다이어리를 들고오지 못했습니다");
   }
 };
+
+export const callGetComment = dno => {
+  const accessToken = sessionStorage.getItem("ACCESS_TOKEN");
+
+  const headers = new Headers({
+    "Content-Type": "application/json",
+  });
+
+  const options = {
+    headers: headers,
+    method: "GET",
+  };
+
+  if (accessToken && accessToken !== null) {
+    headers.append("Authorization", "Bearer " + accessToken);
+  }
+
+  const url = `${API_BASE_URL}/reply/all/${dno}`;
+
+  try {
+    return fetch(url, options)
+      .then(response => response.json())
+      .then(data => data);
+  } catch (error) {
+    throw Error("댓글을 들고오지 못했습니다");
+  }
+};
 // context root
 
 // localhost:8080/uriharu

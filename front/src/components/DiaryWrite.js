@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { date } from "../recoil/diary";
+import { dateState } from "../recoil/diary";
 import { call } from "../service/ApiService";
 import theme from "../styles/theme";
 import { Button, StyledLink } from "../styles/GlobalStyle";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 function DiaryEdit() {
   const navigate = useNavigate();
-  const yyyymmdd = useRecoilValue(date);
+  const yyyymmdd = useRecoilValue(dateState);
   const [diary, setDiary] = useState({
     title: "",
     contents: "",

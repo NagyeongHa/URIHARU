@@ -4,14 +4,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import { GlobalContainer } from "../styles/GlobalStyle";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
-import { date } from "../recoil/diary";
+import { dateState } from "../recoil/diary";
 import { useState } from "react";
 import theme from "../styles/theme";
 import "../styles/calendar.css";
 
 const Calendar = () => {
   const [startDate, setStartDate] = useState(new Date());
-  const setDate = useSetRecoilState(date); //리코일에 날짜값 저장
+  const setDate = useSetRecoilState(dateState); //리코일에 날짜값 저장
 
   //선택한 달력 날짜 값을 연-월-일 스트링 형태로 변환
   const dateToStringText = date => {
