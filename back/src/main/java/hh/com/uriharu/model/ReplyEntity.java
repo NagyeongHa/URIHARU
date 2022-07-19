@@ -1,6 +1,6 @@
 package hh.com.uriharu.model;
 
-import java.time.LocalDateTime;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,14 +32,14 @@ import lombok.ToString;
 //클래스 멤버 변수의 getter,setter 메서드를 구현해준다.
 @Data
 @EqualsAndHashCode(callSuper=false)
-@Table(name = "Reply")
+@Table(name = "ReplyEntity")
 @Entity
 @EntityListeners(value = {AuditingEntityListener.class})
 @ToString(exclude = {"diary"})
 public class ReplyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rno;
+    private Long rno;    
     private String writer;
     private String nickname;
     private String contents;

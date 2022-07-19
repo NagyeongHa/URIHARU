@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +25,24 @@ import lombok.extern.slf4j.Slf4j;
 public class ReplyController {
     @Autowired
     private ReplyService service;
+    
 
+    @GetMapping("all/{dno}")
+    public ResponseEntity<?> getAllReply(@AuthenticationPrincipal String userId, @PathVariable Long dno) {
+        log.warn("userdno",userId, dno);
+        if (userId == null) {
+            log.warn("user is null!");
+            throw new RuntimeException("user is null! please login!");
+        }else{
+                List<ReplyEntity> entities = service.readAll(dno);
+                List<ReplyDTO> dtos = entities.stream().map(ReplyDTO :: new).collect(Collectors.toList());
+                ResponseDTO<ReplyDTO> response = ResponseDTO.<ReplyDTO>builder().data(dtos).build();
+                log.warn("response:"+response);
+                return ResponseEntity.ok().body(response);
+            }
+           
+        }
+    
     @PostMapping("add")
     public ResponseEntity<?> addReply(@AuthenticationPrincipal String userId,@RequestBody ReplyDTO dto){
         try {

@@ -24,8 +24,19 @@ public class ReplyService {
         //Validations
         validate(entity);
         repository.save(entity);
-        log.info("Entity Id : {} is saved",entity.getRno());
-        return repository.findReplyListByDno(entity.getRno());
+        log.info("Entity Id : {} is saved",entity.getDiary().getDno());
+        return repository.findReplyListByDno(entity.getDiary().getDno());
+    }
+
+    public List<ReplyEntity> readAll(final Long dno) {
+        //Validations
+        if(dno != null){
+            return repository.findReplyListByDno(dno);
+        }else{
+            log.warn("dno is null!");
+            throw new RuntimeException("dno 정보가 없습니다!");
+        }
+        
     }
 
 

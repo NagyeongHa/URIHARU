@@ -35,8 +35,6 @@ public class ReplyDTO {
     public static ReplyEntity toEntity(final ReplyDTO dto) {
         return ReplyEntity.builder()
         .rno(dto.getRno())
-        .nickname(dto.getNickname())
-        .writer(dto.getWriter())
         .contents((dto.getContents()))
         .diary(DiaryEntity.builder().dno(dto.getDno()).build())
         .build();

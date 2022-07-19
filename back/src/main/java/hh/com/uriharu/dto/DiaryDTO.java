@@ -1,6 +1,7 @@
 package hh.com.uriharu.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import hh.com.uriharu.model.DiaryEntity;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,8 @@ public class DiaryDTO {
     private String yyyymmdd;
     private LocalDateTime regdate;
     private LocalDateTime moddate;
+
+    private List<ReplyDTO> replylist;
 
 
     //userid는 시큐리티를 통해 인증
