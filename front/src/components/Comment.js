@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { dnoState } from "../recoil/diary";
+import { yyyymmddState, dnoState } from "../recoil/diary";
 import { call, callGetComment } from "../service/ApiService";
 import theme from "../styles/theme";
 import CommentItem from "./CommentItem";
@@ -14,7 +14,8 @@ function Comment() {
   const [commentArray, setCommentArray] = useState([]);
   const [isShow, setIsShow] = useState(false);
   const { contents } = comment;
-
+  const yyyymmdd = useRecoilValue(yyyymmddState);
+  console.log(yyyymmdd);
   //GET
   //댓글 가져오기
   useEffect(() => {
@@ -22,7 +23,7 @@ function Comment() {
   }, [getDno, comment]);
 
   //댓글 작성 onChangeHandler
-  const commentHandler = e => {
+  const writecomment = e => {
     setComment({ contents: e.target.value, dno: getDno });
   };
 
@@ -50,7 +51,7 @@ function Comment() {
   const isShowComment = () => {
     setIsShow(!isShow);
   };
-  console.log(comment);
+
   return (
     <Container>
       <IconWrapper>
@@ -71,7 +72,7 @@ function Comment() {
               type='text'
               placeholder='댓글을 작성하세요'
               name='contents'
-              onChange={commentHandler}
+              onChange={writecomment}
               value={contents}
             />
             <Button onClick={commentSubmit}>등록</Button>
