@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { yyyymmddState, dnoState } from "../recoil/diary";
+import { dnoState } from "../recoil/diary";
 import { call, callGetComment } from "../service/ApiService";
 import theme from "../styles/theme";
 import CommentItem from "./CommentItem";
@@ -14,13 +14,6 @@ function Comment() {
   const [commentArray, setCommentArray] = useState([]);
   const [isShow, setIsShow] = useState(false);
   const { contents } = comment;
-  const yyyymmdd = useRecoilValue(yyyymmddState);
-  console.log(yyyymmdd);
-  //GET
-  //댓글 가져오기
-  useEffect(() => {
-    callGetComment(getDno).then(response => setCommentArray(response.data));
-  }, [getDno, comment]);
 
   //댓글 작성 onChangeHandler
   const writecomment = e => {
@@ -28,7 +21,7 @@ function Comment() {
   };
 
   //댓글 작성 버튼 클릭 시
-  const commentSubmit = () => {
+  const commentSubmit = useCallback(() => {
     if (contents === "") {
       alert("댓글을 입력해 주세요");
       return;
@@ -36,7 +29,7 @@ function Comment() {
 
     callAddComment(comment);
     setComment({ contents: "" });
-  };
+  }, [comment, contents]);
 
   //POST
   //댓글 추가하기
@@ -48,6 +41,13 @@ function Comment() {
     }
   };
 
+  //GET
+  //댓글 가져오기
+  useEffect(() => {
+    callGetComment(getDno).then(response => setCommentArray(response.data));
+  }, [getDno, commentSubmit]);
+
+  //댓글 아이콘 클릭 시 댓글 보기/숨기기
   const isShowComment = () => {
     setIsShow(!isShow);
   };
