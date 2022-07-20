@@ -27,7 +27,7 @@ function Comment() {
   };
 
   //댓글 작성 버튼 클릭 시
-  const commentSubmit = () => {
+  const submitComment = () => {
     if (contents === "") {
       alert("댓글을 입력해 주세요");
       return;
@@ -39,9 +39,10 @@ function Comment() {
 
   //POST
   //댓글 추가하기
+  //async await 써서 저장(post) 후 다시 댓글 불러올 수 (get) 있도록
   const callAddComment = async comment => {
     try {
-      await call("/reply/add", "POST", comment); //async await 써서 저장(post) 후 다시 댓글 불러올 수 (get) 있도록
+      await call("/reply/add", "POST", comment);
       callGetComment(getDno).then(response => setCommentArray(response.data));
     } catch (error) {
       console.log(error);
@@ -76,7 +77,7 @@ function Comment() {
               onChange={writecomment}
               value={contents}
             />
-            <Button onClick={commentSubmit}>등록</Button>
+            <Button onClick={submitComment}>등록</Button>
           </InputWrapper>
         </>
       ) : (

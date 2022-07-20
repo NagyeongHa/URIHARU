@@ -35,6 +35,20 @@ function DiaryModify() {
     [diary]
   );
 
+  //수정버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
+  const modifyHandler = () => {
+    //유효성 테스트
+    if (diary.title === "") {
+      alert("제목을 입력해 주세요");
+      return;
+    }
+    if (diary.contents === "") {
+      alert("내용을 입력해 주세요");
+      return;
+    }
+    modify(diary);
+  };
+
   //다이어리 수정 API
   const modify = async diaryDTO => {
     try {
@@ -49,20 +63,6 @@ function DiaryModify() {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
-  const modifyHandler = () => {
-    //유효성 테스트
-    if (diary.title === "") {
-      alert("제목을 입력해 주세요");
-      return;
-    }
-    if (diary.contents === "") {
-      alert("내용을 입력해 주세요");
-      return;
-    }
-    modify(diary);
   };
 
   //취소버튼 클릭 시
