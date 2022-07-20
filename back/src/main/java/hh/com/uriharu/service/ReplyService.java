@@ -1,6 +1,7 @@
 package hh.com.uriharu.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,17 @@ public class ReplyService {
         
     }
 
+    public Long update(final String userid,ReplyEntity entity) {
+        validate(entity);
+        Optional<ReplyEntity> opEnti = repository.findById(entity.getRno());
+        if(opEnti.isPresent()){
+            ReplyEntity enti = opEnti.get();
+            enti.setContents(entity.getContents());
+            repository.save(enti);
+           return entity.getDiary().getDno();
+        }
+        return entity.getDiary().getDno();
+    }
 
      //리팩토링한 메서드
      private void validate(final ReplyEntity entity){

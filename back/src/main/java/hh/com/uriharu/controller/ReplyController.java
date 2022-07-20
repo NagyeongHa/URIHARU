@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,4 +62,23 @@ public class ReplyController {
             return ResponseEntity.badRequest().body(response);
         }
     }
+
+    @PutMapping("modify")
+    public ResponseEntity<?> modifyReply(@AuthenticationPrincipal String userId,@RequestBody ReplyDTO dto) {
+        ReplyEntity entity = ReplyDTO.toEntity(dto);
+        entity.setWriter(userId);
+        entity.setNickname(service.nicknameById(userId));
+
+        Long dno = service.update(userId,entity);
+        log.warn("dno:"+dno);
+        
+        List<ReplyEntity> entities = service.readAll(dno);
+        log.warn("entities:"+entities);
+        
+            List<ReplyDTO> dtos = entities.stream().map(ReplyDTO :: new).collect(Collectors.toList());
+            ResponseDTO<ReplyDTO> response = ResponseDTO.<ReplyDTO>builder().data(dtos).build();
+        return ResponseEntity.ok().body(response);
+    }
+
+
 }
