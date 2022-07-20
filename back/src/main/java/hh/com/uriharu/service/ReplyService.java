@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import hh.com.uriharu.model.ReplyEntity;
@@ -50,6 +51,11 @@ public class ReplyService {
            return entity.getDiary().getDno();
         }
         return entity.getDiary().getDno();
+    }
+
+    @Modifying
+    public void deleteByDto(ReplyEntity entity) {
+        repository.delete(entity);
     }
 
      //리팩토링한 메서드
