@@ -53,7 +53,7 @@ function Comment() {
   const isShowComment = () => {
     setIsShow(!isShow);
   };
-
+  console.log(commentArray);
   return (
     <Container>
       <IconWrapper>
