@@ -7,9 +7,6 @@ export const GlobalInput = styled.input`
   margin: 0.4rem;
   border-radius: 0.2rem;
   border: 0.5px solid gray;
-  &:focus {
-    border: 1px solid red;
-  }
 `;
 
 export const GlobalContainer = styled.div`

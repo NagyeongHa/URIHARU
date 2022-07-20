@@ -36,9 +36,9 @@ function DiaryModify() {
   );
 
   //다이어리 수정 API
-  const modify = diaryDTO => {
+  const modify = async diaryDTO => {
     try {
-      call("/diary/modify", "PUT", diaryDTO);
+      await call("/diary/modify", "PUT", diaryDTO);
 
       //수정 후 메인->메인 , 마이페이지-> 마이페이지 각각 이동
       if (pathname === "/") {
@@ -130,7 +130,7 @@ const Input = styled.input`
   padding: 0.4rem;
   font-weight: 600;
   margin: 1.2rem auto;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 
   @media ${theme.device.desktop} {
     width: 70vw;
@@ -146,19 +146,19 @@ const Textarea = styled.textarea`
     width: 85vw;
     padding: 0.4rem;
     margin: 1.2rem auto;
-    line-height: 1.4rem;
+    line-height: 2rem;
     overflow: scroll;
     height: 85vw;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 
   @media ${theme.device.desktop} {
     border-radius: 0.3rem;
     overflow: scroll;
-    width: 70vw;
+    width: 69.5vw;
     height: 40vw;
-    line-height: 1.7rem;
-    padding: 0.5rem;
+    line-height: 2.2rem;
+    padding: 0.7rem;
     margin: 1.2rem auto;
     font-size: 1.1rem;
     margin-bottom: 4rem;

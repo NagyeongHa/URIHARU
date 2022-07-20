@@ -49,11 +49,17 @@ function Accordion(props) {
   };
 
   //다이어리 삭제
-  const deleteDiaryOnclick = () => {
-    if (confirm("삭제 시 되돌릴 수 없습니다. 정말 삭제하시겠습니까?")) {
-      call("/diary/remove", "DELETE", { dno });
-      navigate(`/mypage`);
-      alert("삭제되었습니다.");
+  const deleteDiaryOnclick = async () => {
+    try {
+      if (
+        confirm(`삭제 시 되돌릴 수 없습니다. 정말 삭제하시겠습니까? ${dno}`)
+      ) {
+        await call("/diary/remove", "DELETE", { dno: dno });
+        alert("삭제되었습니다.");
+        navigate("/mypage");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

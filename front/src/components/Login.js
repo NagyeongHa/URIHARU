@@ -17,6 +17,7 @@ function Login() {
   const [getEmailPw, setEmailPw] = useState({ email: "", password: "" }); //아이디비밀번호 Onchange
   const [IsIdPwMatch, setIsIdPwMatch] = useState({ text: "", color: false }); //유효성검사용 텍스트 및 텍스트 색깔
   const [isLoading, setIsLoading] = useState(false);
+  const { email, password } = getEmailPw;
   //아이디&비밀번호 onChange
   const handlerOnChange = useCallback(
     e => {
@@ -33,7 +34,7 @@ function Login() {
   //로그인 버튼 눌리기전 유효성 검사
   useEffect(() => {
     //아이디나 비밀번호 입력안됐을 때
-    if (getEmailPw.email === "" || getEmailPw.password === "") {
+    if (email === "" || password === "") {
       setIsIdPwMatch({
         text: "아이디와 비밀번호를 입력해주세요.",
         color: false,
@@ -44,7 +45,7 @@ function Login() {
     setIsIdPwMatch({
       text: "",
     });
-  }, [getEmailPw]);
+  }, [email, getEmailPw, password]);
 
   //로그인버튼 클릭 시
   const handleLogin = e => {
@@ -52,7 +53,7 @@ function Login() {
     setIsLoading(true);
 
     //apiserver의 signin 함수
-    signin({ email: getEmailPw.email, password: getEmailPw.password })
+    signin({ email: email, password: password })
       .then(response => {
         if (response.token) {
           //세션스토리지에 토큰 저장
@@ -67,20 +68,22 @@ function Login() {
       })
       .catch(err => {
         console.log(err.status);
+        if (email === "" || password === "") {
+          setIsLoading(false);
+          setIsIdPwMatch({
+            text: "아이디와 비밀번호를 입력해주세요.",
+            color: false,
+          });
+          return;
+        }
         //아이디와 비밀번호가 일치하지 않을 때
-        if (err.error === "Login failed.") {
+        if (err.error === "Login failed." || undefined) {
           setIsLoading(false);
           setIsIdPwMatch({
             text: "아이디와 비밀번호가 일치하지 않습니다",
             color: true,
           });
-        }
-        if (err.status === undefined) {
-          setIsLoading(false);
-          setIsIdPwMatch({
-            text: "등록되지 않은 아이디입니다.",
-            color: true,
-          });
+          return;
         }
       });
   };

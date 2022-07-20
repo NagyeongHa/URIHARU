@@ -27,7 +27,6 @@ function DayDiary() {
       }
     });
   }, [location, setDno, yyyymmdd]);
-  // }, [yyyymmdd, location.pathname, diary]);
 
   //수정화면으로
   const goModifyOnClick = () => {
@@ -37,16 +36,15 @@ function DayDiary() {
 
   //삭제 버튼 누를 시
   const deleteDiaryOnclick = () => {
-    deleteDiary(diary[0]);
+    deleteDiary(diary[0].dno);
   };
 
   //다이어리 삭제
-  const deleteDiary = diaryDTO => {
+  const deleteDiary = async dno => {
     if (confirm("삭제 시 되돌릴 수 없습니다. 정말 삭제하시겠습니까?")) {
-      call("/diary/remove", "DELETE", diaryDTO);
+      await call("/diary/remove", "DELETE", { dno: dno });
       alert("삭제되었습니다.");
       navigate("/");
-      // window.location.replace("/");
     }
   };
 
@@ -112,7 +110,7 @@ const DiaryTitle = styled.p`
     margin: 0 auto;
     text-align: center;
     word-break: keep-all;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
   }
 
@@ -126,18 +124,25 @@ const DiaryTitle = styled.p`
 
 const DiaryNickname = styled.p`
   @media ${theme.device.desktop} {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 `;
 
 const DiaryContents = styled.p`
-  line-height: 1.7rem;
-  font-size: 1.1rem;
+  line-height: 2.1rem;
+  font-size: 1.2rem;
+  text-align: left;
+  white-space: pre-wrap;
+
+  @media ${theme.device.desktop} {
+    line-height: 2.3rem;
+    font-size: 1.1rem;
+  }
 `;
 
 const DateofDay = styled.p`
   text-align: left;
-  padding-left: 1rem;
+  padding-left: 0.3rem;
 
   @media ${theme.device.desktop} {
     font-size: 0.9rem;
