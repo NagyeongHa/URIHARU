@@ -36,7 +36,7 @@ function MyPage() {
           title={list.title}
           contents={list.contents}
           yyyymmdd={list.yyyymmdd}
-          key={idx}
+          key={list.dno}
           dno={list.dno}
         />
       ))}

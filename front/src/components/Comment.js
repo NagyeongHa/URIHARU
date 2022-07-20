@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -15,13 +15,19 @@ function Comment() {
   const [isShow, setIsShow] = useState(false);
   const { contents } = comment;
 
+  //GET
+  //댓글 가져오기
+  useEffect(() => {
+    callGetComment(getDno).then(response => setCommentArray(response.data));
+  }, [getDno]);
+
   //댓글 작성 onChangeHandler
   const writecomment = e => {
     setComment({ contents: e.target.value, dno: getDno });
   };
 
   //댓글 작성 버튼 클릭 시
-  const commentSubmit = useCallback(() => {
+  const commentSubmit = () => {
     if (contents === "") {
       alert("댓글을 입력해 주세요");
       return;
@@ -29,25 +35,20 @@ function Comment() {
 
     callAddComment(comment);
     setComment({ contents: "" });
-  }, [comment, contents]);
+  };
 
   //POST
   //댓글 추가하기
-  const callAddComment = comment => {
+  const callAddComment = async comment => {
     try {
-      call("/reply/add", "POST", comment);
+      await call("/reply/add", "POST", comment); //async await 써서 저장(post) 후 다시 댓글 불러올 수 (get) 있도록
+      callGetComment(getDno).then(response => setCommentArray(response.data));
     } catch (error) {
       console.log(error);
     }
   };
 
-  //GET
-  //댓글 가져오기
-  useEffect(() => {
-    callGetComment(getDno).then(response => setCommentArray(response.data));
-  }, [getDno, commentSubmit]);
-
-  //댓글 아이콘 클릭 시 댓글 보기/숨기기
+  //댓글 아이콘 클릭시 댓글창 숨기기/보기
   const isShowComment = () => {
     setIsShow(!isShow);
   };
@@ -60,7 +61,7 @@ function Comment() {
       </IconWrapper>
       <hr />
 
-      {isShow === true ? (
+      {isShow ? (
         <>
           {commentArray &&
             Object.values(commentArray).map(item => (
@@ -102,6 +103,7 @@ const IconWrapper = styled.div`
     text-align: left;
     display: block;
     padding: 1rem;
+    cursor: pointer;
 
     @media ${theme.device.desktop} {
       font-size: 1.5rem;

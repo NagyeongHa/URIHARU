@@ -53,8 +53,8 @@ function DayDiary() {
   return (
     <Container>
       {Object.keys(diary).length > 0 ? (
-        Object.values(diary).map((list, idx) => (
-          <div key={idx}>
+        Object.values(diary).map(list => (
+          <div key={list.dno}>
             <Card>
               <DiaryTitle>{list.title}</DiaryTitle>
               <DiaryNickname>{list.nickname}</DiaryNickname>
