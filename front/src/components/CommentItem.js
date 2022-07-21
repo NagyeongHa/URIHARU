@@ -20,6 +20,8 @@ function CommentItem({ comments, modifyComment, deleteComment }) {
 
   //2022-07-20T05:25:29 => 2022-07-20 05:25:29 형식으로 변환
   const replaceRegdate = regdate.replace(/T/gi, " ");
+  const sliceRegdate = replaceRegdate.slice(replaceRegdate.indexOf("."));
+  const date = replaceRegdate.replace(sliceRegdate, " ");
 
   //수정 onChange
   const editComment = e => {
@@ -73,7 +75,7 @@ function CommentItem({ comments, modifyComment, deleteComment }) {
       )}
 
       <ButtonWrapper>
-        <Date>{replaceRegdate}</Date>
+        <Date>{date}</Date>
         {writer === id ? (
           <div>
             <span onClick={isEditState}>{isEdit ? "취소" : "수정"}</span>
