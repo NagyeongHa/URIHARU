@@ -1,35 +1,60 @@
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { userState } from "../recoil/auth";
 import { dnoState } from "../recoil/diary";
 import theme from "../styles/theme";
 
-function CommentItem({ comments }) {
-  const { nickname, contents, regdate } = comments;
-  const [comment, setComment] = useState({ contents: contents, dno: "" });
-  const [isEdit, setIsEdit] = useState(false);
-  const getDno = useRecoilState(dnoState);
-  //2022-07-20T05:25:29 => 2022-07-20 05:25:29 형식으로 변환
-  const modifyRegdate = regdate.replace(/T/gi, " ");
+function CommentItem({ comments, modifyComment, deleteComment }) {
+  const { nickname, contents, regdate, rno, writer } = comments;
 
+  const getDno = useRecoilValue(dnoState);
+  const { id } = useRecoilValue(userState);
+
+  const [isEdit, setIsEdit] = useState(false);
+  const [comment, setComment] = useState({
+    contents: contents,
+    dno: "",
+    rno: "",
+  });
+
+  //2022-07-20T05:25:29 => 2022-07-20 05:25:29 형식으로 변환
+  const replaceRegdate = regdate.replace(/T/gi, " ");
+
+  //수정 onChange
   const editComment = e => {
-    setComment({ contents: e.target.value, dno: getDno[0] });
+    setComment({ contents: e.target.value, dno: getDno, rno: rno });
   };
 
-  console.log("comment", comment);
-  console.log(comments);
-
+  //수정버튼 클릭했을 때 수정 input칸 띄우기
   const isEditState = () => {
     setIsEdit(!isEdit);
-    //수정 input 에서 글 작성하다가 취소누를 시 수정 input 박스에서 글 썼던 것 초기화
+
+    //수정 input 칸에서 글 수정하다가 취소누를 시 원래 댓글로 되돌리기
     if (!isEdit) {
       setComment({ ...comment, contents: contents });
     }
   };
 
-  const callModifyComment = () => {
-    //부모컴포넌트의 댓글 추가 함수
+  //수정 작성 버튼 클릭 시 변경된 댓글 데이터 comment(부모) 컴포넌트로 보냄
+  const modifyCommentHandler = () => {
+    modifyComment({
+      contents: comment.contents,
+      dno: getDno,
+      rno: rno,
+    });
+    setIsEdit(false);
   };
+
+  //삭제 버튼 클릭 시 삭제된 댓글 데이터 comment(부모) 컴포넌트로 보냄
+  const deleteCommentHandler = () => {
+    deleteComment({
+      contents: comment.contents,
+      dno: getDno,
+      rno: rno,
+    });
+  };
+
   return (
     <>
       <Nickname>{nickname}</Nickname>
@@ -41,17 +66,20 @@ function CommentItem({ comments }) {
             onChange={editComment}
             name='contents'
           />
-          <Button onClick={callModifyComment}>수정</Button>
+          <Button onClick={modifyCommentHandler}>수정</Button>
         </InputWrapper>
       ) : (
         <Contents>{contents}</Contents>
       )}
+
       <ButtonWrapper>
-        <Date>{modifyRegdate}</Date>
-        <div>
-          <span onClick={isEditState}>{isEdit ? "취소" : "수정"}</span>
-          <span>삭제</span>
-        </div>
+        <Date>{replaceRegdate}</Date>
+        {writer === id ? (
+          <div>
+            <span onClick={isEditState}>{isEdit ? "취소" : "수정"}</span>
+            <span onClick={deleteCommentHandler}>삭제</span>
+          </div>
+        ) : null}
       </ButtonWrapper>
       <hr />
     </>
@@ -84,7 +112,7 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  margin: 0.5rem auto;
+  margin: 0.3rem auto;
 `;
 
 const Textarea = styled.textarea`

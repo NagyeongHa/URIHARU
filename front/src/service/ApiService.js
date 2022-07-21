@@ -118,7 +118,7 @@ export const dnoDiary = dno => {
   }
 };
 
-export const callGetComment = dno => {
+export const getComment = dno => {
   const accessToken = sessionStorage.getItem("ACCESS_TOKEN");
 
   const headers = new Headers({

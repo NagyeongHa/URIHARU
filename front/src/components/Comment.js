@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { dnoState } from "../recoil/diary";
-import { call, callGetComment } from "../service/ApiService";
+import { call, getComment } from "../service/ApiService";
 import theme from "../styles/theme";
 import CommentItem from "./CommentItem";
 import { FaRegCommentDots } from "react-icons/fa";
@@ -15,13 +15,12 @@ function Comment() {
   const [isShow, setIsShow] = useState(false);
   const { contents } = comment;
 
-  //GET
-  //댓글 가져오기
-  useEffect(() => {
-    callGetComment(getDno).then(response => setCommentArray(response.data));
-  }, [getDno]);
+  //댓글 아이콘 클릭시 댓글창 숨기기/보기
+  const isShowComment = () => {
+    setIsShow(!isShow);
+  };
 
-  //댓글 작성 onChangeHandler
+  //댓글 작성 onChange
   const writecomment = e => {
     setComment({ contents: e.target.value, dno: getDno });
   };
@@ -32,28 +31,53 @@ function Comment() {
       alert("댓글을 입력해 주세요");
       return;
     }
-
-    callAddComment(comment);
+    addComment(comment);
     setComment({ contents: "" });
   };
 
+  //GET
+  //댓글 가져오기
+  useEffect(() => {
+    getComment(getDno).then(response => setCommentArray(response.data));
+  }, [comment, getDno]);
+
   //POST
-  //댓글 추가하기
-  //async await 써서 저장(post) 후 다시 댓글 불러올 수 (get) 있도록
-  const callAddComment = async comment => {
+  //댓글 추가
+  const addComment = async comment => {
     try {
       await call("/reply/add", "POST", comment);
-      callGetComment(getDno).then(response => setCommentArray(response.data));
+      getComment(getDno).then(response => setCommentArray(response.data));
     } catch (error) {
       console.log(error);
     }
   };
 
-  //댓글 아이콘 클릭시 댓글창 숨기기/보기
-  const isShowComment = () => {
-    setIsShow(!isShow);
+  //PUT
+  //댓글 수정
+  const modifyComment = async commentItem => {
+    try {
+      await call("/reply/modify", "PUT", commentItem).then(response =>
+        setCommentArray(response.data)
+      );
+      getComment(getDno).then(response => setCommentArray(response.data));
+    } catch (error) {
+      console.log(error);
+    }
   };
-  console.log(commentArray);
+
+  //DELETE
+  //댓글 삭제
+  const deleteComment = async commentItem => {
+    try {
+      if (confirm("삭제하시겠습니까?")) {
+        await call("/reply/remove", "DELETE", commentItem);
+      }
+      getComment(getDno).then(response => setCommentArray(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <IconWrapper>
@@ -66,7 +90,12 @@ function Comment() {
         <>
           {commentArray &&
             Object.values(commentArray).map(item => (
-              <CommentItem comments={item} key={item.rno} />
+              <CommentItem
+                comments={item}
+                key={item.rno}
+                modifyComment={modifyComment}
+                deleteComment={deleteComment}
+              />
             ))}
 
           <InputWrapper>
