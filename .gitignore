@@ -67,3 +67,5 @@ gradle-app.setting
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/react,gradle,java
+*.lock
+back/.gradle/7.4.1/fileHashes/fileHashes.lock
