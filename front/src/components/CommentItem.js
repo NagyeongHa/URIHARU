@@ -89,22 +89,23 @@ function CommentItem({ comments, modifyComment, deleteComment }) {
 const Nickname = styled.div`
   text-align: left;
   padding: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: bold;
 
   @media ${theme.device.desktop} {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 `;
 
 const Contents = styled.div`
   text-align: left;
   padding: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  line-height: 1.9rem;
   word-break: break-all;
 
   @media ${theme.device.desktop} {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 `;
 
@@ -118,9 +119,10 @@ const InputWrapper = styled.div`
 const Textarea = styled.textarea`
   padding: 0.5rem;
   flex-basis: 80%;
-  font-size: 1rem;
+  font-size: 1.1rem;
   border-radius: 0.2rem 0 0 0.2rem;
   height: 3rem;
+  line-height: 1.8rem;
 
   @media ${theme.device.desktop} {
     height: 5rem;
@@ -129,7 +131,7 @@ const Textarea = styled.textarea`
 
 const Date = styled.div`
   text-align: left;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   padding: 0.4rem;
   color: gray;
 
@@ -155,7 +157,7 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
 
   & > div > span {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     padding: 0.4rem;
     color: gray;
     cursor: pointer;

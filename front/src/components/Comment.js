@@ -151,12 +151,14 @@ const InputWrapper = styled.div`
 const Textarea = styled.textarea`
   padding: 0.5rem;
   flex-basis: 80%;
-  font-size: 1rem;
+  font-size: 1.2rem;
   border-radius: 0.2rem 0 0 0.2rem;
   height: 3rem;
+  line-height: 1.9rem;
 
   @media ${theme.device.desktop} {
     height: 5rem;
+    font-size: 1rem;
   }
 `;
 

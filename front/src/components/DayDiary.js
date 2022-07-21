@@ -95,6 +95,7 @@ const Container = styled.div`
   @media ${theme.device.desktop} {
     width: 60vw;
     text-align: center;
+    margin-top: 4rem;
   }
 `;
 
@@ -114,7 +115,7 @@ const DiaryTitle = styled.p`
     margin: 0 auto;
     text-align: center;
     word-break: keep-all;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: bold;
   }
 
@@ -134,13 +135,12 @@ const DiaryNickname = styled.p`
 
 const DiaryContents = styled.p`
   line-height: 2.1rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-align: left;
   white-space: pre-wrap;
 
   @media ${theme.device.desktop} {
     line-height: 2.3rem;
-    font-size: 1.1rem;
   }
 `;
 
