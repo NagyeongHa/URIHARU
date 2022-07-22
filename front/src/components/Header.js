@@ -82,6 +82,8 @@ const Button = styled.button`
   background-color: transparent;
   border: none;
   margin-right: 0.3rem;
+  color: black;
+  font-size: 1rem;
   cursor: pointer;
   &:first-child {
     font-weight: bold;

@@ -145,24 +145,28 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  justify-content: center;
   margin: 2rem auto;
+  height: 5rem;
 `;
 
 const Textarea = styled.textarea`
   padding: 0.5rem;
   flex-basis: 80%;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   border-radius: 0.2rem 0 0 0.2rem;
-  height: 3rem;
+  height: auto;
   line-height: 1.9rem;
 
   @media ${theme.device.desktop} {
-    height: 5rem;
     font-size: 1rem;
   }
 `;
 
 const Button = styled.button`
+  color: black;
+  height: auto;
+  font-size: 1rem;
   padding: 0.5rem;
   flex-basis: 20%;
   /* background-color: #eeeeee; */
