@@ -3,9 +3,8 @@ import styled from "styled-components";
 import theme from "./theme";
 export const GlobalInput = styled.input`
   height: 1.5rem;
-  padding: 0.3rem;
-  margin: 0.4rem;
-  border-radius: 0.2rem;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
   border: 0.5px solid gray;
 `;
 
@@ -19,10 +18,10 @@ export const GlobalContainer = styled.div`
 
 //회원가입 / 로그인 버튼
 export const GlobalButton = styled.button`
-  height: 2.5rem;
+  height: 3.3rem;
   padding: 0.3rem;
   margin: 0.3rem;
-  border-radius: 0.2rem;
+  border-radius: 0.6rem;
   border: none;
   cursor: pointer;
 `;

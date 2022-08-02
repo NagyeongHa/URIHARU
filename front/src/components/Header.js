@@ -12,9 +12,9 @@ function Header() {
   const token = sessionStorage.getItem("ACCESS_TOKEN");
 
   return (
-    <Container>
+    <>
       {token ? (
-        <>
+        <Nav>
           <StyledLink to='/'>
             <Span>URI,HARU</Span>
           </StyledLink>
@@ -24,16 +24,12 @@ function Header() {
             </Link>
             <Button onClick={signout}>로그아웃</Button>
           </Wrapper>
-        </>
-      ) : (
-        <>
-          <Span>URI,HARU</Span>
-        </>
-      )}
-    </Container>
+        </Nav>
+      ) : null}
+    </>
   );
 }
-const Container = styled.div`
+const Nav = styled.div`
   height: 3rem;
   border-bottom: 1px solid gray;
   display: flex;

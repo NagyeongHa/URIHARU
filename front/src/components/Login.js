@@ -1,4 +1,5 @@
 import { signin } from "../service/ApiService";
+import cloud from "../assets/icon/cloud.png";
 import {
   GlobalInput,
   GlobalContainer,
@@ -10,6 +11,8 @@ import { useSetRecoilState } from "recoil";
 import { userState } from "../recoil/auth";
 import { useCallback, useEffect, useState } from "react";
 import theme from "../styles/theme";
+import "../styles/font.css";
+import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 
 function Login() {
   const navigate = useNavigate();
@@ -91,28 +94,37 @@ function Login() {
   return (
     <form onSubmit={handleLogin}>
       <Container>
-        <Title>Login</Title>
-        <Input
-          type='text'
-          name='email'
-          placeholder='아이디'
-          onChange={handlerOnChange}
-        />
-        <Input
-          type='password'
-          name='password'
-          placeholder='비밀번호'
-          onChange={handlerOnChange}
-        />
-        <IsMatch
-          style={{ color: IsIdPwMatch.color ? " red" : "cornflowerblue" }}
-        >
-          {IsIdPwMatch.text}
-        </IsMatch>
+        <>
+          <img src={cloud} alt='구름' />
+          <Title>URIHARU</Title>
+        </>
+        <Wrapper>
+          <InputWrapper>
+            <AiOutlineUser className='icons' />
+            <Input
+              type='text'
+              name='email'
+              placeholder='아이디'
+              onChange={handlerOnChange}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <AiOutlineLock className='icons' />
+            <Input
+              type='password'
+              name='password'
+              placeholder='비밀번호'
+              onChange={handlerOnChange}
+            />
+          </InputWrapper>
+          <IsMatch style={{ color: IsIdPwMatch.color ? " red" : "#1519a6" }}>
+            {IsIdPwMatch.text}
+          </IsMatch>
 
-        <Button type='submit' disabled={isLoading} isLoading={isLoading}>
-          {isLoading ? "로그인 중" : "로그인"}
-        </Button>
+          <Button type='submit' disabled={isLoading} isLoading={isLoading}>
+            {isLoading ? "로그인 중" : "로그인"}
+          </Button>
+        </Wrapper>
         <StyledLink to='/signup'>
           <p>계정이 없으신가요? 회원가입 하기</p>
         </StyledLink>
@@ -121,23 +133,47 @@ function Login() {
   );
 }
 
-const Container = styled(GlobalContainer)`
-  @media ${theme.device.mobile} {
-    height: 90vh;
-    flex-direction: column;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  background-color: ${theme.colors.main};
+
+  & > img {
+    padding: 0.6rem;
   }
 
-  @media ${theme.device.desktop} {
-    flex-direction: column;
-    height: 90vh;
+  @media ${theme.device.mobile} {
+    box-sizing: border-box;
+    width: 100vw;
+  }
+`;
+
+const Wrapper = styled(GlobalContainer)`
+  background-color: white;
+  flex-direction: column;
+  width: 21rem;
+  height: 20rem;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.13);
+  border-radius: 7px;
+
+  @media ${theme.device.mobile} {
+    background-color: ${theme.colors.main};
+    box-shadow: none;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
   }
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
   & > p {
+    color: white;
     font-size: 0.8rem;
-    color: gray;
     cursor: pointer;
   }
 
@@ -149,12 +185,53 @@ const StyledLink = styled(Link)`
 `;
 
 const Title = styled.div`
+  font-family: "SUIT-Thin";
   font-size: 1.3rem;
   font-weight: bold;
-  margin-bottom: 0.9rem;
+  color: #ffff;
+  letter-spacing: 0.36em;
+  margin: 2.2rem auto 2.5rem auto;
 
   @media ${theme.device.desktop} {
     font-size: 2rem;
+  }
+
+  @media ${theme.device.mobile} {
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+  }
+`;
+
+const InputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+
+  .icons {
+    color: gray;
+    height: 1.5rem;
+    width: 1.5rem;
+    padding: 4px;
+    position: absolute;
+    box-sizing: border-box;
+    top: 50%;
+    left: 2rem;
+    transform: translateY(-50%);
+  }
+`;
+
+const Input = styled(GlobalInput)`
+  box-sizing: border-box;
+  width: 86%;
+  height: 3rem;
+  padding-left: 2.2rem;
+  margin: 0.6rem;
+  font-size: 1rem;
+
+  @media ${theme.device.mobile} {
+    margin: 0.5rem;
+    font-size: 1.1rem;
+    border: none;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
   }
 `;
 
@@ -169,36 +246,18 @@ const IsMatch = styled.p`
   }
 `;
 
-const Input = styled(GlobalInput)`
-  @media ${theme.device.mobile} {
-    width: 70vw;
-    height: 1.8rem;
-    font-size: 1rem;
-    padding: 0.6rem;
-  }
-
-  @media ${theme.device.desktop} {
-    width: 30%;
-    padding: 0.6rem;
-    margin: 0.5rem;
-    font-size: 1rem;
-  }
-`;
-
 const Button = styled(GlobalButton)`
+  width: 86.5%;
   margin-top: 0.8rem;
-  width: 75vw;
-  height: 3rem;
   font-size: 1rem;
   cursor: ${props => (props.isLoading ? "default" : "pointer")};
   color: ${props => (props.isLoading ? "black" : "white")};
-  background-color: ${props => (props.isLoading ? "#d3d3d3" : "skyblue")};
+  background-color: ${props => (props.isLoading ? "#d3d3d3" : "#93E0FF")};
 
-  @media ${theme.device.desktop} {
-    width: 31.5%;
-    height: 3rem;
-    font-size: 1rem;
-    /* border-radius: 0.3rem; */
+  @media ${theme.device.mobile} {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.08);
   }
 `;
 export default Login;

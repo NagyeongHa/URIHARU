@@ -1,6 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import Header from "./components/Header";
-//import Main from "./components/Main";
 import Home from "./route/Home";
 import NotFound from "./components/NotFound";
 import SignUp from "./components/SignUp";
@@ -13,6 +11,7 @@ import Header from "./components/Header";
 import theme from "./styles/theme";
 import { ThemeProvider } from "styled-components";
 import PublicRoute from "./Context/PublicRoute";
+import "./styles/index.css";
 
 function App() {
   return (
