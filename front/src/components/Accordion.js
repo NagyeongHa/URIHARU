@@ -94,6 +94,7 @@ const Container = styled.div`
   border-radius: 4px;
   border: 1px solid silver;
   overflow: hidden;
+  width: 93vw;
 
   @media ${theme.device.desktop} {
     width: 70vw;
@@ -173,6 +174,8 @@ const ButtonWrapper = styled.div`
 `;
 
 const EditButton = styled.button`
+  color: black;
+  font-family: inherit;
   background-color: transparent;
   border: none;
   /* background-color: red; */

@@ -1,22 +1,20 @@
 import { Link } from "react-router-dom";
 import { signout } from "../service/ApiService";
-//import { isAuth } from "../service/ApiService";
 import { useRecoilValue } from "recoil";
 import { userState } from "../recoil/auth";
 import styled from "styled-components";
 import theme from "../styles/theme";
 
 function Header() {
-  // const token = useRecoilValue(userTokenState);
   const { email } = useRecoilValue(userState);
   const token = sessionStorage.getItem("ACCESS_TOKEN");
 
   return (
-    <>
+    <nav>
       {token ? (
         <Nav>
           <StyledLink to='/'>
-            <Span>URI,HARU</Span>
+            <Span>URIHARU</Span>
           </StyledLink>
           <Wrapper>
             <Link to='/mypage'>
@@ -26,7 +24,7 @@ function Header() {
           </Wrapper>
         </Nav>
       ) : null}
-    </>
+    </nav>
   );
 }
 const Nav = styled.div`
@@ -55,14 +53,10 @@ const StyledLink = styled(Link)`
 const Span = styled.span`
   color: black;
   font-weight: bold;
-  &:last-child {
-    width: 100vw;
-    text-align: center;
-    font-size: 1.3rem;
-    font-weight: bold;
-  }
+  letter-spacing: 0.2rem;
+
   @media ${theme.device.desktop} {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 `;
 
@@ -80,11 +74,11 @@ const Button = styled.button`
   margin-right: 0.3rem;
   color: black;
   font-size: 1rem;
+  font: inherit;
+
   cursor: pointer;
   &:first-child {
     font-weight: bold;
-    /* background-color: beige;
-    border-radius: 5rem; */
   }
 
   @media ${theme.device.desktop} {

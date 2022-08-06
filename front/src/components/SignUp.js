@@ -1,4 +1,5 @@
 import { signup } from "../service/ApiService";
+import cloud from "../assets/icon/cloud.png";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -153,34 +154,54 @@ function SignUp() {
 
   return (
     <Container>
-      <Title>SignUp</Title>
-      <div>
-        <Label>아이디</Label>
-        <Input type='text' name='email' onChange={onChangeEmail} />
-        <IsMatch>{emailErr.txt}</IsMatch>
-      </div>
-      <div>
-        <Label>닉네임</Label>
-        <Input type='text' name='nickname' onChange={onChangeNickname} />
-        <IsMatch>{nicknameErr.txt}</IsMatch>
-      </div>
-      <div>
-        <Label>비밀번호</Label>
-        <Input type='password' name='password' onChange={onChangePassword} />
-        <IsMatch>{passwordErr.txt}</IsMatch>
-      </div>
-      <div>
-        <Label>비밀번호 확인</Label>
-        <Input
-          type='password'
-          name='repassword'
-          onChange={onchangeRepassword}
-        />
-        <IsMatch>{rePasswordErr.txt}</IsMatch>
-      </div>
-      <Button type='submit' onClick={handleSubmit}>
-        회원가입하기
-      </Button>
+      <>
+        <img src={cloud} alt='구름' />
+        <Title>URIHARU</Title>
+      </>
+      <Wrapper>
+        <InputWrapper>
+          <Label>아이디</Label>
+          <Input
+            type='text'
+            name='email'
+            onChange={onChangeEmail}
+            placeholder='5~20자의 영문 대 소문자, 숫자'
+          />
+          <IsMatch>{emailErr.txt}</IsMatch>
+        </InputWrapper>
+        <InputWrapper>
+          <Label>닉네임</Label>
+          <Input
+            type='text'
+            name='nickname'
+            onChange={onChangeNickname}
+            placeholder='1~10자의 영문 대 소문자, 한글, 숫자'
+          />
+          <IsMatch>{nicknameErr.txt}</IsMatch>
+        </InputWrapper>
+        <InputWrapper>
+          <Label>비밀번호</Label>
+          <Input
+            type='password'
+            name='password'
+            onChange={onChangePassword}
+            placeholder='8~16자 영문 대 소문자+숫자+특수문자 조합'
+          />
+          <IsMatch>{passwordErr.txt}</IsMatch>
+        </InputWrapper>
+        <InputWrapper>
+          <Label>비밀번호 확인</Label>
+          <Input
+            type='password'
+            name='repassword'
+            onChange={onchangeRepassword}
+          />
+          <IsMatch>{rePasswordErr.txt}</IsMatch>
+        </InputWrapper>
+        <Button type='submit' onClick={handleSubmit}>
+          회원가입하기
+        </Button>
+      </Wrapper>
       <StyledLink to='/login'>
         <p>계정이 이미 있으신가요? 로그인 하기</p>
       </StyledLink>
@@ -189,28 +210,47 @@ function SignUp() {
 }
 
 const Container = styled(GlobalContainer)`
-  @media ${theme.device.mobile} {
-    height: auto;
-    margin: 1.5rem auto;
-    flex-direction: column;
-  }
+  height: 100vh;
+  background-color: ${theme.colors.main};
+  padding: 9rem 0;
 
-  @media ${theme.device.desktop} {
-    flex-direction: column;
-    width: 70vw;
-    /* width: auto; */
-    margin-bottom: 3rem;
+  @media ${theme.device.mobile} {
+    width: 100vw;
+  }
+`;
+
+const Wrapper = styled(GlobalContainer)`
+  background-color: white;
+  width: 27rem;
+  height: auto;
+  padding: 1.7rem 0.6rem;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.13);
+  border-radius: 12px;
+
+  @media ${theme.device.mobile} {
+    background-color: ${theme.colors.main};
+    box-shadow: none;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    padding-bottom: 0.7rem;
   }
 `;
 
 const Title = styled.div`
-  font-size: 1.3rem;
+  font-family: "SUIT-Thin";
   font-weight: bold;
-  margin: 1.5rem auto;
+  color: #fff;
+  letter-spacing: 0.4em;
+  margin: 2.2rem auto 2.5rem auto;
 
   @media ${theme.device.desktop} {
     font-size: 2rem;
-    margin: 4rem auto 2rem auto;
+  }
+
+  @media ${theme.device.mobile} {
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
   }
 `;
 
@@ -218,7 +258,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   & > p {
     font-size: 0.8rem;
-    color: gray;
+    color: #fff;
     cursor: pointer;
   }
 
@@ -229,37 +269,47 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Input = styled(GlobalInput)`
-  width: 83vw;
-  height: 1.8rem;
-  font-size: 1rem;
-  padding: 0.6rem;
+const InputWrapper = styled.div`
+  width: 100%;
+  margin: 0.7rem auto;
 
-  @media ${theme.device.desktop} {
-    width: 63vw;
-    height: 1.7rem;
-    padding: 0.6rem;
-    margin: 0.5rem;
-    font-size: 1rem;
+  @media ${theme.device.mobile} {
+    margin: 0.5rem 0;
   }
+`;
 
-  @media (min-width: 1000px) {
-    width: 32vw;
+const Input = styled(GlobalInput)`
+  width: 85%;
+  height: 1.4rem;
+  margin: 0.6rem;
+  font-size: 1rem;
+
+  @media ${theme.device.mobile} {
+    margin: 0.5rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 10rem;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.08);
   }
 `;
 
 const Label = styled.div`
   text-align: start;
   font-size: 0.9rem;
-  padding: 0.1rem;
-  margin: 1.1rem 0.5rem 0.1rem 0.4rem;
+  margin: 0.5rem 0 0.1rem 1.8rem;
+
+  @media ${theme.device.mobile} {
+    margin: 0.5rem 0 0.1rem 1.2rem;
+    color: #fff;
+    font-weight: 600;
+  }
 `;
 
 const IsMatch = styled.div`
   font-size: 0.8rem;
   padding: 0.1rem;
-  margin-left: 0.5rem;
-  color: red;
+  margin-left: 1.7rem;
+  color: #373636;
   text-align: left;
   word-break: keep-all;
   line-height: 1.2rem;
@@ -270,21 +320,24 @@ const IsMatch = styled.div`
 `;
 
 const Button = styled(GlobalButton)`
-  margin-top: 1.2rem;
-  width: 87vw;
+  margin-top: 0.8rem;
+  width: 93%;
   background-color: ${theme.colors.main};
   color: ${theme.colors.text};
   font-size: 1rem;
   height: 3rem;
 
   @media ${theme.device.desktop} {
-    width: 66.5vw;
-    height: 3rem;
-    margin-top: 1.7rem;
+    height: 3.2rem;
+    margin-top: 1.5rem;
   }
 
-  @media (min-width: 1000px) {
-    width: 33.5vw;
+  @media ${theme.device.mobile} {
+    border: 2px solid white;
+    background-color: ${theme.colors.main};
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.04);
+    margin-top: 1.2rem;
+    font-weight: 600;
   }
 `;
 

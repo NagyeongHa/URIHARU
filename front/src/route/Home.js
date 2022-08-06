@@ -6,11 +6,13 @@ import Turn from "../components/Turn";
 
 function Home() {
   return (
-    <Container>
-      <Turn />
-      <Calendar />
-      <DayDiary />
-    </Container>
+    <section>
+      <Container>
+        <Turn />
+        <Calendar />
+        <DayDiary />
+      </Container>
+    </section>
   );
 }
 

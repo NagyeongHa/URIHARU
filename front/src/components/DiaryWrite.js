@@ -74,9 +74,7 @@ function DiaryEdit() {
           />
         </div>
 
-        <Button onClick={onButtonClick} className='btn'>
-          작성
-        </Button>
+        <Button onClick={onButtonClick}>작성</Button>
         <StyledLink to={"/"}>취소</StyledLink>
       </Container>
     </>
@@ -85,16 +83,17 @@ function DiaryEdit() {
 const Container = styled.div`
   @media ${theme.device.mobile} {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     align-content: center;
     height: 93vh;
     width: 95vw;
     flex-direction: column;
     margin: 0 auto;
+    margin-top: 1.4rem;
   }
 
-  @media ${theme.device.desktop} {
+  @media (min-width: ${theme.size.min_tablet}) {
     margin: 4rem auto;
     height: auto;
     text-align: center;
@@ -102,16 +101,19 @@ const Container = styled.div`
 `;
 
 const Input = styled.input`
-  border-radius: 0.3rem;
-  border: 1px solid gray;
-  width: 85vw;
+  letter-spacing: 0.06rem;
+  font-family: inherit;
+  letter-spacing: inherit;
+  border-width: 0px 0px 1px 0px;
+  outline: none;
+  width: 90vw;
   height: 1.6rem;
   padding: 0.4rem;
   font-weight: 600;
   margin: 1.2rem auto;
   font-size: 1.2rem;
 
-  @media ${theme.device.desktop} {
+  @media (min-width: ${theme.size.min_tablet}) {
     width: 70vw;
     height: 1.9rem;
     font-size: 1.3rem;
@@ -119,11 +121,15 @@ const Input = styled.input`
 `;
 
 const Textarea = styled.textarea`
+  letter-spacing: 0.06rem;
+  font-family: inherit;
+  letter-spacing: inherit;
+  border-width: 0px 0px 1px 0px;
+  outline: none;
   @media ${theme.device.mobile} {
-    border-radius: 0.3rem;
-    border: 1px solid gray;
-    width: 85vw;
+    width: 90vw;
     padding: 0.4rem;
+    padding-bottom: 1rem;
     margin: 1.2rem auto;
     line-height: 2rem;
     overflow: scroll;
@@ -131,16 +137,18 @@ const Textarea = styled.textarea`
     font-size: 1.2rem;
   }
 
-  @media ${theme.device.desktop} {
-    border-radius: 0.3rem;
+  @media (min-width: ${theme.size.min_tablet}) {
     overflow: scroll;
     width: 69.5vw;
     height: 40vw;
     line-height: 2.2rem;
     padding: 0.7rem;
-    margin: 1.2rem auto;
+    margin: 0.5rem auto;
     font-size: 1.1rem;
     margin-bottom: 4rem;
+  }
+  @media ${theme.device.tablet} {
+    height: 80vw;
   }
 `;
 

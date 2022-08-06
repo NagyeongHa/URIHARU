@@ -11,7 +11,6 @@ import { useSetRecoilState } from "recoil";
 import { userState } from "../recoil/auth";
 import { useCallback, useEffect, useState } from "react";
 import theme from "../styles/theme";
-import "../styles/font.css";
 import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 
 function Login() {
@@ -75,7 +74,7 @@ function Login() {
           setIsLoading(false);
           setIsIdPwMatch({
             text: "아이디와 비밀번호를 입력해주세요.",
-            color: false,
+            color: true,
           });
           return;
         }
@@ -117,7 +116,7 @@ function Login() {
               onChange={handlerOnChange}
             />
           </InputWrapper>
-          <IsMatch style={{ color: IsIdPwMatch.color ? " red" : "#1519a6" }}>
+          <IsMatch style={{ color: IsIdPwMatch.color ? " red" : "#373636" }}>
             {IsIdPwMatch.text}
           </IsMatch>
 
@@ -133,18 +132,9 @@ function Login() {
   );
 }
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+const Container = styled(GlobalContainer)`
   height: 100vh;
   background-color: ${theme.colors.main};
-
-  & > img {
-    padding: 0.6rem;
-  }
 
   @media ${theme.device.mobile} {
     box-sizing: border-box;
@@ -155,10 +145,10 @@ const Container = styled.div`
 const Wrapper = styled(GlobalContainer)`
   background-color: white;
   flex-direction: column;
-  width: 21rem;
-  height: 20rem;
+  width: 22rem;
+  padding: 3rem 0;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.13);
-  border-radius: 7px;
+  border-radius: 12px;
 
   @media ${theme.device.mobile} {
     background-color: ${theme.colors.main};
@@ -166,6 +156,7 @@ const Wrapper = styled(GlobalContainer)`
     box-sizing: border-box;
     width: 100%;
     height: auto;
+    padding-bottom: 0.7rem;
   }
 `;
 
@@ -188,8 +179,8 @@ const Title = styled.div`
   font-family: "SUIT-Thin";
   font-size: 1.3rem;
   font-weight: bold;
-  color: #ffff;
-  letter-spacing: 0.36em;
+  color: #fff;
+  letter-spacing: 0.4em;
   margin: 2.2rem auto 2.5rem auto;
 
   @media ${theme.device.desktop} {
@@ -214,21 +205,22 @@ const InputWrapper = styled.div`
     position: absolute;
     box-sizing: border-box;
     top: 50%;
-    left: 2rem;
+    left: 2.3rem;
     transform: translateY(-50%);
   }
 `;
 
 const Input = styled(GlobalInput)`
-  box-sizing: border-box;
-  width: 86%;
-  height: 3rem;
-  padding-left: 2.2rem;
+  width: 70%;
+  height: 1.4rem;
+  padding-left: 2.4rem;
   margin: 0.6rem;
   font-size: 1rem;
 
   @media ${theme.device.mobile} {
+    height: 1.7rem;
     margin: 0.5rem;
+    padding-left: 3rem;
     font-size: 1.1rem;
     border: none;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
@@ -250,14 +242,15 @@ const Button = styled(GlobalButton)`
   width: 86.5%;
   margin-top: 0.8rem;
   font-size: 1rem;
+  color: #fff;
   cursor: ${props => (props.isLoading ? "default" : "pointer")};
-  color: ${props => (props.isLoading ? "black" : "white")};
-  background-color: ${props => (props.isLoading ? "#d3d3d3" : "#93E0FF")};
+  background-color: ${theme.colors.main};
 
   @media ${theme.device.mobile} {
-    background-color: #fff;
-    color: #000;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.08);
+    border: 2px solid white;
+    background-color: ${theme.colors.main};
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.04);
+    font-weight: 600;
   }
 `;
 export default Login;

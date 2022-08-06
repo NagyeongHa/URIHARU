@@ -1,3 +1,21 @@
+@font-face {
+  font-family: "SUIT-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.react-datepicker {
+  font-family: "SUIT-Regular";
+  box-shadow: 0px 0px 22px -6px #b6b6b6;
+}
+
+.react-datepicker__header {
+  background-color: #f8fbfc;
+}
+
+/* mobile */
 @media (max-width: 767px) {
   /* 선택된 날 */
   .react-datepicker__day--selected,
@@ -21,7 +39,6 @@
 
   /* 달력 헤더  */
   .react-datepicker__header {
-    background-color: #f6f6f6;
     padding-top: 1rem;
   }
 
@@ -34,8 +51,30 @@
   .react-datepicker__navigation {
     top: 27px;
   }
+  /* 개별 일 */
+  .react-datepicker__day,
+  .react-datepicker__month-text,
+  .react-datepicker__quarter-text,
+  .react-datepicker__year-text {
+    cursor: pointer;
+    font-size: 1.2em;
+  }
+
+  .react-datepicker__day-name,
+  .react-datepicker__day,
+  .react-datepicker__time-name {
+    width: 2rem;
+    line-height: 2rem;
+  }
+
+  /* 요일 개별 글자 */
+  .react-datepicker__day-name,
+  .react-datepicker__current-month {
+    font-size: 1rem;
+  }
 }
 
+/* pc */
 @media (min-width: 768px) {
   /* 선택된 날 */
   .react-datepicker__day--selected,
@@ -59,7 +98,6 @@
 
   /* 달력 헤더  */
   .react-datepicker__header {
-    background-color: #f6f6f6;
     padding-top: 1rem;
   }
 

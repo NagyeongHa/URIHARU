@@ -25,9 +25,13 @@ function MyPage() {
   return (
     <>
       <Title>
-        {diary.length > 0
-          ? `${email} 님의 글 모아보기`
-          : `작성된 글이 없습니다.`}
+        {diary.length > 0 ? (
+          <>
+            <b>{email} </b> 님의 글 모아보기
+          </>
+        ) : (
+          `작성된 글이 없습니다.`
+        )}
       </Title>
 
       {diary.map((list, idx) => (

@@ -15,9 +15,11 @@ const device = {
   mobile: `(max-width: ${size.mobile})`,
   tablet: `(min-width:${size.min_tablet}) and (max-width:${size.max_tablet})`,
   desktop: `(min-width: ${size.desktop})`,
+  tablet_desktop: `(min-width:${size.min_tablet}) and (max-width:${size.desktop})`,
 };
 
 const theme = {
+  size,
   colors,
   device,
 };

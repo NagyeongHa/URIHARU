@@ -138,6 +138,7 @@ const DiaryContents = styled.p`
   font-size: 1.1rem;
   text-align: left;
   white-space: pre-wrap;
+  letter-spacing: 0.06rem;
 
   @media ${theme.device.desktop} {
     line-height: 2.3rem;
@@ -167,7 +168,7 @@ const P = styled.p`
 const StyledLink = styled(Link)`
   border-radius: 15rem;
   border: none;
-  padding: 10px;
+  padding: 0.7rem 1.8rem;
   touch-action: auto;
   background-color: ${({ theme }) => theme.colors.main};
   color: ${({ theme }) => theme.colors.text};
@@ -176,7 +177,6 @@ const StyledLink = styled(Link)`
   height: 1.7rem;
   margin: 0 auto;
   text-align: center;
-  display: block;
   width: 70vw;
 
   @media ${theme.device.desktop} {

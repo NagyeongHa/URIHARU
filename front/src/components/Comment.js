@@ -139,6 +139,9 @@ const IconWrapper = styled.div`
       font-size: 1.5rem;
     }
   }
+  & p {
+    font: inherit;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -151,6 +154,7 @@ const InputWrapper = styled.div`
 `;
 
 const Textarea = styled.textarea`
+  font-family: inherit;
   padding: 0.5rem;
   flex-basis: 80%;
   font-size: 1.1rem;
@@ -164,6 +168,7 @@ const Textarea = styled.textarea`
 `;
 
 const Button = styled.button`
+  font: inherit;
   color: black;
   height: auto;
   font-size: 1rem;
