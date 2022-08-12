@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/auth";
@@ -17,7 +17,6 @@ function DayDiary() {
   const setDno = useSetRecoilState(dnoState); //수정페이지에 보낼 게시물 dno 저장 (수정페이지에서 dno별 다이어리를 가져오기 위해서)
   const setPathName = useSetRecoilState(pathnameState); //수정페이지에서 수정 후 메인 / 마페 어디로 갈지 결정
   const [diary, setDiary] = useState({});
-
   //다이어리 가져오기
   useEffect(() => {
     dateDiary(yyyymmdd).then(response => {
@@ -29,9 +28,9 @@ function DayDiary() {
   }, [location, setDno, yyyymmdd]);
 
   //수정화면으로
-  const goModifyOnClick = () => {
+  const moveDiaryEdit = () => {
     setPathName(location.pathname);
-    navigate("/diary/modify");
+    navigate("/diary/edit");
   };
 
   //삭제 버튼 누를 시
@@ -68,9 +67,7 @@ function DayDiary() {
             {list.writer === id ? (
               <div>
                 <ButtonWrapper>
-                  <Button onClick={() => goModifyOnClick(list.dno)}>
-                    수정
-                  </Button>
+                  <Button onClick={() => moveDiaryEdit(list.dno)}>수정</Button>
                   <Button onClick={deleteDiaryOnclick}>삭제</Button>
                 </ButtonWrapper>
               </div>
@@ -82,7 +79,7 @@ function DayDiary() {
       ) : (
         <>
           <P>작성된 일기가 없습니다</P>
-          <StyledLink to='diary/create'>{yyyymmdd} 일에 글쓰기</StyledLink>
+          <Button onClick={moveDiaryEdit}>{yyyymmdd} 일에 글쓰기</Button>
         </>
       )}
     </Container>
@@ -147,7 +144,6 @@ const DiaryContents = styled.p`
 
 const DateofDay = styled.p`
   text-align: left;
-  padding-left: 0.3rem;
 
   @media ${theme.device.desktop} {
     font-size: 0.9rem;
@@ -163,27 +159,6 @@ const ButtonWrapper = styled.div`
 const P = styled.p`
   text-align: center;
   margin: 3rem auto;
-`;
-
-const StyledLink = styled(Link)`
-  border-radius: 15rem;
-  border: none;
-  padding: 0.7rem 1.8rem;
-  touch-action: auto;
-  background-color: ${({ theme }) => theme.colors.main};
-  color: ${({ theme }) => theme.colors.text};
-
-  text-decoration: none;
-  height: 1.7rem;
-  margin: 0 auto;
-  text-align: center;
-  width: 70vw;
-
-  @media ${theme.device.desktop} {
-    padding: 0.7rem 4rem;
-    height: 1.7rem;
-    width: 13rem;
-  }
 `;
 
 export default DayDiary;

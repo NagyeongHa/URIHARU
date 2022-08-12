@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/auth";
 import { call } from "../service/ApiService";
-
+import { AiOutlineContainer } from "react-icons/ai";
 import Accordion from "./Accordion";
 
 function MyPage() {
@@ -30,7 +30,10 @@ function MyPage() {
             <b>{email} </b> 님의 글 모아보기
           </>
         ) : (
-          `작성된 글이 없습니다.`
+          <>
+            <AiOutlineContainer size='70' color='gray' className='icon' />
+            <p>작성된 글이 없습니다.</p>
+          </>
         )}
       </Title>
 
@@ -52,6 +55,10 @@ const Title = styled.div`
   text-align: center;
   font-size: 1.1rem;
   margin: 1.8rem auto;
+
+  .icon {
+    padding-top: 2rem;
+  }
 `;
 
 export default MyPage;

@@ -3,8 +3,7 @@ import Home from "./route/Home";
 import NotFound from "./components/NotFound";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
-import DiaryWrite from "./components/DiaryWrite";
-import DiaryModify from "./components/DiaryModify";
+import DiaryEdit from "./components/DiaryEdit";
 import AuthRoute from "./Context/AuthRoute";
 import MyPage from "./components/MyPage";
 import Header from "./components/Header";
@@ -45,18 +44,10 @@ function App() {
               }
             ></Route>
             <Route
-              path='/diary/create'
+              path='/diary/edit'
               element={
                 <AuthRoute>
-                  <DiaryWrite />
-                </AuthRoute>
-              }
-            ></Route>
-            <Route
-              path='/diary/modify'
-              element={
-                <AuthRoute>
-                  <DiaryModify />
+                  <DiaryEdit />
                 </AuthRoute>
               }
             ></Route>
