@@ -104,6 +104,12 @@ const Container = styled.div`
     text-align: center;
     margin-top: 4rem;
   }
+
+  .icon {
+    @media ${theme.device.mobile} {
+      margin-top: 2.5rem;
+    }
+  }
 `;
 
 const Card = styled.div`
@@ -122,6 +128,7 @@ const Card = styled.div`
     font-size: 1.1rem;
     letter-spacing: 0.06rem;
     padding: 0;
+    white-space: pre-wrap;
 
     @media ${theme.device.desktop} {
       line-height: 2.3rem;
