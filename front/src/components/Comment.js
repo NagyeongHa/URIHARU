@@ -117,6 +117,8 @@ function Comment() {
 }
 
 const Container = styled.div`
+  margin: 3rem auto;
+
   @media ${theme.device.desktop} {
     width: 60vw;
     margin: 4rem auto;

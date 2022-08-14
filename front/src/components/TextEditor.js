@@ -3,7 +3,7 @@ import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 import theme from "../styles/theme";
 
-function TextEditer({ content, setContent }) {
+function TextEditor({ content, setContent }) {
   // 사용하고 싶은 옵션, 나열 되었으면 하는 순서대로 나열
   const toolbarOptions = [
     // ["link", "image", "video"],
@@ -85,4 +85,4 @@ const Div = styled.div`
     }
   }
 `;
-export default TextEditer;
+export default TextEditor;

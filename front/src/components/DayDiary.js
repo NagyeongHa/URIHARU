@@ -87,9 +87,11 @@ function DayDiary() {
         ))
       ) : (
         <>
-          <BsCloudHaze1 size='65' color='#cbcbcb' className='icon' />
+          <BsCloudHaze1 size='65' color='#cbcbcb' className='logo-icon' />
           <P>작성된 일기가 없습니다</P>
-          <Button onClick={moveDiaryEdit}>{yyyymmdd} 일에 글쓰기</Button>
+          <WriteButton onClick={moveDiaryEdit}>
+            {yyyymmdd} 일에 글쓰기
+          </WriteButton>
         </>
       )}
     </Container>
@@ -105,10 +107,8 @@ const Container = styled.div`
     margin-top: 4rem;
   }
 
-  .icon {
-    @media ${theme.device.mobile} {
-      margin-top: 2.5rem;
-    }
+  .logo-icon {
+    margin-top: 2.5rem;
   }
 `;
 
@@ -179,4 +179,14 @@ const P = styled.p`
   margin: 1.5rem auto 3rem auto;
 `;
 
+const WriteButton = styled(Button)`
+  font-size: 1.1rem;
+  width: 87%;
+  @media ${theme.device.tablet} {
+    width: 53%;
+  }
+  @media ${theme.device.desktop} {
+    width: 35%;
+  }
+`;
 export default DayDiary;

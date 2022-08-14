@@ -49,10 +49,10 @@ export const Button = styled.button`
   letter-spacing: 0.06em;
 
   @media ${theme.device.mobile} {
-    width: 70vw;
+    width: 37vw;
     touch-action: auto;
-    padding: 0.6rem 1rem;
-    margin: 0.4rem auto;
+    padding: 0.7rem;
+    margin: 0 0.7rem;
     font-size: 1rem;
   }
 

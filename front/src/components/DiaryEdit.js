@@ -7,7 +7,7 @@ import theme from "../styles/theme";
 import { Button } from "../styles/GlobalStyle";
 import { useLocation, useNavigate } from "react-router-dom";
 import { yyyymmddState } from "../recoil/diary";
-import TextEditer from "./TextEditer";
+import TextEditer from "./TextEditor";
 
 function DiaryEdit() {
   const location = useLocation();
@@ -149,22 +149,16 @@ function DiaryEdit() {
   );
 }
 const Container = styled.div`
+  text-align: center;
   @media ${theme.device.mobile} {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-content: center;
-    height: 93vh;
     width: 95vw;
-    flex-direction: column;
-    margin: 0rem auto;
+    margin: 3rem auto;
     margin-top: 1.4rem;
   }
 
   @media (min-width: ${theme.size.min_tablet}) {
     margin: 4rem auto;
     height: auto;
-    text-align: center;
   }
 `;
 
@@ -187,37 +181,5 @@ const Input = styled.input`
     font-size: 1.3rem;
   }
 `;
-
-// const Textarea = styled.textarea`
-//   letter-spacing: 0.06rem;
-//   font-family: inherit;
-//   letter-spacing: inherit;
-//   border-width: 0px 0px 1px 0px;
-//   outline: none;
-//   @media ${theme.device.mobile} {
-//     width: 90vw;
-//     padding: 0.4rem;
-//     padding-bottom: 1rem;
-//     margin: 1.2rem auto;
-//     line-height: 2rem;
-//     overflow: scroll;
-//     height: 100vw;
-//     font-size: 1.2rem;
-//   }
-
-//   @media (min-width: ${theme.size.min_tablet}) {
-//     overflow: scroll;
-//     width: 69.5vw;
-//     height: 40vw;
-//     line-height: 2.2rem;
-//     padding: 0.7rem;
-//     margin: 0.5rem auto;
-//     font-size: 1.1rem;
-//     margin-bottom: 4rem;
-//   }
-//   @media ${theme.device.tablet} {
-//     height: 80vw;
-//   }
-// `;
 
 export default DiaryEdit;
