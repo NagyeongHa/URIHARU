@@ -7,18 +7,19 @@ import theme from "../styles/theme";
 import { Button } from "../styles/GlobalStyle";
 import { useLocation, useNavigate } from "react-router-dom";
 import { yyyymmddState } from "../recoil/diary";
+import TextEditer from "./TextEditer";
 
 function DiaryEdit() {
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = useRecoilValue(pathnameState);
   const yyyymmdd = useRecoilValue(yyyymmddState);
+  const [content, setContent] = useState("");
+  const [isEdit, setIsEdit] = useState(false); //true 작성 false 수정
   const [diary, setDiary] = useState({
     title: "",
-    contents: "",
     yyyymmdd: yyyymmdd,
   });
-  const [isEdit, setIsEdit] = useState(false); //true 작성 false 수정
 
   //yyyymmdd(날짜)별 다이어리 가져오기
   useEffect(() => {
@@ -26,6 +27,7 @@ function DiaryEdit() {
       //다이어리 있으면 다이어리 내용 저장
       if (response.length > 0) {
         setDiary(response[0]);
+        setContent(response[0].contents);
         return;
       }
 
@@ -56,7 +58,7 @@ function DiaryEdit() {
       validation = false;
       return;
     }
-    if (!diary.contents) {
+    if (!content) {
       validation = false;
       alert("내용을 입력해 주세요.");
     }
@@ -67,11 +69,15 @@ function DiaryEdit() {
   const writeHandler = () => {
     //유효성 테스트
     if (diaryValidation()) {
-      write(diary);
+      write({
+        title: diary.title,
+        yyyymmdd: diary.yyyymmdd,
+        contents: content,
+      });
     }
   };
 
-  //다이어리 추가 API (create)
+  //다이어리 작성 API
   const write = async diaryDTO => {
     try {
       await call("/diary/create", "POST", diaryDTO);
@@ -85,7 +91,11 @@ function DiaryEdit() {
   const modifyHandler = () => {
     //유효성 테스트
     if (diaryValidation()) {
-      modify(diary);
+      modify({
+        title: diary.title,
+        dno: diary.dno,
+        contents: content,
+      });
     }
   };
 
@@ -113,7 +123,6 @@ function DiaryEdit() {
     }
     navigate("/mypage");
   };
-
   return (
     <>
       <Container>
@@ -126,15 +135,7 @@ function DiaryEdit() {
             onChange={onChangeDiryInfo}
           />
         </div>
-        <div>
-          <Textarea
-            placeholder='내용을 입력해주세요'
-            type='text'
-            name='contents'
-            value={diary.contents}
-            onChange={onChangeDiryInfo}
-          />
-        </div>
+        <TextEditer content={content} setContent={setContent} />
         <>
           {isEdit ? (
             <Button onClick={writeHandler}>작성</Button>
@@ -187,36 +188,36 @@ const Input = styled.input`
   }
 `;
 
-const Textarea = styled.textarea`
-  letter-spacing: 0.06rem;
-  font-family: inherit;
-  letter-spacing: inherit;
-  border-width: 0px 0px 1px 0px;
-  outline: none;
-  @media ${theme.device.mobile} {
-    width: 90vw;
-    padding: 0.4rem;
-    padding-bottom: 1rem;
-    margin: 1.2rem auto;
-    line-height: 2rem;
-    overflow: scroll;
-    height: 100vw;
-    font-size: 1.2rem;
-  }
+// const Textarea = styled.textarea`
+//   letter-spacing: 0.06rem;
+//   font-family: inherit;
+//   letter-spacing: inherit;
+//   border-width: 0px 0px 1px 0px;
+//   outline: none;
+//   @media ${theme.device.mobile} {
+//     width: 90vw;
+//     padding: 0.4rem;
+//     padding-bottom: 1rem;
+//     margin: 1.2rem auto;
+//     line-height: 2rem;
+//     overflow: scroll;
+//     height: 100vw;
+//     font-size: 1.2rem;
+//   }
 
-  @media (min-width: ${theme.size.min_tablet}) {
-    overflow: scroll;
-    width: 69.5vw;
-    height: 40vw;
-    line-height: 2.2rem;
-    padding: 0.7rem;
-    margin: 0.5rem auto;
-    font-size: 1.1rem;
-    margin-bottom: 4rem;
-  }
-  @media ${theme.device.tablet} {
-    height: 80vw;
-  }
-`;
+//   @media (min-width: ${theme.size.min_tablet}) {
+//     overflow: scroll;
+//     width: 69.5vw;
+//     height: 40vw;
+//     line-height: 2.2rem;
+//     padding: 0.7rem;
+//     margin: 0.5rem auto;
+//     font-size: 1.1rem;
+//     margin-bottom: 4rem;
+//   }
+//   @media ${theme.device.tablet} {
+//     height: 80vw;
+//   }
+// `;
 
 export default DiaryEdit;

@@ -132,7 +132,7 @@ const IconWrapper = styled.div`
     font-size: 1.3rem;
     text-align: left;
     display: block;
-    padding: 1rem;
+    padding: 0.5rem;
     cursor: pointer;
 
     @media ${theme.device.desktop} {

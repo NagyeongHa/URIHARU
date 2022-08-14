@@ -9,8 +9,13 @@ import theme from "../styles/theme";
 import "../styles/calendar.css";
 
 const Calendar = () => {
-  const setYyyymmdd = useSetRecoilState(yyyymmddState); // 다이어리 파라미터 날짜값 문자열로 저장
-  const [getClickDate, setClickDate] = useRecoilState(calendarState); //달력 클릭한 날짜값 저장
+  /*
+   setYyyymmdd 는 yyyy-mm-dd 형태로 다이어리를 get/post 할 때 파라미터값으로 사용
+   getClickDate/setClickDate는 Wed Aug 10 2022 00:40:17 GMT+0900 형태로 달력클릭한 값을 전역으로 저장해서
+   수정 또는 작성 후 메인페이지로 돌아왔을 때 달력 클릭한 값이 초기화돼서 오늘 날짜로 돌아가지않고 수정/작성했던 날을 그대롭 볼 수 있도록 함
+  */
+  const setYyyymmdd = useSetRecoilState(yyyymmddState);
+  const [getClickDate, setClickDate] = useRecoilState(calendarState);
 
   //선택한 달력 날짜 값을 연-월-일 스트링 형태로 변환
   const dateToStringText = date => {
@@ -37,8 +42,6 @@ const Calendar = () => {
         locale={ko} //한글로 변경
         inline //인라인으로 바로 띄움
         maxDate={new Date()} //당일 이후 선택 불가
-        //dateFormat='YY-MM-DD'
-        //popperPlacement='auto' //팝업 가운데로
       />
     </Container>
   );

@@ -3,24 +3,29 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/auth";
-import { yyyymmddState, dnoState, pathnameState } from "../recoil/diary";
+import { yyyymmddState, pathnameState, dnoState } from "../recoil/diary";
 import { call, dateDiary } from "../service/ApiService";
 import { Button } from "../styles/GlobalStyle";
 import theme from "../styles/theme";
 import Comment from "./Comment";
+import "react-quill/dist/quill.bubble.css";
+import ReactQuill from "react-quill";
+import { BsCloudHaze1 } from "react-icons/bs";
 
 function DayDiary() {
   const navigate = useNavigate();
   const location = useLocation();
   const yyyymmdd = useRecoilValue(yyyymmddState);
   const { id } = useRecoilValue(userState);
-  const setDno = useSetRecoilState(dnoState); //수정페이지에 보낼 게시물 dno 저장 (수정페이지에서 dno별 다이어리를 가져오기 위해서)
   const setPathName = useSetRecoilState(pathnameState); //수정페이지에서 수정 후 메인 / 마페 어디로 갈지 결정
+  const setDno = useSetRecoilState(dnoState);
   const [diary, setDiary] = useState({});
   //다이어리 가져오기
   useEffect(() => {
     dateDiary(yyyymmdd).then(response => {
       setDiary(response);
+
+      //해당 다이어리 dno를 전역으로 저장해서 댓글 불러올 때 사용
       if (response.length > 0) {
         setDno(response[0].dno);
       }
@@ -59,7 +64,11 @@ function DayDiary() {
             <Card>
               <DiaryTitle>{list.title}</DiaryTitle>
               <DiaryNickname>{list.nickname}</DiaryNickname>
-              <DiaryContents>{list.contents}</DiaryContents>
+              <ReactQuill
+                theme='bubble'
+                value={list.contents}
+                readOnly='true'
+              />
               <DateofDay>{list.yyyymmdd}</DateofDay>
               <Comment />
             </Card>
@@ -78,6 +87,7 @@ function DayDiary() {
         ))
       ) : (
         <>
+          <BsCloudHaze1 size='65' color='#cbcbcb' className='icon' />
           <P>작성된 일기가 없습니다</P>
           <Button onClick={moveDiaryEdit}>{yyyymmdd} 일에 글쓰기</Button>
         </>
@@ -103,6 +113,19 @@ const Card = styled.div`
   @media ${theme.device.desktop} {
     border: none;
     margin-top: 0;
+  }
+  .ql-container {
+    font-family: inherit;
+  }
+  .ql-editor {
+    line-height: 2.1rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.06rem;
+    padding: 0;
+
+    @media ${theme.device.desktop} {
+      line-height: 2.3rem;
+    }
   }
 `;
 
@@ -130,18 +153,6 @@ const DiaryNickname = styled.p`
   }
 `;
 
-const DiaryContents = styled.p`
-  line-height: 2.1rem;
-  font-size: 1.1rem;
-  text-align: left;
-  white-space: pre-wrap;
-  letter-spacing: 0.06rem;
-
-  @media ${theme.device.desktop} {
-    line-height: 2.3rem;
-  }
-`;
-
 const DateofDay = styled.p`
   text-align: left;
 
@@ -158,7 +169,7 @@ const ButtonWrapper = styled.div`
 
 const P = styled.p`
   text-align: center;
-  margin: 3rem auto;
+  margin: 1.5rem auto 3rem auto;
 `;
 
 export default DayDiary;

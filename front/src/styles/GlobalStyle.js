@@ -52,7 +52,7 @@ export const Button = styled.button`
     width: 70vw;
     touch-action: auto;
     padding: 0.6rem 1rem;
-    margin: 0.7rem auto;
+    margin: 0.4rem auto;
     font-size: 1rem;
   }
 

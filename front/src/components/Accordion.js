@@ -1,20 +1,22 @@
 import { useCallback, useState } from "react";
 import { useRef } from "react";
+import ReactQuill from "react-quill";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { pathnameState } from "../recoil/diary";
+import { pathnameState, yyyymmddState } from "../recoil/diary";
 import { call } from "../service/ApiService";
 import theme from "../styles/theme";
+import "react-quill/dist/quill.bubble.css";
 
 function Accordion(props) {
   const parentRef = useRef();
   const childRef = useRef();
-  const { dno } = props;
+  const { dno, yyyymmdd } = props;
   const [isCollapse, setIsCollapse] = useState(false);
   const location = useLocation();
-  const setPathName = useSetRecoilState(pathnameState); //수정페이지에서 수정 후 메인 / 마페 어디로 갈지 결정
-
+  const setPathName = useSetRecoilState(pathnameState);
+  const setYyyymmdd = useSetRecoilState(yyyymmddState);
   const navigate = useNavigate();
 
   //Header 클릭 시 내용물 보여주기
@@ -42,7 +44,8 @@ function Accordion(props) {
 
   //다이어리 수정
   const modifyDiaryOnclick = () => {
-    setPathName(location.pathname);
+    setYyyymmdd(yyyymmdd); //수정페이지에서 yyyymmdd 값으로 다이어리 불러옴
+    setPathName(location.pathname); //수정페이지에서 수정 후 메인 / 마페 어디로 갈지 결정
     navigate("/diary/edit");
   };
 
@@ -69,7 +72,7 @@ function Accordion(props) {
       </Header>
       <ContentsWrapper ref={parentRef}>
         <Contents ref={childRef}>
-          {props.contents}
+          <ReactQuill theme='bubble' value={props.contents} readOnly='true' />
           <Date>{props.yyyymmdd}</Date>
         </Contents>
       </ContentsWrapper>
@@ -113,6 +116,7 @@ const Header = styled.div`
 const HeaderTitle = styled.div`
   width: 12rem;
   line-height: 1.5rem;
+  font-size: 1.1rem;
 
   @media ${theme.device.desktop} {
     width: 60vw;
@@ -130,6 +134,7 @@ const Date = styled.div`
   color: gray;
   font-size: 0.9rem;
   margin-top: 1rem;
+  padding: 0.5rem;
 `;
 
 const ContentsWrapper = styled.div`
@@ -138,6 +143,15 @@ const ContentsWrapper = styled.div`
   padding: 0 8px;
   overflow: hidden;
   transition: height 0.35s ease, background 0.35s ease;
+
+  .ql-container {
+    font-family: inherit;
+  }
+  .ql-editor {
+    padding: 1.2rem 0.5rem;
+    line-height: 2.2rem;
+    font-size: 1.1rem;
+  }
 `;
 
 const Contents = styled.div`

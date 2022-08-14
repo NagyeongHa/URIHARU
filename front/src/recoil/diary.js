@@ -29,7 +29,7 @@ export const dnoState = atom({
   default: "",
 });
 
-//mypage? home?
+//mypage? home? pathname 저장
 export const pathnameState = atom({
   key: "pathnameState",
   default: "",

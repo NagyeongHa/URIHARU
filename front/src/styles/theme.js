@@ -7,7 +7,6 @@ const size = {
 };
 
 const colors = {
-  // main: "skyblue",
   main: "#93E0FF",
   text: "white",
 };
