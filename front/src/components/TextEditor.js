@@ -58,7 +58,7 @@ function TextEditor({ content, setContent }) {
 
 const Div = styled.div`
   .ql-container {
-    height: 42vw;
+    height: 40vw;
     font-family: inherit;
     font-size: 1.1rem;
 
