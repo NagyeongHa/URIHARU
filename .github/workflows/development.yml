@@ -17,15 +17,14 @@ jobs:
     steps:
       - name: Checkout source code.
         uses: actions/checkout@v2
-        
-      - name: cd front
-        run: cd front
-        
+
       - name: Install Dependencies
         run: npm install
+        working-directory: ./front
 
       - name: Build
         run: npm run build
+        working-directory: ./front
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
