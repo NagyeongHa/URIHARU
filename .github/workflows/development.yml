@@ -3,8 +3,6 @@ name: front-deploy
 on:
   push:
     branches: front
-    paths:
-      - "front/**"
 
 defaults:
   run:
