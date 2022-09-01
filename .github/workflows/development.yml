@@ -12,6 +12,7 @@ defaults:
 
 jobs:
   deploy:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -38,4 +39,5 @@ jobs:
         run: aws s3 sync build/ s3://${{ secrets.DEV_AWS_S3_BUCKET }} --delete
 
       - name: Invalidate CloudFront Cache
-        run: aws cloudfront create-invalidation --distribution-id ${{secrets.DEV_AWS_DISTRIBUTION_ID}} --paths "/*"
+        run: aws cloudfront create-invalidation \
+          --distribution-id ${{secrets.DEV_AWS_DISTRIBUTION_ID}} --paths "/*"
