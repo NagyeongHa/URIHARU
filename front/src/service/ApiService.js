@@ -64,105 +64,19 @@ export const signout = () => {
   window.location.href = "/login";
 };
 
+//yyyymmdd별 다이어리 조회
 export const dateDiary = yyyymmdd => {
-  const accessToken = sessionStorage.getItem("ACCESS_TOKEN");
-
-  const headers = new Headers({
-    "Content-Type": "application/json",
-  });
-
-  if (accessToken && accessToken !== null) {
-    headers.append("Authorization", "Bearer " + accessToken);
-  }
-
-  const options = {
-    headers: headers,
-    method: "GET",
-  };
-
-  const url = `${API_BASE_URL}/diary/dateread/${yyyymmdd}`;
-
-  try {
-    return fetch(url, options)
-      .then(response => response.json())
-      .then(data => data.data);
-  } catch (error) {
-    throw Error("날짜별 다이어리를 들고오지 못했습니다");
-  }
+  return call(`/diary/dateread/${yyyymmdd}`, "GET").then(
+    response => response.data
+  );
 };
 
+//dno별 다이어리 조회
 export const dnoDiary = dno => {
-  const accessToken = sessionStorage.getItem("ACCESS_TOKEN");
-
-  const headers = new Headers({
-    "Content-Type": "application/json",
-  });
-
-  const options = {
-    headers: headers,
-    method: "GET",
-  };
-
-  if (accessToken && accessToken !== null) {
-    headers.append("Authorization", "Bearer " + accessToken);
-  }
-
-  const url = `${API_BASE_URL}/diary/read/${dno}`;
-
-  try {
-    return fetch(url, options)
-      .then(response => response.json())
-      .then(data => data);
-  } catch (error) {
-    throw Error("Dno별 다이어리를 들고오지 못했습니다");
-  }
+  return `/diary/read/${dno}`;
 };
 
+//댓글 조회
 export const getComment = dno => {
-  const accessToken = sessionStorage.getItem("ACCESS_TOKEN");
-
-  const headers = new Headers({
-    "Content-Type": "application/json",
-  });
-
-  const options = {
-    headers: headers,
-    method: "GET",
-  };
-
-  if (accessToken && accessToken !== null) {
-    headers.append("Authorization", "Bearer " + accessToken);
-  }
-
-  const url = `${API_BASE_URL}/reply/all/${dno}`;
-
-  try {
-    return fetch(url, options)
-      .then(response => response.json())
-      .then(data => data);
-  } catch (error) {
-    throw Error("댓글을 들고오지 못했습니다");
-  }
+  return call(`/reply/all/${dno}`, "GET");
 };
-// context root
-
-// localhost:8080/uriharu
-
-// /auth/signup-회원가입
-
-// /auth/signin-로그인
-
-// club/create-클럽추가
-
-// /diary/create-다이어리 일기 추가 post
-
-// /diary/modify- 다이어리 일기 수정 put
-
-// /diary/remove- 다이어리 일기 삭제 delete
-
-// /diary/myread-다이어리 읽기(내가 쓴 일기 리스트) get
-
-// /diary/read/{dno}-다이어리 읽기(dno로 조회-하루치 일기만 출력) get
-
-//${API_BASE_URL}/diary/dateread/${yyyymmdd}
-// ex ) localhost:8080/uriharu/readharu/{hno}

@@ -31,7 +31,7 @@ function MyPage() {
           </>
         ) : (
           <>
-            <AiOutlineContainer size='70' color='gray' className='icon' />
+            <AiOutlineContainer size='70' color='#cbcbcb' className='icon' />
             <p>작성된 글이 없습니다.</p>
           </>
         )}

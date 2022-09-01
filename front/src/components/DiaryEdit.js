@@ -39,7 +39,7 @@ function DiaryEdit() {
     });
   }, [yyyymmdd, location]);
 
-  //제목, 작성자, 내용 onChange로 받아서 diary에 저장
+  //제목 onChange로 받아서 diary에 저장
   const onChangeDiryInfo = useCallback(
     e => {
       const { name, value } = e.target;
@@ -59,14 +59,14 @@ function DiaryEdit() {
       return;
     }
     if (!content) {
-      validation = false;
       alert("내용을 입력해 주세요.");
+      validation = false;
     }
     return validation;
   };
 
   //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
-  const writeHandler = () => {
+  const writeHandler = event => {
     //유효성 테스트
     if (diaryValidation()) {
       write({
@@ -74,6 +74,7 @@ function DiaryEdit() {
         yyyymmdd: diary.yyyymmdd,
         contents: content,
       });
+      event.currentTarget.disabled = true; //더블클릭 방지
     }
   };
 
