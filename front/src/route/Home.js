@@ -5,7 +5,6 @@ import theme from "../styles/theme";
 import Turn from "../components/Turn";
 
 function Home() {
-  //test
   return (
     <section>
       <Container>
