@@ -1,4 +1,4 @@
-name: development deployment
+name: front-deploy
 
 on:
   push:
