@@ -183,10 +183,10 @@ const WriteButton = styled(Button)`
   font-size: 1.1rem;
   width: 87%;
   @media ${theme.device.tablet} {
-    width: 53%;
+    width: auto;
   }
   @media ${theme.device.desktop} {
-    width: 35%;
+    width: auto;
   }
 `;
 export default DayDiary;
