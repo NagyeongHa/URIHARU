@@ -42,7 +42,7 @@
 * Spring Boot
 * SPL
 * JPA
-* JWT보안
+* JWT
 * Heroku
 
 <br>
