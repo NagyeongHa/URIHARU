@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { call, dateDiary } from "../service/ApiService";
+import { call, dateDiary } from "../service/apiService";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import theme from "../styles/theme";
@@ -14,10 +14,7 @@ function DiaryEdit() {
   const yyyymmdd = useRecoilValue(yyyymmddState);
   const [content, setContent] = useState("");
   const [isEdit, setIsEdit] = useState(false); //true 작성 false 수정
-  const [diary, setDiary] = useState({
-    title: "",
-    yyyymmdd: yyyymmdd,
-  });
+  const [diary, setDiary] = useState({ title: "", yyyymmdd: "" });
 
   //yyyymmdd(날짜)별 다이어리 가져오기
   useEffect(() => {
@@ -38,17 +35,14 @@ function DiaryEdit() {
   }, [yyyymmdd, location]);
 
   //제목 onChange로 받아서 diary에 저장
-  const onChangeDiryInfo = useCallback(
+  const onChangeTitle = useCallback(
     e => {
-      const { name, value } = e.target;
-      setDiary({
-        ...diary,
-        [name]: value,
-      });
+      setDiary({ ...diary, title: e.target.value });
     },
     [diary]
   );
 
+  //유효성 테스트
   const diaryValidation = () => {
     let validation = true;
     if (!diary.title) {
@@ -63,13 +57,13 @@ function DiaryEdit() {
     return validation;
   };
 
-  //작성버튼 눌리면 write 매개변수(diaryDTO)에 diary내용담아서 처리
+  //작성버튼 누르면 write 매개변수(diaryDTO)에 diary내용담아서 처리
   const writeHandler = event => {
     //유효성 테스트
     if (diaryValidation()) {
       write({
         title: diary.title,
-        yyyymmdd: diary.yyyymmdd,
+        yyyymmdd: yyyymmdd,
         contents: content,
       });
       event.currentTarget.disabled = true; //더블클릭 방지
@@ -86,7 +80,7 @@ function DiaryEdit() {
     }
   };
 
-  //수정버튼 눌리면 modify 매개변수(diaryDTO)에 diary내용담아서 처리
+  //수정버튼 누르면 modify 매개변수(diaryDTO)에 diary내용담아서 처리
   const modifyHandler = () => {
     //유효성 테스트
     if (diaryValidation()) {
@@ -128,7 +122,7 @@ function DiaryEdit() {
             type='text'
             name='title'
             value={diary.title}
-            onChange={onChangeDiryInfo}
+            onChange={onChangeTitle}
           />
         </div>
         <TextEditer content={content} setContent={setContent} />

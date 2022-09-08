@@ -42,9 +42,9 @@ function Login() {
               onChange={onChange}
             />
           </InputWrapper>
-          <IsMatch style={{ color: error.color ? " red" : "#373636" }}>
+          <Message style={{ color: error.color ? " red" : "#373636" }}>
             {error.message}
-          </IsMatch>
+          </Message>
 
           <Button type='submit' disabled={isLoading} isLoading={isLoading}>
             {isLoading ? "로그인 중" : "로그인"}
@@ -153,7 +153,7 @@ const Input = styled(GlobalInput)`
   }
 `;
 
-const IsMatch = styled.p`
+const Message = styled.p`
   font-size: 0.9rem;
   margin: 0.2rem 0;
 

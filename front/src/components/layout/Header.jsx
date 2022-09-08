@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { signout } from "../../service/ApiService";
+import { signout } from "../../service/apiService";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil/auth";
 import styled from "styled-components";
