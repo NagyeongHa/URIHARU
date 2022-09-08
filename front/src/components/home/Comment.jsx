@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { dnoState } from "../recoil/diary";
-import { call, getComment } from "../service/ApiService";
-import theme from "../styles/theme";
+import { dnoState } from "../../recoil/diary";
+import { call, getComment } from "../../service/apiService";
+import theme from "../../styles/theme";
 import CommentItem from "./CommentItem";
 import { FaRegCommentDots } from "react-icons/fa";
 
@@ -21,7 +21,7 @@ function Comment() {
   };
 
   //댓글 작성 onChange
-  const writecomment = e => {
+  const commentOnChange = e => {
     setComment({ contents: e.target.value, dno: getDno });
   };
 
@@ -103,7 +103,7 @@ function Comment() {
               type='text'
               placeholder='댓글을 작성하세요'
               name='contents'
-              onChange={writecomment}
+              onChange={commentOnChange}
               value={contents}
             />
             <Button onClick={submitComment}>등록</Button>

@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./route/Home";
+import Home from "./pages/Home";
 import NotFound from "./components/NotFound";
-import SignUp from "./components/SignUp";
-import Login from "./components/Login";
-import DiaryEdit from "./components/DiaryEdit";
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
+import DiaryEdit from "./pages/DiaryEdit";
 import AuthRoute from "./Context/AuthRoute";
-import MyPage from "./components/MyPage";
-import Header from "./components/Header";
+import MyPage from "./pages/MyPage";
+import Header from "./components/layout/Header";
 import theme from "./styles/theme";
 import { ThemeProvider } from "styled-components";
 import PublicRoute from "./Context/PublicRoute";

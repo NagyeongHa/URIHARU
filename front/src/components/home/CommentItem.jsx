@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { userState } from "../recoil/auth";
-import { dnoState } from "../recoil/diary";
-import theme from "../styles/theme";
+import { userState } from "../../recoil/auth";
+import { dnoState } from "../../recoil/diary";
+import theme from "../../styles/theme";
 
 function CommentItem({ comments, modifyComment, deleteComment }) {
   const { nickname, contents, regdate, rno, writer } = comments;
@@ -32,7 +32,7 @@ function CommentItem({ comments, modifyComment, deleteComment }) {
   const isEditState = () => {
     setIsEdit(!isEdit);
 
-    //수정 input 칸에서 글 수정하다가 취소누를 시 원래 댓글로 되돌리기
+    //수정 input 칸에서 글 수정하다가 취소 누를 시 원래 댓글로 되돌리기
     if (!isEdit) {
       setComment({ ...comment, contents: contents });
     }
@@ -40,21 +40,13 @@ function CommentItem({ comments, modifyComment, deleteComment }) {
 
   //수정 작성 버튼 클릭 시 변경된 댓글 데이터 comment(부모) 컴포넌트로 보냄
   const modifyCommentHandler = () => {
-    modifyComment({
-      contents: comment.contents,
-      dno: getDno,
-      rno: rno,
-    });
+    modifyComment(comment);
     setIsEdit(false);
   };
 
   //삭제 버튼 클릭 시 삭제된 댓글 데이터 comment(부모) 컴포넌트로 보냄
   const deleteCommentHandler = () => {
-    deleteComment({
-      contents: comment.contents,
-      dno: getDno,
-      rno: rno,
-    });
+    deleteComment(comment);
   };
 
   return (
