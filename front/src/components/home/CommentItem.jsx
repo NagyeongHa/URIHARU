@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { userState } from "../recoil/auth";
-import { dnoState } from "../recoil/diary";
-import theme from "../styles/theme";
+import { userState } from "../../recoil/auth";
+import { dnoState } from "../../recoil/diary";
+import theme from "../../styles/theme";
 
 function CommentItem({ comments, modifyComment, deleteComment }) {
   const { nickname, contents, regdate, rno, writer } = comments;

@@ -2,17 +2,15 @@ import { useCallback, useEffect, useState } from "react";
 import { call, dateDiary } from "../service/ApiService";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { pathnameState } from "../recoil/diary";
 import theme from "../styles/theme";
 import { Button } from "../styles/GlobalStyle";
 import { useLocation, useNavigate } from "react-router-dom";
 import { yyyymmddState } from "../recoil/diary";
-import TextEditer from "./TextEditor";
+import TextEditer from "../components/TextEditor";
 
 function DiaryEdit() {
   const location = useLocation();
   const navigate = useNavigate();
-  const pathname = useRecoilValue(pathnameState);
   const yyyymmdd = useRecoilValue(yyyymmddState);
   const [content, setContent] = useState("");
   const [isEdit, setIsEdit] = useState(false); //true 작성 false 수정
@@ -65,7 +63,7 @@ function DiaryEdit() {
     return validation;
   };
 
-  //작성버튼 눌리면 create 매개변수(diaryDTO)에 diary내용담아서 처리
+  //작성버튼 눌리면 write 매개변수(diaryDTO)에 diary내용담아서 처리
   const writeHandler = event => {
     //유효성 테스트
     if (diaryValidation()) {
@@ -105,8 +103,8 @@ function DiaryEdit() {
     try {
       await call("/diary/modify", "PUT", diaryDTO);
 
-      //수정 후 메인->메인 , 마이페이지-> 마이페이지 각각 이동
-      if (pathname === "/") {
+      //메인에서 수정했으면 메인페이지로, 마이페이지에서 수정했으면 마이페이지로 이동
+      if (navigate(-1) === "/") {
         navigate("/");
         return;
       }
@@ -118,12 +116,9 @@ function DiaryEdit() {
 
   //취소버튼 클릭 시
   const cancelHandler = () => {
-    if (pathname === "/") {
-      navigate("/");
-      return;
-    }
-    navigate("/mypage");
+    navigate(-1);
   };
+
   return (
     <>
       <Container>

@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { dnoState } from "../recoil/diary";
-import { call, getComment } from "../service/ApiService";
-import theme from "../styles/theme";
+import { dnoState } from "../../recoil/diary";
+import { call, getComment } from "../../service/ApiService";
+import theme from "../../styles/theme";
 import CommentItem from "./CommentItem";
 import { FaRegCommentDots } from "react-icons/fa";
 

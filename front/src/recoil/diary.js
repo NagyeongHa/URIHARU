@@ -28,9 +28,3 @@ export const dnoState = atom({
   key: "dnoState",
   default: "",
 });
-
-//mypage? home? pathname 저장
-export const pathnameState = atom({
-  key: "pathnameState",
-  default: "",
-});
