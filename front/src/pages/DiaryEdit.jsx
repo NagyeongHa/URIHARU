@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { call, dateDiary } from "../service/apiService";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import theme from "../styles/theme";
@@ -7,6 +6,7 @@ import { Button } from "../styles/GlobalStyle";
 import { useLocation, useNavigate } from "react-router-dom";
 import { yyyymmddState } from "../recoil/diary";
 import TextEditer from "../components/TextEditor";
+import { call, dateDiary } from "../service/apiService";
 
 function DiaryEdit() {
   const location = useLocation();
@@ -66,7 +66,8 @@ function DiaryEdit() {
         yyyymmdd: yyyymmdd,
         contents: content,
       });
-      event.currentTarget.disabled = true; //더블클릭 방지
+      //더블클릭 방지
+      event.currentTarget.disabled = true;
     }
   };
 
