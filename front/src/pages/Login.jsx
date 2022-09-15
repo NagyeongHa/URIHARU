@@ -153,7 +153,7 @@ const Input = styled(GlobalInput)`
 const Message = styled.p`
   font-size: 0.9rem;
   margin: 0.2rem 0;
-  color: ${props => (props.error.color ? " red" : "#373636")};
+  color: ${props => (props.color ? " red" : "#373636")};
   @media ${theme.device.desktop} {
     font-size: 0.9rem;
     width: 100%;
