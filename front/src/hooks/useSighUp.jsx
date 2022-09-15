@@ -52,7 +52,7 @@ const useSighUp = () => {
 
       if (!regex.test(value)) {
         setNicknameState({
-          message: "1~10자의 영문, 숫자만 입력 가능합니다.",
+          message: "1~10자의 영문, 한글, 숫자만 입력 가능합니다.",
           isValidated: false,
           color: true,
         });
@@ -183,6 +183,7 @@ const useSighUp = () => {
       signup({ email: email, password: password, nickname: nickname });
       alert(`${nickname}님, 회원가입을 축하합니다 :)`);
       navigate("/login");
+      return;
     }
     alert("모든 항목을 올바르게 입력해주세요.");
   };
