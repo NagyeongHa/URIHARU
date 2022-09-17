@@ -42,7 +42,7 @@ function Login() {
               onChange={onChange}
             />
           </InputWrapper>
-          <Message color={error.color}>{error.message}</Message>
+          <Message $color={error.color}>{error.message}</Message>
           <Button type='submit' disabled={isLoading} isLoading={isLoading}>
             {isLoading ? "로그인 중" : "로그인"}
           </Button>
@@ -153,7 +153,7 @@ const Input = styled(GlobalInput)`
 const Message = styled.p`
   font-size: 0.9rem;
   margin: 0.2rem 0;
-  color: ${props => (props.color ? " red" : "#373636")};
+  color: ${props => (props.$color ? " red" : "#373636")};
   @media ${theme.device.desktop} {
     font-size: 0.9rem;
     width: 100%;
