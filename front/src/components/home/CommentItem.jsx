@@ -14,8 +14,8 @@ function CommentItem({ comments, modifyComment, deleteComment }) {
   const [isEdit, setIsEdit] = useState(false);
   const [comment, setComment] = useState({
     contents: contents,
-    dno: "",
-    rno: "",
+    dno: getDno,
+    rno: rno,
   });
 
   //2022-07-20T05:25:29 => 2022-07-20 05:25:29 형식으로 변환
@@ -40,12 +40,14 @@ function CommentItem({ comments, modifyComment, deleteComment }) {
 
   //수정 작성 버튼 클릭 시 변경된 댓글 데이터 comment(부모) 컴포넌트로 보냄
   const modifyCommentHandler = () => {
+    console.log(comment);
     modifyComment(comment);
     setIsEdit(false);
   };
 
   //삭제 버튼 클릭 시 삭제된 댓글 데이터 comment(부모) 컴포넌트로 보냄
   const deleteCommentHandler = () => {
+    console.log(comment);
     deleteComment(comment);
   };
 
