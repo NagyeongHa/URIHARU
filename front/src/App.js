@@ -14,56 +14,54 @@ import "./styles/index.css";
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <Header />
-          <Routes>
-            <Route
-              path='/login'
-              element={
-                <PublicRoute>
-                  <Login />
-                </PublicRoute>
-              }
-            />
-            <Route
-              path='/signup'
-              element={
-                <PublicRoute>
-                  <SignUp />
-                </PublicRoute>
-              }
-            />
-            <Route
-              path='/'
-              element={
-                <AuthRoute>
-                  <Home />
-                </AuthRoute>
-              }
-            ></Route>
-            <Route
-              path='/diary/edit'
-              element={
-                <AuthRoute>
-                  <DiaryEdit />
-                </AuthRoute>
-              }
-            ></Route>
-            <Route
-              path='/mypage'
-              element={
-                <AuthRoute>
-                  <MyPage />
-                </AuthRoute>
-              }
-            ></Route>
-            <Route path='*' element={<NotFound />}></Route>
-          </Routes>
-        </ThemeProvider>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Header />
+        <Routes>
+          <Route
+            path='/login'
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path='/signup'
+            element={
+              <PublicRoute>
+                <SignUp />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path='/'
+            element={
+              <AuthRoute>
+                <Home />
+              </AuthRoute>
+            }
+          ></Route>
+          <Route
+            path='/diary/edit'
+            element={
+              <AuthRoute>
+                <DiaryEdit />
+              </AuthRoute>
+            }
+          ></Route>
+          <Route
+            path='/mypage'
+            element={
+              <AuthRoute>
+                <MyPage />
+              </AuthRoute>
+            }
+          ></Route>
+          <Route path='*' element={<NotFound />}></Route>
+        </Routes>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
