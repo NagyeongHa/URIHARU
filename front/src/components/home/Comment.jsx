@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { dnoState } from "../../recoil/diary";
-import { call, getComment } from "../../service/ApiService";
+import { call, getComment } from "../../service/apiService";
 import theme from "../../styles/theme";
 import CommentItem from "./CommentItem";
 import { FaRegCommentDots } from "react-icons/fa";

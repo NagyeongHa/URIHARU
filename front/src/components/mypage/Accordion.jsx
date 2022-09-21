@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { yyyymmddState } from "../../recoil/diary";
-import { call } from "../../service/ApiService";
+import { call } from "../../service/apiService";
 import theme from "../../styles/theme";
 import "react-quill/dist/quill.bubble.css";
 

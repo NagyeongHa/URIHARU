@@ -6,7 +6,7 @@ import { Button } from "../styles/GlobalStyle";
 import { useLocation, useNavigate } from "react-router-dom";
 import { yyyymmddState } from "../recoil/diary";
 import TextEditer from "../components/TextEditor";
-import { call, dateDiary } from "../service/ApiService";
+import { call, dateDiary } from "../service/apiService";
 
 function DiaryEdit() {
   const location = useLocation();

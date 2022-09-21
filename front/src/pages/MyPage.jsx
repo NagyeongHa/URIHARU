@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/auth";
-import { call } from "../service/ApiService";
+import { call } from "../service/apiService";
 import { AiOutlineContainer } from "react-icons/ai";
 import Accordion from "../components/mypage/Accordion";
 
