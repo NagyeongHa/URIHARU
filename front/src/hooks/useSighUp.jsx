@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { checkedId, signup } from "../service/apiService";
+import { checkedId, signup } from "../service/ApiService";
 
 const useSighUp = () => {
   const [emailState, setEmailState] = useState({

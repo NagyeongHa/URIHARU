@@ -4,7 +4,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { userState } from "../../recoil/auth";
 import { yyyymmddState, dnoState } from "../../recoil/diary";
-import { call, dateDiary } from "../../service/apiService";
+import { call, dateDiary } from "../../service/ApiService";
 import { Button } from "../../styles/GlobalStyle";
 import theme from "../../styles/theme";
 import Comment from "./Comment";
